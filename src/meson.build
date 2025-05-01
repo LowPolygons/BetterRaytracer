@@ -4,8 +4,10 @@ window_sources = files(
   'window/Screen.cc'
 )
 
-executable('raytracer', 'main.cpp',
-  window_sources,
-  include_directories: include_directories('window'),
+vectors_sources = files()
+
+executable('raytracer', 
+  sources: ['main.cpp'] + window_sources + vectors_sources,
+  include_directories: include_directories('window', 'vectors'),
   dependencies: [dep_sdl2]
 )

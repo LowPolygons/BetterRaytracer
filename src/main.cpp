@@ -2,7 +2,15 @@
 #include <iostream>
 
 #include "SDL_video.h"
+#include "vectors/vector.hh"
 #include "window/Screen.hh"
+#include <typeinfo>
+
+using Vectors::Vec;
+using Vectors::operator+;
+using Vectors::operator-;
+using Vectors::operator*;
+using Vectors::operator/;
 
 using Window::Screen;
 
@@ -19,6 +27,33 @@ auto main() -> int { //
   sdl_screen.init();
 
   std::cout << "Window Init Complete" << std::endl;
+
+  auto b = Vec<3, double>({10.5, 56.1, 122.73});
+  auto a = Vec<8, int>({5, 4, 8, 1, 2, 3, 4, 5});
+  auto c = a + b;
+  auto d = a - b;
+  auto e = a * b;
+  auto f = a / b;
+
+  for (auto val : c) {
+    std::cout << "[" << val << ", " << typeid(val).name() << "], ";
+  }
+  std::cout << std::endl;
+
+  for (auto val : d) {
+    std::cout << "[" << val << ", " << typeid(val).name() << "], ";
+  }
+  std::cout << std::endl;
+
+  for (auto val : e) {
+    std::cout << "[" << val << ", " << typeid(val).name() << "], ";
+  }
+  std::cout << std::endl;
+
+  for (auto val : f) {
+    std::cout << "[" << val << ", " << typeid(val).name() << "], ";
+  }
+  std::cout << std::endl;
 
   auto isRunning = true;
   SDL_Event ev;
