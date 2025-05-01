@@ -1,10 +1,17 @@
-#ifndef VECTOR_HEADER_DEFINING_OBJECTS
+#ifndef VECTORS_VECTOR_OPERATORS_HPP
 
-#define VECTOR_HEADER_DEFINING_OBJECTS
+#define VECTORS_VECTOR_OPERATORS_HPP
 
 #include <algorithm>
 #include <array>
 #include <cstddef>
+
+// A function used to neaten the overloading functions visually
+template <typename Rt, typename A, typename B, typename Anon>
+auto perform_overloaded_op(A a, B b, Rt &rt, Anon fnc) -> void {
+  std::copy_n(a.begin(), a.size(), rt.begin());
+  std::transform(b.begin(), b.end(), a.begin(), rt.begin(), fnc);
+}
 
 namespace Vectors {
 
@@ -12,105 +19,79 @@ namespace Vectors {
 template <std::size_t vector_size, typename Tp> //
 using Vec = std::array<Tp, vector_size>;
 
+// An alias for the return types of all the overloaded operators
+template <std::size_t v1s, //
+          std::size_t v2s, //
+          typename V1,     //
+          typename V2>     //
+using OverloadReturnType =
+    Vec<(v1s >= v2s ? v1s : v2s),
+        decltype(std::declval<V1>() + std::declval<V2>())>;
+
 // The + Overloaded Operator
-template <std::size_t vec1_size, std::size_t vec2_size, //
-          typename V1, typename V2>
-auto operator+(const Vec<vec1_size, V1> &a, //
-               const Vec<vec2_size, V2> &b  //
-               ) -> Vec<(vec1_size >= vec2_size ? vec1_size : vec2_size),
-                        decltype(std::declval<V1>() + std::declval<V2>())> {
+template <std::size_t v1s, std::size_t v2s, typename V1, typename V2>
+auto operator+(const Vec<v1s, V1> &a, const Vec<v2s, V2> &b)
+    -> OverloadReturnType<v1s, v2s, V1, V2> {
 
   auto sum = [&](auto v1, auto v2) { return v1 + v2; };
 
-  auto _ret = Vec<std::max(vec1_size, vec2_size),
-                  decltype(std::declval<V1>() + std::declval<V2>())>();
+  auto _ret = OverloadReturnType<v1s, v2s, V1, V2>();
 
-  // Copy contents of larger to return value, then iterate over smaller one
-  if (vec1_size > vec2_size) {
-    std::copy_n(a.begin(), a.size(), _ret.begin());
-    std::transform(b.begin(), b.end(), a.begin(), _ret.begin(), sum);
-
+  if (v1s > v2s) {
+    perform_overloaded_op(a, b, _ret, sum);
   } else {
-
-    std::copy_n(b.begin(), b.size(), _ret.begin());
-    std::transform(a.begin(), a.end(), b.begin(), _ret.begin(), sum);
+    perform_overloaded_op(b, a, _ret, sum);
   }
   return _ret;
 }
 
 // The - Overloaded Operator
-template <std::size_t vec1_size, std::size_t vec2_size, //
-          typename V1, typename V2>
-auto operator-(const Vec<vec1_size, V1> &a, //
-               const Vec<vec2_size, V2> &b  //
-               ) -> Vec<(vec1_size >= vec2_size ? vec1_size : vec2_size),
-                        decltype(std::declval<V1>() - std::declval<V2>())> {
+template <std::size_t v1s, std::size_t v2s, typename V1, typename V2>
+auto operator-(const Vec<v1s, V1> &a, const Vec<v2s, V2> &b)
+    -> OverloadReturnType<v1s, v2s, V1, V2> {
 
-  auto _ret = Vec<std::max(vec1_size, vec2_size),
-                  decltype(std::declval<V1>() - std::declval<V2>())>();
+  auto _ret = OverloadReturnType<v1s, v2s, V1, V2>();
 
-  // Copy contents of larger to return value, then iterate over smaller one
-  if (vec1_size > vec2_size) {
-    std::copy_n(a.begin(), a.size(), _ret.begin());
-    std::transform(b.begin(), b.end(), a.begin(), _ret.begin(),
-                   [&](auto v2, auto v1) { return v1 - v2; });
-
+  if (v1s > v2s) {
+    perform_overloaded_op(a, b, _ret,
+                          [&](auto v2, auto v1) { return v1 - v2; });
   } else {
-
-    std::copy_n(b.begin(), b.size(), _ret.begin());
-    std::transform(a.begin(), a.end(), b.begin(), _ret.begin(),
-                   [&](auto v1, auto v2) { return v1 - v2; });
+    perform_overloaded_op(b, a, _ret,
+                          [&](auto v1, auto v2) { return v1 - v2; });
   }
   return _ret;
 }
 
 // The * Overloaded Operator
-template <std::size_t vec1_size, std::size_t vec2_size, //
-          typename V1, typename V2>
-auto operator*(const Vec<vec1_size, V1> &a, //
-               const Vec<vec2_size, V2> &b  //
-               ) -> Vec<(vec1_size >= vec2_size ? vec1_size : vec2_size),
-                        decltype(std::declval<V1>() * std::declval<V2>())> {
+template <std::size_t v1s, std::size_t v2s, typename V1, typename V2>
+auto operator*(const Vec<v1s, V1> &a, const Vec<v2s, V2> &b)
+    -> OverloadReturnType<v1s, v2s, V1, V2> {
 
   auto mul = [&](auto v1, auto v2) { return v1 * v2; };
 
-  auto _ret = Vec<std::max(vec1_size, vec2_size),
-                  decltype(std::declval<V1>() * std::declval<V2>())>();
+  auto _ret = OverloadReturnType<v1s, v2s, V1, V2>();
 
-  // Copy contents of larger to return value, then iterate over smaller one
-  if (vec1_size > vec2_size) {
-    std::copy_n(a.begin(), a.size(), _ret.begin());
-    std::transform(b.begin(), b.end(), a.begin(), _ret.begin(), mul);
-
+  if (v1s > v2s) {
+    perform_overloaded_op(a, b, _ret, mul);
   } else {
-
-    std::copy_n(b.begin(), b.size(), _ret.begin());
-    std::transform(a.begin(), a.end(), b.begin(), _ret.begin(), mul);
+    perform_overloaded_op(b, a, _ret, mul);
   }
   return _ret;
 }
 
 // The * Overloaded Operator
-template <std::size_t vec1_size, std::size_t vec2_size, //
-          typename V1, typename V2>
-auto operator/(const Vec<vec1_size, V1> &a, //
-               const Vec<vec2_size, V2> &b  //
-               ) -> Vec<(vec1_size >= vec2_size ? vec1_size : vec2_size),
-                        decltype(std::declval<V1>() / std::declval<V2>())> {
+template <std::size_t v1s, std::size_t v2s, typename V1, typename V2>
+auto operator/(const Vec<v1s, V1> &a, const Vec<v2s, V2> &b)
+    -> OverloadReturnType<v1s, v2s, V1, V2> {
 
-  auto _ret = Vec<std::max(vec1_size, vec2_size),
-                  decltype(std::declval<V1>() / std::declval<V2>())>();
+  auto _ret = OverloadReturnType<v1s, v2s, V1, V2>();
 
-  if (vec1_size > vec2_size) {
-    std::copy_n(a.begin(), a.size(), _ret.begin());
-    std::transform(b.begin(), b.end(), a.begin(), _ret.begin(),
-                   [&](auto v2, auto v1) { return v1 / v2; });
-
+  if (v1s > v2s) {
+    perform_overloaded_op(a, b, _ret,
+                          [&](auto v2, auto v1) { return v1 / v2; });
   } else {
-
-    std::copy_n(b.begin(), b.size(), _ret.begin());
-    std::transform(a.begin(), a.end(), b.begin(), _ret.begin(),
-                   [&](auto v1, auto v2) { return v1 / v2; });
+    perform_overloaded_op(b, a, _ret,
+                          [&](auto v1, auto v2) { return v1 / v2; });
   }
   return _ret;
 }
