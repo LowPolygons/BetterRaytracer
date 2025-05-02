@@ -16,7 +16,7 @@ auto constexpr vector_distance(Vec<Vs, V1> &vec1, Vec<Vs, V2> &vec2)
 }
 
 template <std::size_t Vs, typename V> //
-auto constexpr vec_to_scalar(Vec<Vs, V> &vec) -> V {
+auto constexpr magnitude(Vec<Vs, V> &vec) -> V {
   return std::sqrt(                  //
       std::transform_reduce(         //
           vec.start(), vec.end(), 0, //
@@ -32,16 +32,16 @@ template <std::size_t Vs, typename V1, typename V2>
 auto constexpr scalar_distance(Vec<Vs, V1> &vec1, Vec<Vs, V2> &vec2)
     -> decltype(std::declval<V1>() + std::declval<V2>()) {
 
-  return vec_to_scalar(vector_distance(vec1, vec2)); //
+  return magnitude(vector_distance(vec1, vec2)); //
 }
 
 // Method to normalise a vector
 template <std::size_t Vs, typename V> //
 auto constexpr normalise(Vec<Vs, V> &vec) -> void {
-  auto magnitude = vec_to_scalar(vec);
+  auto mag = magnitude(vec);
 
   std::transform(vec.start(), vec.end(), vec.start(),
-                 [&](auto val) { return val / magnitude; });
+                 [&](auto val) { return val / mag; });
 }
 
 // To get an ABS vector
