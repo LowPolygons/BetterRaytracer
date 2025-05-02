@@ -2,7 +2,10 @@
 #include <iostream>
 
 #include "SDL_video.h"
-#include "vectors/vector.hh"
+
+#include "vectors/vector_definitions.hh"
+#include "vectors/vector_overloads.hh"
+
 #include "window/Screen.hh"
 #include <typeinfo>
 

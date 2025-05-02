@@ -1,10 +1,11 @@
-#ifndef VECTORS_VECTOR_OPERATORS_HPP
+#ifndef VECTORS_VECTOR_OVERLOADS_HPP
 
-#define VECTORS_VECTOR_OPERATORS_HPP
+#define VECTORS_VECTOR_OVERLOADS_HPP
 
 #include <algorithm>
-#include <array>
 #include <cstddef>
+
+#include "vector_definitions.hh"
 
 // A function used to neaten the overloading functions visually
 template <typename Rt, typename A, typename B, typename Anon>
@@ -13,11 +14,8 @@ auto perform_overloaded_op(A a, B b, Rt &rt, Anon fnc) -> void {
   std::transform(b.begin(), b.end(), a.begin(), rt.begin(), fnc);
 }
 
+// In this definition of Namespace, I define the
 namespace Vectors {
-
-// The Vec type is an alias
-template <std::size_t vector_size, typename Tp> //
-using Vec = std::array<Tp, vector_size>;
 
 // An alias for the return types of all the overloaded operators
 template <std::size_t v1s, //
