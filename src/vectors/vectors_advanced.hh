@@ -9,12 +9,12 @@
 #include <numeric>
 #include <utility>
 
+namespace Vectors {
+
 enum AngleReturnOption {
   ACUTE,
   OBTUSE,
 };
-
-namespace Vectors {
 
 // Alias for the determined type of two other types added together
 template <typename T1, typename T2>

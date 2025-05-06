@@ -17,6 +17,11 @@ auto constexpr scalar_distance(Vec<Vs, V1> &vec1, Vec<Vs, V2> &vec2)
     -> decltype(std::declval<V1>() + std::declval<V2>());
 
 //
+template <std::size_t Vs, typename V, typename S> //
+auto constexpr scale(Vec<Vs, V> &vec, S scale_factor)
+    -> Vec<Vs, decltype(std::declval<V>() + std::declval<S>())>;
+
+//
 template <std::size_t Vs, typename V> //
 auto constexpr magnitude(Vec<Vs, V> &vec) -> V;
 

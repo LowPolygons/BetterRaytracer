@@ -15,6 +15,19 @@ auto constexpr vector_distance(Vec<Vs, V1> &vec1, Vec<Vs, V2> &vec2)
   return vec2 - vec1;
 }
 
+//
+template <std::size_t Vs, typename V, typename S> //
+auto constexpr scale(Vec<Vs, V> &vec, S scale_factor)
+    -> Vec<Vs, decltype(std::declval<V>() + std::declval<S>())> {
+
+  auto new_vec = std::copy_n(vec);
+
+  std::transform(vec.start(), vec.end(), new_vec.start(),
+                 [&](auto coef) { return coef * scale_factor; });
+
+  return new_vec;
+}
+
 template <std::size_t Vs, typename V> //
 auto constexpr magnitude(Vec<Vs, V> &vec) -> V {
   return std::sqrt(                  //
