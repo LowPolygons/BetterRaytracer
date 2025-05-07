@@ -1,13 +1,11 @@
-#include "vectors_advanced.hh"
+#include "vector_advanced.hh"
 #include "vector_definitions.hh"
 #include "vector_methods.hh"
 #include "vector_overloads.hh"
 
-#include <algorithm>
 #include <cmath>
 #include <cstddef>
-#include <iostream>
-#include <numeric>
+#include <optional>
 #include <utility>
 
 using Vectors::AngleReturnOption;
