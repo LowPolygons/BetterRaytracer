@@ -14,40 +14,32 @@ const auto PI = 3.14159265358979323;
 
 namespace Vectors {
 
-enum AngleReturnOption {
-  ACUTE,
-  OBTUSE,
-};
+// Returns the point of intersection and the lambda value, or nothing
+template <typename V, typename P>
+auto constexpr line_intersects_plane(Line<3, V> &line, Plane<P> &plane)
+    -> std::optional<std::pair<JointType<V, P>, Vec<3, JointType<V, P>>>> {
+  // Derivation comes from solving (a + lambda[b]) dot n = d for lambda
 
-// Calculates the normal of a plane
-template <typename P>
-auto calculate_normal_of_plane(Plane<P> &plane) -> Vec<3, P> {
-  // Check if it is in the correct form
-  if (plane.index() != 0) {
-    auto vec1 = Vectors::vector_distance(plane.at(0), plane.at(1));
-    auto vec2 = Vectors::vector_distance(plane.at(0), plane.at(2));
+  auto descriminant = Vectors::dot(plane.first, line.second);
 
-    return Vectors::cross(vec1, vec2);
-  }
+  // If determinant is zero then the line is likely parallel
+  if (std::abs(descriminant) < 1e-09)
+    return std::nullopt;
 
-  return plane.first;
-};
+  auto lambda =
+      (plane.second - Vectors::dot(plane.first, line.first)) / descriminant;
 
+  return std::make_pair(lambda,
+                        line.first + Vectors::scale(line.second, lambda));
+}
 // Does a given point lie on a plane of any type
 template <typename V, typename P>
 auto is_point_on_plane(Vec<3, V> &point, Plane<P> &plane) -> bool {
   // Form a new line with point (inp) and direction (plane normal) and solve for
   // lambda on line intersects plane. If lambda < a certain value then consider
   // it on the plane
-  Vec<3, JointType<V, P>> normal;
 
-  if (plane.index() != 0) {
-    normal = calculate_normal_of_plane(plane);
-  } else {
-    normal = plane.first;
-  }
-
-  auto line = Line<3, JointType<V, P>>(std::make_pair(point, normal));
+  auto line = Line<3, JointType<V, P>>(std::make_pair(point, plane.first));
   auto result = line_intersects_plane(line, plane);
 
   // This shouldn't happen, but just in case
@@ -55,41 +47,10 @@ auto is_point_on_plane(Vec<3, V> &point, Plane<P> &plane) -> bool {
     return false;
 
   // If less than a certain value for precision errors, its on the plane
-  if (std::abs(result.second) < 1e-09)
+  if (std::abs(result.value().first) < 1e-09)
     return true;
 
   return false;
-}
-
-// Returns the point of intersection and the lambda value, or nothing
-template <typename V, typename P>
-auto constexpr line_intersects_plane(Line<3, V> &line, Plane<P> &plane)
-    -> std::optional<std::pair<JointType<V, P>, Vec<3, JointType<V, P>>>> {
-  // Derivation comes from solving (a + lambda[b]) dot n = d for lambda
-  P d_val;
-  Vec<3, JointType<V, P>> normal;
-
-  // Need it in normal form, so calculate that if needed
-  if (plane.index() != 0) {
-    auto vector_on_plane = Vectors::vector_distance(plane.at(0), plane.at(1));
-
-    normal = calculate_normal_of_plane(plane);
-    d_val = Vectors::dot(vector_on_plane, normal);
-  } else {
-    normal = plane.first;
-    d_val = plane.second;
-  }
-
-  auto descriminant = Vectors::dot(normal, line.second);
-
-  // If determinant is zero then the line is likely parallel
-  if (std::abs(descriminant) < 1e-09)
-    return std::nullopt;
-
-  auto lambda = (d_val - Vectors::dot(normal, line.first)) / descriminant;
-
-  return std::make_pair(line.first + Vectors::scale(line.second, lambda),
-                        lambda);
 }
 
 // Returns the shortest distance between a line and a point
@@ -115,24 +76,23 @@ auto constexpr point_to_line_distance(Line<Vs, V1> &line, Vec<Vs, V2> &point)
 }
 
 // Returns the acute or obstuse angle between a line and a plane, or nothing
-template <AngleReturnOption ARO, typename V, typename P>
+template <typename V, typename P>
 auto constexpr angle_between_line_and_plane(Line<3, V> &line, Plane<P> &plane)
     -> std::optional<JointType<V, P>> {
   // Dot the lines direction vector with the normal of the plane, then get angle
   // Following this, two cases:
   // - Case 1: Angle is obtuse, do angle - 90
   // - Cast 2: angle is acute, do 90 - angle
-  Vec<3, JointType<V, P>> normal;
 
-  if (plane.index() != 0) {
-    normal = calculate_normal_of_plane(plane);
-  } else {
-    normal = plane.first;
+  auto dot_product = Vectors::dot(line.second, plane.first);
+
+  // If it is perpendicular with the normal it is parallel and no angle
+  if (std::abs(dot_product) < 1e-09) {
+    return std::nullopt;
   }
-  auto dot_product = Vectors::dot(line.second, normal);
 
   auto cos_angle = dot_product / (Vectors::magnitude(line.second) *
-                                  Vectors::magnitude(normal));
+                                  Vectors::magnitude(plane.first));
 
   auto final = std::acos(cos_angle);
 
@@ -149,29 +109,16 @@ auto constexpr reflect_point_across_plane(Vec<3, V> &point, Plane<P> &plane)
     -> Vec<3, JointType<V, P>> {
   // Dervation comes from creating a line from the point to the plane, finding
   // the P-O-I and then doubling its lambda value
-  P d_val;
-  Vec<3, JointType<V, P>> normal;
 
-  // Need it in normal form, so calculate that if needed
-  if (plane.index() != 0) {
-    auto vector_on_plane = Vectors::vector_distance(plane.at(0), plane.at(1));
-
-    normal = calculate_normal_of_plane(plane);
-    d_val = Vectors::dot(vector_on_plane, normal);
-  } else {
-    normal = plane.first;
-    d_val = plane.second;
-  }
-
-  auto normal_magnitude = Vectors::magnitude(normal);
+  auto normal_magnitude = Vectors::magnitude(plane.first);
 
   if (std::abs(normal_magnitude) < 1e-09)
     return point;
 
-  auto lambda = (d_val - point.at(0) - point.at(1) - point.at(2)) /
+  auto lambda = (plane.second - point.at(0) - point.at(1) - point.at(2)) /
                 std::pow(normal_magnitude, 2);
 
-  return (point + Vectors::scale(normal, 2 * lambda));
+  return (point + Vectors::scale(plane.first, 2 * lambda));
 }
 
 } // namespace Vectors

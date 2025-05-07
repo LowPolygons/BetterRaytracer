@@ -1,7 +1,8 @@
 test_sources = [
   'vectors/vector_overloads.cc',
   'vectors/vector_methods.cc',
-  'vectors/vector_dot_and_cross.cc'
+  'vectors/vector_dot_and_cross.cc',
+  'vectors/vector_advanced.cc'
 ]
 
 fs = import('fs')
