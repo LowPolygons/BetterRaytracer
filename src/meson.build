@@ -4,10 +4,7 @@ window_sources = files(
   'window/Screen.cc'
 )
 
-vectors_sources = files(
-  'vectors/vector_methods.cc',
-  'vectors/vector_advanced.cc'
-)
+vectors_sources = files()
 
 executable('raytracer', 
   sources: ['main.cpp'] + window_sources + vectors_sources,

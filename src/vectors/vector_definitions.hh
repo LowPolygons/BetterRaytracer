@@ -9,6 +9,9 @@
 // In this definition of Namespace, I define the Vec type as an alias
 namespace Vectors {
 
+template <typename V1, typename V2>
+using JointType = decltype(std::declval<V1>() + std::declval<V2>());
+
 template <std::size_t vector_size, typename Tp> //
 using Vec = std::array<Tp, vector_size>;
 
