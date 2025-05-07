@@ -144,6 +144,32 @@ auto constexpr angle_between_line_and_plane(Line<3, V> &line, Plane<P> &plane)
 // Reflects a point across a plane
 template <typename V, typename P>
 auto constexpr reflect_point_across_plane(Vec<3, V> &point, Plane<P> &plane)
-    -> Vec<3, JointType<V, P>>;
+    -> Vec<3, JointType<V, P>> {
+  // Dervation comes from creating a line from the point to the plane, finding
+  // the P-O-I and then doubling its lambda value
+  P d_val;
+  Vec<3, JointType<V, P>> normal;
+
+  // Need it in normal form, so calculate that if needed
+  if (plane.index() != 0) {
+    auto vector_on_plane = Vectors::vector_distance(plane.at(0), plane.at(1));
+
+    normal = calculate_normal_of_plane(plane);
+    d_val = Vectors::dot(vector_on_plane, normal);
+  } else {
+    normal = plane.first;
+    d_val = plane.second;
+  }
+
+  auto normal_magnitude = Vectors::magnitude(normal);
+
+  if (std::abs(normal_magnitude) < 1e-09)
+    return point;
+
+  auto lambda = (d_val - point.at(0) - point.at(1) - point.at(2)) /
+                std::pow(normal_magnitude, 2);
+
+  return (point + Vectors::scale(normal, 2 * lambda));
+}
 
 } // namespace Vectors
