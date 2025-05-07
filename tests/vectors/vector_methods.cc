@@ -46,7 +46,5 @@ auto main() -> int {
     return EXIT_SUCCESS;
   }
 
-  // return EXIT_SUCCESS;
-
   return EXIT_FAILURE;
 }

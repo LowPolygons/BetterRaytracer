@@ -8,6 +8,7 @@
 #include <algorithm>
 #include <cmath>
 #include <cstddef>
+#include <iostream>
 #include <numeric>
 
 namespace Vectors {
@@ -69,12 +70,11 @@ auto constexpr as_abs(Vec<Vs, V> &vec) -> void {
 
 // Dot product
 template <std::size_t Vs, typename V1, typename V2>
-auto constexpr dot(Vec<Vs, V1> &vec1, Vec<Vs, V2> &vec2)
-    -> decltype(std::declval<V1>() + std::declval<V2>()) {
-  return std::transform_reduce(
-      vec1.begin(), vec2.end(), vec1.begin(), JointType<V1, V2>{0},
-      std::plus<decltype(std::declval<V1>() + std::declval<V2>())>{},
-      [&](auto v1, auto v2) { return v1 * v2; });
+auto constexpr dot(Vec<Vs, V1> &vec1, Vec<Vs, V2> &vec2) -> JointType<V1, V2> {
+  return std::transform_reduce(vec1.begin(), vec1.end(), vec2.begin(),
+                               JointType<V1, V2>{0},
+                               std::plus<JointType<V1, V2>>{},
+                               [&](auto v1, auto v2) { return v1 * v2; });
 }
 
 // Cross Product
