@@ -1,9 +1,20 @@
-test_sources = files('vectors.cc')
+test_sources = [
+  'vectors/vector_overloads.cc',
+  'vectors/vector_methods.cc'
+]
 
-test_exe = executable('raytracer_tests',
-  test_sources,
-  include_directories: include_directories('../src'),
-  dependencies: [dep_sdl2]  # Or others your tests depend on
-)
+fs = import('fs')
 
-test('unit tests', test_exe)
+foreach test_source : test_sources
+  test_name = fs.replace_suffix(test_source, '')
+  test_name = test_name.replace('/', '_')
+
+  test_exe = executable(
+    test_name,  # Use the filename without extension as the target name
+    test_source,
+    include_directories: include_directories('../src'),
+    dependencies: [dep_sdl2]  # Or others your tests depend on
+  )
+
+  test(test_name, test_exe)
+endforeach
