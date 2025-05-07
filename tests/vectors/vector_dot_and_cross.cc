@@ -1,12 +1,7 @@
 #include "vectors/vector_definitions.hh"
 #include "vectors/vector_methods.hh"
-#include "vectors/vector_overloads.hh"
 
-#include <algorithm>
 #include <cmath>
-#include <cstddef>
-#include <iostream>
-#include <numeric>
 
 using Vectors::Vec;
 
