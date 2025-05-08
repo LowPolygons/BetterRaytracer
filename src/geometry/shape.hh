@@ -3,7 +3,8 @@
 #define GEOMETRY_SHAPES_METHODS
 
 class Shape {
-  virtual auto check_intersection() -> bool;
+public:
+  virtual auto check_intersection() const -> bool;
 };
 
 #endif

@@ -10,7 +10,6 @@ namespace Vectors {
 
 template <typename V1, typename V2>
 using JointType = decltype(std::declval<V1>() + std::declval<V2>());
-
 template <std::size_t vector_size, typename Tp> //
 using Vec = std::array<Tp, vector_size>;
 
@@ -18,7 +17,9 @@ template <std::size_t vector_size, typename Tp>
 using Line = std::pair<Vec<vector_size, Tp>, Vec<vector_size, Tp>>;
 
 // Normal + dval or 3 Points based
-template <typename Tp> using Plane = std::pair<Vec<3, Tp>, Tp>;
+template <typename Tp> //
+using Plane = std::pair<Vec<3, Tp>, Tp>;
+
 } // namespace Vectors
 
 #endif
