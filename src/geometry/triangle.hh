@@ -19,7 +19,8 @@ public:
 
 private:
   std::array<Vec<3, double>, 3> corners;
-  Vec<3, int> index_winding_order;
+  // Two vectors with a common point
+  std::array<Vec<3, double>, 2> vectors;
 
   // Colour: R, G, B, Emission: R, G, B, Strength, Specular: %
   //         0, 1, 2,           3, 4, 5         6,           7
