@@ -17,7 +17,7 @@ private:
   Vec<3, double> centre;
   double radius;
   // Colour: R, G, B, Emission: R, G, B, Strength, Specular: %
-  //         0, 1, 2,           3, 4, 5         6,           7
+  // Index:  0, 1, 2,           3, 4, 5         6,           7
   Vec<8, float> colour_properties;
 };
 

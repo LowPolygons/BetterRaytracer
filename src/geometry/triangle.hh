@@ -13,9 +13,8 @@ public:
 
   auto check_intersection() const -> bool override;
 
-  // A function to reshuffle the order of each Position vector to ensure correct
-  // winding order
-  auto check_winding_order() -> void;
+  // A function which picks which two vectors should be used for barycentrics
+  auto get_valid_vectors() -> void;
 
 private:
   std::array<Vec<3, double>, 3> corners;
@@ -23,7 +22,7 @@ private:
   std::array<Vec<3, double>, 2> vectors;
 
   // Colour: R, G, B, Emission: R, G, B, Strength, Specular: %
-  //         0, 1, 2,           3, 4, 5         6,           7
+  // Index:  0, 1, 2,           3, 4, 5         6,           7
   Vec<8, float> colour_properties;
 };
 
