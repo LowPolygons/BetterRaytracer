@@ -2,9 +2,13 @@
 
 #define GEOMETRY_SHAPES_METHODS
 
+#include "vectors/vector_definitions.hh"
+
+using Vectors::Line;
+
 class Shape {
 public:
-  virtual auto check_intersection() const -> bool;
+  virtual auto check_intersection(Line<3, double> ray) const -> bool;
 };
 
 #endif

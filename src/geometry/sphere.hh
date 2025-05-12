@@ -11,7 +11,7 @@ class Sphere : public Shape {
 public:
   Sphere() {};
 
-  auto check_intersection() const -> bool override;
+  auto check_intersection(Line<3, double> ray) const -> bool override;
 
 private:
   Vec<3, double> centre;
