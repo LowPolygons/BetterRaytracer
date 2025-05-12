@@ -16,7 +16,8 @@ namespace Vectors {
 
 // Returns the point of intersection and the lambda value, or nothing
 template <typename V, typename P>
-auto constexpr line_intersects_plane(Line<3, V> &line, Plane<P> &plane)
+auto constexpr line_intersects_plane(const Line<3, V> &line,
+                                     const Plane<P> &plane)
     -> std::optional<std::pair<JointType<V, P>, Vec<3, JointType<V, P>>>> {
   // Derivation comes from solving (a + lambda[b]) dot n = d for lambda
 

@@ -20,7 +20,7 @@ auto constexpr vector_distance(Vec<Vs, V1> &vec1, Vec<Vs, V2> &vec2)
 
 //
 template <std::size_t Vs, typename V, typename S> //
-auto constexpr scale(Vec<Vs, V> &vec, S scale_factor)
+auto constexpr scale(const Vec<Vs, V> &vec, S scale_factor)
     -> Vec<Vs, decltype(std::declval<V>() + std::declval<S>())> {
 
   auto new_vec = vec;
@@ -69,7 +69,8 @@ auto constexpr as_abs(Vec<Vs, V> &vec) -> void {
 
 // Dot product
 template <std::size_t Vs, typename V1, typename V2>
-auto constexpr dot(Vec<Vs, V1> &vec1, Vec<Vs, V2> &vec2) -> JointType<V1, V2> {
+auto constexpr dot(const Vec<Vs, V1> &vec1, const Vec<Vs, V2> &vec2)
+    -> JointType<V1, V2> {
   return std::transform_reduce(vec1.begin(), vec1.end(), vec2.begin(),
                                JointType<V1, V2>{0},
                                std::plus<JointType<V1, V2>>{},

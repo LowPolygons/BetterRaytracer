@@ -93,7 +93,6 @@ auto operator/(const Vec<v1s, V1> &a, const Vec<v2s, V2> &b)
   }
   return _ret;
 }
-
 } // namespace Vectors
 
 #endif
