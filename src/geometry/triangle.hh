@@ -45,6 +45,8 @@ private:
   std::array<Vec<3, double>, 2> vectors;
   // Indexes of coefs to be used in the simultaneous EQs to get barycentric vals
   Vec<2, std::size_t> indexs_for_baryc;
+  // Index of the corner which the vectors subtend from
+  std::size_t index_of_vec_origin;
   // Plane the triangle lies in
   Plane<double> triangle_plane;
 
