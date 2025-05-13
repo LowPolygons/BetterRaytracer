@@ -32,7 +32,7 @@ auto constexpr scale(const Vec<Vs, V> &vec, S scale_factor)
 }
 
 template <std::size_t Vs, typename V> //
-auto constexpr magnitude(Vec<Vs, V> &vec) -> V {
+auto constexpr magnitude(const Vec<Vs, V> &vec) -> V {
   return std::sqrt(                     //
       std::transform_reduce(            //
           vec.begin(), vec.end(), V{0}, //

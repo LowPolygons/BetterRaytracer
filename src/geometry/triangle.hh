@@ -16,14 +16,14 @@ public:
   Triangle(              //
       Vec<3, double> v1, //
       Vec<3, double> v2, //
-      Vec<3, double> v3  //
+      Vec<3, double> v3, //
+      Vec<8, float> clr  //
   ) {
-    // Add the values to corners
     corners = {v1, v2, v3};
-    // Get the vectors
     get_valid_vectors();
+    colour_properties = clr;
 
-    // TODO: rewrite when function calls accept rvalues
+    // TODO: rewrite when function calls accept const lvalues
     auto vec1 = vectors.at(0);
     auto vec2 = vectors.at(1);
     auto point = corners.at(1);

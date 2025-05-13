@@ -9,7 +9,14 @@ using Vectors::Vec;
 
 class Sphere : public Shape {
 public:
-  Sphere() {};
+  Sphere(Vec<3, double> ctr, //
+         double rds,         //
+         Vec<8, float> clr   //
+  ) {
+    centre = ctr;
+    radius = rds;
+    colour_properties = clr;
+  };
 
   auto check_intersection(Line<3, double> ray) const -> bool override;
 

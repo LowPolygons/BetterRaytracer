@@ -56,8 +56,9 @@ auto is_point_on_plane(Vec<3, V> &point, Plane<P> &plane) -> bool {
 
 // Returns the shortest distance between a line and a point
 template <std::size_t Vs, typename V1, typename V2>
-auto constexpr point_to_line_distance(Line<Vs, V1> &line, Vec<Vs, V2> &point)
-    -> Vec<Vs, JointType<V1, V2>> {
+auto constexpr point_to_line_distance(const Line<Vs, V1> &line,
+                                      const Vec<Vs, V2> &point)
+    -> std::pair<JointType<V1, V2>, Vec<Vs, JointType<V1, V2>>> {
   // Derivation can be completed by having a generic point, and then creating a
   // vector from that point to any point on the line. Then, dotting that generic
   // point + some unknown amount of the direction vector with teh direction
@@ -66,14 +67,15 @@ auto constexpr point_to_line_distance(Line<Vs, V1> &line, Vec<Vs, V2> &point)
   auto determinant = std::pow(Vectors::magnitude(line.second), 2);
 
   if (determinant < 1e-09)
-    return {V1{0}, V1{0}, V1{0}};
+    return std::make_pair(JointType<V1, V2>{0}, Vec<Vs, JointType<V1, V2>>({}));
 
   auto lambda =
       line.second.at(0) * (point.at(0) - line.first.at(0)) +
       line.second.at(1) * (point.at(1) - line.first.at(1)) +
       line.second.at(2) * (point.at(2) - line.first.at(2)) / determinant;
 
-  return (line.first - point) + Vectors::scale(line.second, lambda);
+  return std::make_pair(lambda, (line.first - point) +
+                                    Vectors::scale(line.second, lambda));
 }
 
 // Returns the acute or obstuse angle between a line and a plane, or nothing

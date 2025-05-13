@@ -53,7 +53,7 @@ auto main() -> int {
   if (Vectors::is_point_on_plane(point_on_plane, test_plane) &&
       !Vectors::is_point_on_plane(point_off_plane, test_plane) &&
       line_intersect_res && !line_parallel_res &&
-      std::abs(magnitude(point_to_line)) - 5.0 < 1e-09 &&
+      std::abs(magnitude(point_to_line.second)) - 5.0 < 1e-09 &&
       std::abs(reflected_point.at(2)) - 20.0 < 1e-09 && !para_angle &&
       std::abs(perp_angle.value()) - (3.1415926535 / 2.0) < 1e-09) {
     return EXIT_SUCCESS;
