@@ -8,7 +8,8 @@ using Vectors::Line;
 
 class Shape {
 public:
-  virtual auto check_intersection(Line<3, double> ray) const -> bool;
+  virtual auto check_intersection(Line<3, double> ray) const -> bool = 0;
+  virtual ~Shape() = default;
 };
 
 #endif

@@ -14,7 +14,6 @@ auto perform_overloaded_op(A a, B b, Rt &rt, Anon fnc) -> void {
   std::transform(b.begin(), b.end(), a.begin(), rt.begin(), fnc);
 }
 
-// In this definition of Namespace, I define the
 namespace Vectors {
 
 // An alias for the return types of all the overloaded operators

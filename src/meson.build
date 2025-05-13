@@ -6,8 +6,13 @@ window_sources = files(
 
 vectors_sources = files()
 
+geometry_sources = files(
+  'geometry/triangle.cc',
+  'geometry/sphere.cc'
+)
+
 executable('raytracer', 
-  sources: ['main.cpp'] + window_sources + vectors_sources,
-  include_directories: include_directories('window', 'vectors'),
+  sources: ['main.cpp'] + window_sources + vectors_sources + geometry_sources,
+  include_directories: include_directories('window', 'vectors', 'geometry'),
   dependencies: [dep_sdl2]
 )
