@@ -2,6 +2,7 @@
 #include "vectors/vector_definitions.hh"
 #include "vectors/vector_methods.hh"
 #include <cstddef>
+#include <cstdlib>
 #include <utility>
 
 using Vectors::areVectorsEqual;
