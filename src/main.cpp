@@ -9,6 +9,8 @@
 #include "window/Screen.hh"
 #include <typeinfo>
 
+#include "geometry/triangle.hh"
+
 using Vectors::Vec;
 using Vectors::operator+;
 using Vectors::operator-;

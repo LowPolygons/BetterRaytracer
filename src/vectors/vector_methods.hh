@@ -18,6 +18,23 @@ auto constexpr vector_distance(Vec<Vs, V1> &vec1, Vec<Vs, V2> &vec2)
   return vec2 - vec1;
 }
 
+template <std::size_t S, typename T>
+auto constexpr areVectorsEqual(const Vec<S, T> &v1, const Vec<S, T> &v2)
+    -> bool {
+  std::size_t num_matching_coefs = std::transform_reduce(
+      v1.begin(), v1.end(), v2.begin(), 0, std::plus{}, [&](auto c1, auto c2) {
+        if (std::abs(c1 - c2) < 1e-09) {
+          return 1;
+        }
+        return 0;
+      });
+
+  if (num_matching_coefs == S) {
+    return true;
+  }
+  return false;
+}
+
 //
 template <std::size_t Vs, typename V, typename S> //
 auto constexpr scale(const Vec<Vs, V> &vec, S scale_factor)

@@ -11,8 +11,17 @@ using Vectors::Line;
 using Vectors::Plane;
 using Vectors::Vec;
 
-class Triangle : public Shape {
+class Triangle {
 public:
+  // A function which picks which two vectors should be used for barycentrics
+  auto get_valid_vectors() -> void;
+
+  auto check_intersection(Line<3, double> ray) const -> bool;
+
+  // Getters
+  auto get_corners() -> std::array<Vec<3, double>, 3> { return corners; }
+  auto get_vectors() -> std::array<Vec<3, double>, 2> { return vectors; }
+
   Triangle(              //
       Vec<3, double> v1, //
       Vec<3, double> v2, //
@@ -34,10 +43,6 @@ public:
 
     triangle_plane = std::make_pair(normal, dval);
   };
-
-  auto check_intersection(Line<3, double> ray) const -> bool override;
-  // A function which picks which two vectors should be used for barycentrics
-  auto get_valid_vectors() -> void;
 
 private:
   std::array<Vec<3, double>, 3> corners;

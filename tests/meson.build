@@ -1,8 +1,13 @@
+global_implementations = [
+  '../src/geometry/triangle.cc'
+]
+
 test_sources = [
   'vectors/vector_overloads.cc',
   'vectors/vector_methods.cc',
   'vectors/vector_dot_and_cross.cc',
-  'vectors/vector_advanced.cc'
+  'vectors/vector_advanced.cc',
+  'geometry/triangle.cc'
 ]
 
 fs = import('fs')
@@ -13,8 +18,8 @@ foreach test_source : test_sources
 
   test_exe = executable(
     test_name,  # Use the filename without extension as the target name
-    test_source,
-    include_directories: include_directories('../src'),
+    sources: [test_source] + global_implementations,
+    include_directories: include_directories('../src', '../src/vectors'),
     dependencies: [dep_sdl2]  # Or others your tests depend on
   )
 

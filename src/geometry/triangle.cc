@@ -65,10 +65,10 @@ auto Triangle::get_valid_vectors() -> void {
   index_of_vec_origin = 0;
 
   // Check how many zero coefs there are
-  if (AB.second == 0) {
+  if (AB.second < 2) {
     vectors[0] = AB.first;
     vectors[1] = AC.first;
-  } else if (AC.second == 0) {
+  } else if (AC.second < 2) {
     vectors[0] = AC.first;
     vectors[1] = AB.first;
   } else {
