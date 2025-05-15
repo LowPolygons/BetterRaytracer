@@ -1,4 +1,5 @@
 #include "geometry/triangle.hh"
+#include "colour/colour.hh"
 #include "vectors/vector_definitions.hh"
 #include "vectors/vector_methods.hh"
 #include <cstddef>
@@ -9,6 +10,8 @@ using Vectors::areVectorsEqual;
 using Vectors::Line;
 using Vectors::Plane;
 using Vectors::Vec;
+
+using Colours::BasicColour;
 
 auto main() -> int {
   // Two tests, one possibly problematic and one regular for each method
@@ -34,7 +37,7 @@ auto main() -> int {
   );
 
   // Colour (irrelevant)
-  auto _c = Vec<8, float>({0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0});
+  auto _c = BasicColour({0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0});
 
   Triangle problem_t = Triangle(problematic_corners[0], problematic_corners[1],
                                 problematic_corners[2], _c);

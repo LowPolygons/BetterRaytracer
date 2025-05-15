@@ -2,16 +2,18 @@
 
 #define GEOMETRY_SHAPES_SPHERE_HH
 
+#include "colour/colour.hh"
 #include "shape.hh"
 #include "vectors/vector_definitions.hh"
 
+using Colours::BasicColour;
 using Vectors::Vec;
 
 class Sphere : public Shape {
 public:
   Sphere(Vec<3, double> ctr, //
          double rds,         //
-         Vec<8, float> clr   //
+         BasicColour clr     //
   ) {
     centre = ctr;
     radius = rds;
@@ -25,7 +27,7 @@ private:
   double radius;
   // Colour: R, G, B, Emission: R, G, B, Strength, Specular: %
   // Index:  0, 1, 2,           3, 4, 5         6,           7
-  Vec<8, float> colour_properties;
+  BasicColour colour_properties;
 };
 
 #endif

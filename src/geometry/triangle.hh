@@ -2,11 +2,13 @@
 
 #define GEOMETRY_SHAPES_TRIANGLE_HH
 
+#include "colour/colour.hh"
 #include "shape.hh"
 #include "vectors/vector_definitions.hh"
 #include "vectors/vector_methods.hh"
 #include <cstddef>
 
+using Colours::BasicColour;
 using Vectors::Line;
 using Vectors::Plane;
 using Vectors::Vec;
@@ -26,7 +28,7 @@ public:
       Vec<3, double> v1, //
       Vec<3, double> v2, //
       Vec<3, double> v3, //
-      Vec<8, float> clr  //
+      BasicColour clr    //
   ) {
     corners = {v1, v2, v3};
     get_valid_vectors();
@@ -55,9 +57,7 @@ private:
   // Plane the triangle lies in
   Plane<double> triangle_plane;
 
-  // Colour: R, G, B, Emission: R, G, B, Strength, Specular: %
-  // Index:  0, 1, 2,           3, 4, 5         6,           7
-  Vec<8, float> colour_properties;
+  BasicColour colour_properties;
 };
 
 #endif

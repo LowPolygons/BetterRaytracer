@@ -1,21 +1,9 @@
+#include "SDL_video.h"
+#include "window/Screen.hh"
 #include <SDL2/SDL.h>
 #include <iostream>
 
-#include "SDL_video.h"
-
-#include "vectors/vector_definitions.hh"
-#include "vectors/vector_overloads.hh"
-
-#include "window/Screen.hh"
-#include <typeinfo>
-
 #include "geometry/triangle.hh"
-
-using Vectors::Vec;
-using Vectors::operator+;
-using Vectors::operator-;
-using Vectors::operator*;
-using Vectors::operator/;
 
 using Window::Screen;
 

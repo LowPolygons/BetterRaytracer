@@ -1,11 +1,12 @@
 #include "geometry/sphere.hh"
+#include "colour/colour.hh"
 #include "vectors/vector_definitions.hh"
 
-#include "vectors/vector_definitions.hh"
 #include <cstddef>
 #include <cstdlib>
 #include <utility>
 
+using Colours::BasicColour;
 using Vectors::Line;
 using Vectors::Vec;
 
@@ -21,7 +22,7 @@ auto main() -> int {
   );
 
   // Colour (irrelevant)
-  auto _c = Vec<8, float>({0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0});
+  auto _c = BasicColour({0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0});
 
   Sphere test_sphere = Sphere(Vec<3, double>{0.0, 40.0, 40.0}, 50.0, _c);
 

@@ -6,7 +6,8 @@ global_implementations = [
 included_directories = [
   '../src',
   '../src/vectors',
-  '../src/geometry'
+  '../src/geometry',
+  '../src/colour'
 ]
 
 test_sources = [
