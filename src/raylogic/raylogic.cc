@@ -87,5 +87,7 @@ auto RayLogic::calculate_new_ray_direction(const Line<3, double> &ray,
   // To actually calculate that vector:
   // - idea one, 2d polar coordinates which you then project into 3d?
   // - idea two, some kind of simultaneous equation involving a Mod(cross) and
-  // dot product
+  //     dot product
+  // - Spherical Polar Coordinates
+  // TODO: FIGURE IT OUT
 }
