@@ -77,6 +77,7 @@ auto RayLogic::calculate_new_ray_direction(const Line<3, double> &ray,
   auto rand_gen = std::mt19937();
   auto bounce_rand_range = PI * (1 - obj_col_specularity);
   // TODO: look for a cosine weighted distribution
+
   auto spec_distribution = std::uniform_real_distribution<double>(
       -bounce_rand_range / 2, bounce_rand_range / 2);
 
@@ -89,5 +90,9 @@ auto RayLogic::calculate_new_ray_direction(const Line<3, double> &ray,
   // - idea two, some kind of simultaneous equation involving a Mod(cross) and
   //     dot product
   // - Spherical Polar Coordinates
+  // - Form a plane which contains the incoming ray angle, the normal and the
+  //     perfect specular bounce
+  // - Simultaneous equations of dot product matching what you want, and that
+  //     resolves the normal form of the EQ for a plane
   // TODO: FIGURE IT OUT
 }
