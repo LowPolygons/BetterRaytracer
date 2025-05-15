@@ -96,7 +96,7 @@ auto constexpr dot(const Vec<Vs, V1> &vec1, const Vec<Vs, V2> &vec2)
 
 // Cross Product
 template <typename V1, typename V2>
-auto constexpr cross(Vec<3, V1> &vec1, Vec<3, V2> &vec2)
+auto constexpr cross(const Vec<3, V1> &vec1, const Vec<3, V2> &vec2)
     -> Vec<3, decltype(std::declval<V1>() + std::declval<V2>())> {
   return Vec<3, decltype(std::declval<V1>() + std::declval<V2>())>({
       (vec1.at(1) * vec2.at(2) - vec1.at(2) * vec2.at(1)),

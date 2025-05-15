@@ -54,6 +54,27 @@ auto is_point_on_plane(Vec<3, V> &point, Plane<P> &plane) -> bool {
   return false;
 }
 
+template <bool WANTS_ACUTE, typename V1, typename V2>
+auto constexpr angle_between_lines(const Vec<3, V1> &v1, const Vec<3, V2> &v2)
+    -> JointType<V1, V2> {
+  // a dot b = mod(a) mod(b) cos(theta)
+  // theta = a dot b / (moda modb)
+  auto dot_product = Vectors::dot(v1, v2);
+
+  if (dot_product < 0) {
+    dot_product = Vectors::dot(v1, Vectors::scale(v2, -1));
+  }
+
+  auto acute_angle = std::acos(
+      dot_product / (Vectors::magnitude(v1) * Vectors::magnitude(v2)));
+
+  if (WANTS_ACUTE) {
+    return acute_angle;
+  } else {
+    return PI - acute_angle;
+  }
+}
+
 // Returns the shortest distance between a line and a point
 template <std::size_t Vs, typename V1, typename V2>
 auto constexpr point_to_line_distance(const Line<Vs, V1> &line,
