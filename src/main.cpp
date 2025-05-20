@@ -7,6 +7,19 @@
 
 using Window::Screen;
 
+/* TODO:
+ * - Add a class/alias to store all of the object members, consider doing some
+ *   overloads
+ * - Add a Square class to reduce the misery of defining squares
+ * - Add a multithreading manager
+ * - Add a camera to store the direction info about each ray
+ */
+
+//(MAYBE DONT NEED TO STORE IN A MUTEX)
+// Get a copy of the pixel map before running. Then, store in a mutex and at the
+// end of all of the computation each thread will add their data to the new
+// pixel map
+
 auto main() -> int { //
   auto constexpr POS_X = SDL_WINDOWPOS_CENTERED;
   auto constexpr POS_Y = SDL_WINDOWPOS_CENTERED;

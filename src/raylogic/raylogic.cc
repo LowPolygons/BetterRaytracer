@@ -50,6 +50,8 @@ auto RayLogic::calculate_new_ray_direction(const Line<3, double> &ray,
   auto acute_spec_horiz =
       Vectors::angle_between_lines<true>(specular_bounce_dir, horizontal);
 
+  // Offset is necessary because it it the angle range centered around the
+  // specular, not the normal
   auto angle_offset = PI / 2 - acute_spec_horiz;
 
   // RNG things

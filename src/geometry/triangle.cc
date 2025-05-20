@@ -96,6 +96,8 @@ auto Triangle::get_valid_vectors() -> void {
   }
 }
 
+// TODO: Add a check to the triangle check_intersection method to confirm that
+// the dot between the normal and the incoming ray is obtuse
 auto Triangle::check_intersection(Line<3, double> ray) const -> bool {
   // Return constants needed:
   //  - Lambda value
@@ -122,7 +124,7 @@ auto Triangle::check_intersection(Line<3, double> ray) const -> bool {
   /*
      Derive from solving the simulatenous equation:
       o + λa + μb = c
-     Where o = Origin, a and b are the vectors, c is the p.o.i
+     Where o = Local Origin, a and b are the vectors, c is the p.o.i
      Solving for lambda and mu
   */
 
