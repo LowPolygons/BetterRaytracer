@@ -13,7 +13,6 @@ using Window::WindowData;
 
 namespace Window {
 // A class which will manage the sdl functions
-
 class Screen {
 public:
   Screen(std::string title,                //

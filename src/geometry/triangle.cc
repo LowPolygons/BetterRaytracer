@@ -97,7 +97,8 @@ auto Triangle::get_valid_vectors() -> void {
 }
 
 // TODO: Add a check to the triangle check_intersection method to confirm that
-// the dot between the normal and the incoming ray is obtuse
+// the dot between the normal and the incoming ray is obtuse (MAY NOT BE
+// NECESSARY)
 auto Triangle::check_intersection(Line<3, double> ray) const -> bool {
   // Return constants needed:
   //  - Lambda value

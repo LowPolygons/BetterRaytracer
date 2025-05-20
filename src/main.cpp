@@ -17,6 +17,7 @@ using Window::Screen;
  *   overloads
  * - Add a Square class to reduce the misery of defining squares
  * - Add a multithreading manager
+ * - make it actually raytrace
  */
 
 //(MAYBE DONT NEED TO STORE IN A MUTEX)
