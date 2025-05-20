@@ -5,6 +5,11 @@
 
 #include "geometry/triangle.hh"
 
+#include "camera/camera.hh"
+
+#include "vectors/vector_definitions.hh"
+
+using Vectors::PI;
 using Window::Screen;
 
 /* TODO:
@@ -12,7 +17,6 @@ using Window::Screen;
  *   overloads
  * - Add a Square class to reduce the misery of defining squares
  * - Add a multithreading manager
- * - Add a camera to store the direction info about each ray
  */
 
 //(MAYBE DONT NEED TO STORE IN A MUTEX)

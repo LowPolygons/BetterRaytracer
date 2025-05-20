@@ -8,7 +8,9 @@ vectors_sources = files()
 
 geometry_sources = files(
   'geometry/triangle.cc',
-  'geometry/sphere.cc'
+  'geometry/sphere.cc',
+  'camera/camera.cc',
+  'raylogic/raylogic.cc'
 )
 
 executable('raytracer', 

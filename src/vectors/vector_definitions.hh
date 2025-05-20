@@ -20,6 +20,7 @@ using Line = std::pair<Vec<vector_size, Tp>, Vec<vector_size, Tp>>;
 template <typename Tp> //
 using Plane = std::pair<Vec<3, Tp>, Tp>;
 
+const auto PI = 3.14159265358979323;
 } // namespace Vectors
 
 #endif

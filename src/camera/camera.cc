@@ -4,6 +4,7 @@
 #include "vectors/vector_overloads.hh"
 
 #include <algorithm>
+#include <iostream>
 #include <optional>
 #include <ranges>
 #include <vector>
@@ -45,8 +46,8 @@ auto Camera::populate_pixel_directions() -> void {
   auto global_y_axis = Vec<3, double>({0.0, 1.0, 0.0});
 
   // Temporarily store the positions of each pixel in the pixel_directions array
-  auto x = std::views::iota(width);
-  auto y = std::views::iota(height);
+  auto x = std::views::iota(std::size_t{0}, width);
+  auto y = std::views::iota(std::size_t{0}, height);
 
   auto x_offset = (static_cast<double>(width) - 1.0) / 2.0;
   auto y_offset = (static_cast<double>(height) - 1.0) / 2.0;

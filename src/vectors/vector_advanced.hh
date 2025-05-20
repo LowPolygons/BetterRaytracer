@@ -10,10 +10,7 @@
 #include <optional>
 #include <utility>
 
-const auto PI = 3.14159265358979323;
-
 namespace Vectors {
-
 // Returns the point of intersection and the lambda value, or nothing
 template <typename V, typename P>
 auto constexpr line_intersects_plane(const Line<3, V> &line,

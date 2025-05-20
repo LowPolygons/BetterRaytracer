@@ -10,6 +10,7 @@
 using Colours::BasicColour;
 using Vectors::Line;
 using Vectors::operator+;
+using Vectors::PI;
 
 // TODO: generate a program wide rand gen and device and pass it by ref
 auto RayLogic::calculate_new_ray_direction(const Line<3, double> &ray,
