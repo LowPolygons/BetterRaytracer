@@ -10,6 +10,7 @@
 #include "SDL_video.h"
 #include "WindowData.hh"
 #include "camera/camera.hh"
+#include "scene_objects/scene_objects.hh"
 
 using Window::WindowData_SDL;
 using Window::WindowData_SFML;
@@ -48,10 +49,14 @@ private:
 
 class Screen_SFML {
 public:
-  Screen_SFML(std::string title, std::size_t d_x, std::size_t d_y) {
+  Screen_SFML(std::string title, std::size_t d_x, std::size_t d_y,
+              SceneObjects _objects) {
     window_data.title = title;
     window_data.d_x = d_x;
     window_data.d_y = d_y;
+    objects = _objects;
+
+    pixel_map = std::make_unique<sf::Texture>();
   }
 
   auto init() -> bool;
@@ -59,10 +64,12 @@ public:
   auto update(sf::Event &ev) -> bool;
 
   // Multi-threaded method implemented in seperate directory
-  auto render(std::size_t num_threads, Camera &camera) -> void;
+  auto render(std::size_t num_threads, Camera &camera, std::size_t num_rays,
+              std::size_t num_bounces) -> void;
 
 private:
   WindowData_SFML window_data;
+  SceneObjects objects;
 
   std::unique_ptr<sf::RenderWindow> screen;
   std::unique_ptr<sf::Texture> pixel_map;

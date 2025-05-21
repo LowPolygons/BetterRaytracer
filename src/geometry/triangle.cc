@@ -99,7 +99,10 @@ auto Triangle::get_valid_vectors() -> void {
 // TODO: Add a check to the triangle check_intersection method to confirm that
 // the dot between the normal and the incoming ray is obtuse (MAY NOT BE
 // NECESSARY)
-auto Triangle::check_intersection(Line<3, double> ray) const -> bool {
+auto Triangle::check_intersection(Line<3, double> ray) const
+    -> IntersectionReturnData {
+  // By default, it suits the criteria for a non intersection
+  auto return_containter = IntersectionReturnData();
   // Return constants needed:
   //  - Lambda value
   //  - POI,
@@ -111,7 +114,7 @@ auto Triangle::check_intersection(Line<3, double> ray) const -> bool {
       Vectors::line_intersects_plane(ray, triangle_plane);
 
   if (!point_of_intersection)
-    return false;
+    return return_containter;
 
   auto p_of_i =
       point_of_intersection.value().second; // .first is the lambda value
@@ -142,8 +145,13 @@ auto Triangle::check_intersection(Line<3, double> ray) const -> bool {
     // Lies at least inside the quadrilateral
     if (lambda + mu < (1 + CUTOFF)) {
       // The ray has collided with the triangle
-      return true;
+      return_containter.intersects = true;
+      return_containter.colour = colour_properties;
+      return_containter.point_of_intersection = p_of_i;
+      return_containter.normal = triangle_plane.first;
+
+      return return_containter;
     }
   }
-  return false;
+  return return_containter;
 }

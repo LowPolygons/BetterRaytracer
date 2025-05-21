@@ -26,8 +26,8 @@ auto main() -> int {
 
   Sphere test_sphere = Sphere(Vec<3, double>{0.0, 40.0, 40.0}, 50.0, _c);
 
-  auto def = test_sphere.check_intersection(def_intersects);
-  auto dont = test_sphere.check_intersection(doesnt_intersect);
+  auto def = test_sphere.check_intersection(def_intersects).intersects;
+  auto dont = test_sphere.check_intersection(doesnt_intersect).intersects;
 
   if (def and !dont) {
     return EXIT_SUCCESS;

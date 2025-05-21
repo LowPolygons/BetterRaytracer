@@ -5,12 +5,15 @@
 #include "vectors/vector_overloads.hh"
 
 using Vectors::operator+;
+using Vectors::operator-;
 using Vectors::Vec;
 
-auto Sphere::check_intersection(Line<3, double> ray) const -> bool {
+auto Sphere::check_intersection(Line<3, double> ray) const
+    -> IntersectionReturnData {
   // Check the shortest distance between the line and a point
   // Clone then normalise the ray direction vector
   auto ray_normalised = ray;
+  auto return_containter = IntersectionReturnData();
 
   Vectors::normalise(ray_normalised.second);
 
@@ -29,8 +32,16 @@ auto Sphere::check_intersection(Line<3, double> ray) const -> bool {
         ray.first + Vectors::scale(ray_normalised.second,
                                    lambda_dist_pair.first - lambda_offset);
 
-    // TODO: Implement correct return type
-    return true;
+    // Normal at the point of intersection
+    auto normal_at_poi = p_of_i - centre;
+    Vectors::normalise(normal_at_poi);
+
+    return_containter.intersects = true;
+    return_containter.point_of_intersection = p_of_i;
+    return_containter.colour = colour_properties;
+    return_containter.normal = normal_at_poi;
+
+    return return_containter;
   }
-  return false;
+  return return_containter;
 }

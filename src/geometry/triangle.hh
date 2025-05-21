@@ -18,7 +18,7 @@ public:
   // A function which picks which two vectors should be used for barycentrics
   auto get_valid_vectors() -> void;
 
-  auto check_intersection(Line<3, double> ray) const -> bool;
+  auto check_intersection(Line<3, double> ray) const -> IntersectionReturnData;
 
   // Getters
   auto get_corners() -> std::array<Vec<3, double>, 3> { return corners; }

@@ -7,9 +7,12 @@
 #include <optional>
 
 #include "geometry/triangle.hh"
+#include "window/scene_objects/scene_objects.hh"
 
 #include "camera/camera.hh"
+#include "geometry/sphere.hh"
 
+#include "colour/colour.hh"
 #include "vectors/vector_definitions.hh"
 
 using Vectors::PI;
@@ -18,6 +21,7 @@ using Window::Screen_SFML;
 /* TODO:
  * - Add a multithreading manager
  * - make it actually raytrace
+ * - where applicable go through classes and make getters be const &
  */
 
 //(MAYBE DONT NEED TO STORE IN A MUTEX)
@@ -35,7 +39,13 @@ auto main() -> int {
   auto constexpr FLAGS = SDL_WINDOW_RESIZABLE | SDL_WINDOW_SHOWN;
 
   // auto sdl_screen = Screen(TITLE, POS_X, POS_Y, DIM_X, DIM_Y, FLAGS);
-  auto sfml_screen = Screen_SFML(TITLE, DIM_X, DIM_Y);
+  //
+  auto scene_objects = SceneObjects();
+
+  scene_objects.add_sphere(Sphere({0.0, 0.0, 500.0}, 300.0,
+                                  {0.0, 0.0, 0.0, 1.0, 0.0, 0.0, 1.0, 0.0}));
+
+  auto sfml_screen = Screen_SFML(TITLE, DIM_X, DIM_Y, SceneObjects());
 
   // sdl_screen.init();
   sfml_screen.init();

@@ -30,6 +30,9 @@ public:
                   BasicColour L2, BasicColour R1, BasicColour R2,
                   BasicColour B1, BasicColour B2, BasicColour F1,
                   BasicColour F2, BasicColour U1, BasicColour U2) -> void;
+
+  auto get_spheres() -> std::vector<Sphere>;
+  auto get_triangles() -> std::vector<Triangle>;
 };
 
 #endif

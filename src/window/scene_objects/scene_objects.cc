@@ -49,3 +49,8 @@ auto SceneObjects::add_cuboid(Vec<3, double> LDB, Vec<3, double> RDB,
   add_triangle(Triangle(LDF, RDF, RUF, F1));
   add_triangle(Triangle(LDF, LUF, RUF, F2));
 }
+
+auto SceneObjects::get_spheres() -> std::vector<Sphere> { return spheres; }
+auto SceneObjects::get_triangles() -> std::vector<Triangle> {
+  return triangles;
+}

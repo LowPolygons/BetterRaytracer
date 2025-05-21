@@ -4,6 +4,7 @@
 #include <memory>
 
 #include "WindowData.hh"
+#include "camera/camera.hh"
 #include "screen.hh"
 
 using Window::Screen_SDL;
@@ -48,8 +49,16 @@ auto Screen_SDL::update(SDL_Event &ev) -> bool {
 auto Screen_SFML::init() -> bool {
   screen = std::make_unique<sf::RenderWindow>(
       sf::VideoMode({window_data.d_x, window_data.d_y}), window_data.title);
-
   screen->display();
+
+  std::cout << "got here lol" << std::endl;
+  pixel_map->create(window_data.d_x, window_data.d_y);
+  std::cout << "got here lol" << std::endl;
+  auto camera = Camera(window_data.d_x, window_data.d_y, 300, 0.0, 0.0, 0.0,
+                       {0.0, 0.0, 0.0});
+
+  // Call the raytracer method here
+  render(10, camera, 1, 3);
 
   return true;
 }
@@ -60,6 +69,12 @@ auto Screen_SFML::update(sf::Event &ev) -> bool {
       return false;
     }
   }
+
+  auto scene = sf::Sprite(*pixel_map);
+
+  screen->clear();
+  screen->draw(scene);
+  screen->display();
 
   return true;
 }

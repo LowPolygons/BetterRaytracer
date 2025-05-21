@@ -47,11 +47,12 @@ auto main() -> int {
   auto problem_t_vs = problem_t.get_vectors();
   auto okay_t_vs = okay_t.get_vectors();
 
-  auto problem_def = problem_t.check_intersection(def_intersects);
-  auto problem_defnot = problem_t.check_intersection(doesnt_intersect);
+  auto problem_def = problem_t.check_intersection(def_intersects).intersects;
+  auto problem_defnot =
+      problem_t.check_intersection(doesnt_intersect).intersects;
 
-  auto okay_def = okay_t.check_intersection(def_intersects);
-  auto okay_defnot = okay_t.check_intersection(doesnt_intersect);
+  auto okay_def = okay_t.check_intersection(def_intersects).intersects;
+  auto okay_defnot = okay_t.check_intersection(doesnt_intersect).intersects;
 
   if (areVectorsEqual(problem_t_vs[0], Vec<3, double>{0.0, 90.0, 200.0}) and //
       areVectorsEqual(okay_t_vs[0], Vec<3, double>{200.0, 200.0, 200.0}) and //

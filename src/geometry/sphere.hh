@@ -20,7 +20,8 @@ public:
     colour_properties = clr;
   };
 
-  auto check_intersection(Line<3, double> ray) const -> bool override;
+  auto check_intersection(Line<3, double> ray) const
+      -> IntersectionReturnData override;
 
 private:
   Vec<3, double> centre;
