@@ -2,7 +2,8 @@ dep_sdl2 = dependency('sdl2', required: true)
 dep_sfml = dependency('sfml-graphics', required: true)
 
 all_sources = files(
-  'window/Screen.cc',
+  'window/screen.cc',
+  'window/multi_threaded/screen.cc'
   'geometry/triangle.cc',
   'geometry/sphere.cc',
   'camera/camera.cc',

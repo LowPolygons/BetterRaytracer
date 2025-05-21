@@ -1,5 +1,5 @@
 #include "SDL_video.h"
-#include "window/Screen.hh"
+#include "window/screen.hh"
 #include <SDL2/SDL.h>
 #include <iostream>
 
@@ -16,9 +16,6 @@ using Vectors::PI;
 using Window::Screen_SDL;
 using Window::Screen_SFML;
 /* TODO:
- * - Add a class/alias to store all of the object members, consider doing some
- *   overloads
- * - Add a Square class to reduce the misery of defining squares
  * - Add a multithreading manager
  * - make it actually raytrace
  */

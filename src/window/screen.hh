@@ -57,6 +57,9 @@ public:
 
   auto update(sf::Event &ev) -> bool;
 
+  // Multi-threaded method implemented in seperate directory
+  auto render(std::size_t num_threads) -> void;
+
 private:
   WindowData_SFML window_data;
 

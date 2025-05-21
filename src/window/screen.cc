@@ -3,8 +3,8 @@
 #include <iostream>
 #include <memory>
 
-#include "Screen.hh"
 #include "WindowData.hh"
+#include "screen.hh"
 
 using Window::Screen_SDL;
 using Window::Screen_SFML;
