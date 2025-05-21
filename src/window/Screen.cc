@@ -6,9 +6,10 @@
 #include "Screen.hh"
 #include "WindowData.hh"
 
-using Window::Screen;
+using Window::Screen_SDL;
+using Window::Screen_SFML;
 
-auto Screen::init() -> bool {
+auto Screen_SDL::init() -> bool {
   // Initialises the handler windows, surface and graphics handling
   if (SDL_Init(SDL_INIT_VIDEO) < 0) {
     std::cout << "Error Initialising SDL Video, Error: " << SDL_GetError()
@@ -33,10 +34,29 @@ auto Screen::init() -> bool {
   return true;
 }
 
-auto Screen::update(SDL_Event &ev) -> bool {
+auto Screen_SDL::update(SDL_Event &ev) -> bool {
   while (SDL_PollEvent(&ev) != 0) {
     switch (ev.type) {
     case SDL_QUIT:
+      return false;
+    }
+  }
+
+  return true;
+}
+
+auto Screen_SFML::init() -> bool {
+  screen = std::make_unique<sf::RenderWindow>(
+      sf::VideoMode({window_data.d_x, window_data.d_y}), window_data.title);
+
+  screen->display();
+
+  return true;
+}
+
+auto Screen_SFML::update(sf::Event &ev) -> bool {
+  while (screen->pollEvent(ev)) {
+    if (ev.type == sf::Event::Closed) {
       return false;
     }
   }

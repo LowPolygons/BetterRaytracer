@@ -3,6 +3,9 @@
 #include <SDL2/SDL.h>
 #include <iostream>
 
+#include <SFML/Graphics.hpp>
+#include <optional>
+
 #include "geometry/triangle.hh"
 
 #include "camera/camera.hh"
@@ -10,8 +13,8 @@
 #include "vectors/vector_definitions.hh"
 
 using Vectors::PI;
-using Window::Screen;
-
+using Window::Screen_SDL;
+using Window::Screen_SFML;
 /* TODO:
  * - Add a class/alias to store all of the object members, consider doing some
  *   overloads
@@ -33,16 +36,19 @@ auto main() -> int { //
   auto constexpr TITLE = "Window";
   auto constexpr FLAGS = SDL_WINDOW_RESIZABLE | SDL_WINDOW_SHOWN;
 
-  auto sdl_screen = Screen(TITLE, POS_X, POS_Y, DIM_X, DIM_Y, FLAGS);
+  // auto sdl_screen = Screen(TITLE, POS_X, POS_Y, DIM_X, DIM_Y, FLAGS);
+  auto sfml_screen = Screen_SFML(TITLE, DIM_X, DIM_Y);
 
-  sdl_screen.init();
-
-  std::cout << "Window Init Complete" << std::endl;
+  // sdl_screen.init();
+  sfml_screen.init();
 
   auto isRunning = true;
-  SDL_Event ev;
+
+  // SDL_Event ev;
+  sf::Event event;
 
   while (isRunning) {
-    isRunning = sdl_screen.update(ev);
+    // isRunning = sdl_screen.update(ev);
+    isRunning = sfml_screen.update(event);
   }
 }

@@ -3,22 +3,24 @@
 #define SDL_SCREEN_OBJECT_CONTAINER
 
 #include <SDL2/SDL.h>
+#include <SFML/Graphics.hpp>
 #include <cstdint>
 
 #include "SDL_video.h"
 #include "WindowData.hh"
 #include <memory>
 
-using Window::WindowData;
+using Window::WindowData_SDL;
+using Window::WindowData_SFML;
 
 namespace Window {
 // A class which will manage the sdl functions
-class Screen {
+class Screen_SDL {
 public:
-  Screen(std::string title,                //
-         std::size_t p_x, std::size_t p_y, // Position X and Y
-         std::size_t d_x, std::size_t d_y, // Dimensions X and Y
-         std::uint32_t flags)              //
+  Screen_SDL(std::string title,                //
+             std::size_t p_x, std::size_t p_y, // Position X and Y
+             std::size_t d_x, std::size_t d_y, // Dimensions X and Y
+             std::uint32_t flags)              //
       : sdl_window(nullptr, SDL_DestroyWindow),
         sdl_surface(nullptr, SDL_FreeSurface) {
     window_data.title = title;
@@ -37,10 +39,29 @@ public:
 
 private:
   // Container for constants to do with the window itself
-  WindowData window_data;
+  WindowData_SDL window_data;
 
   std::unique_ptr<SDL_Window, decltype(&SDL_DestroyWindow)> sdl_window;
   std::unique_ptr<SDL_Surface, decltype(&SDL_FreeSurface)> sdl_surface;
+};
+
+class Screen_SFML {
+public:
+  Screen_SFML(std::string title, std::size_t d_x, std::size_t d_y) {
+    window_data.title = title;
+    window_data.d_x = d_x;
+    window_data.d_y = d_y;
+  }
+
+  auto init() -> bool;
+
+  auto update(sf::Event &ev) -> bool;
+
+private:
+  WindowData_SFML window_data;
+
+  std::unique_ptr<sf::RenderWindow> screen;
+  std::unique_ptr<sf::Texture> pixel_map;
 };
 
 } // namespace Window

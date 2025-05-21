@@ -8,7 +8,7 @@
 
 namespace Window {
 
-struct WindowData {
+struct WindowData_SDL {
   std::string title;
   std::size_t p_x = SDL_WINDOWPOS_UNDEFINED; // Pos x, y
   std::size_t p_y = SDL_WINDOWPOS_UNDEFINED;
@@ -17,6 +17,11 @@ struct WindowData {
   std::uint32_t flags;
 };
 
+struct WindowData_SFML {
+  std::string title;
+  std::uint32_t d_x;
+  std::uint32_t d_y;
+};
 } // namespace Window
 
 #endif
