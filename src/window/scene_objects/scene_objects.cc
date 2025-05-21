@@ -1,4 +1,4 @@
-#include "raytracer.hh"
+#include "scene_objects.hh"
 #include "colour/colour.hh"
 #include "geometry/sphere.hh"
 #include "geometry/triangle.hh"
@@ -7,19 +7,21 @@
 using Colours::BasicColour;
 using Vectors::Vec;
 
-auto Raytracer::add_triangle(Triangle triangle) -> void {
+auto SceneObjects::add_triangle(Triangle triangle) -> void {
   triangles.push_back(triangle);
 }
-auto Raytracer::add_sphere(Sphere sphere) -> void { spheres.push_back(sphere); }
+auto SceneObjects::add_sphere(Sphere sphere) -> void {
+  spheres.push_back(sphere);
+}
 
-auto Raytracer::add_cuboid(Vec<3, double> LDB, Vec<3, double> RDB,
-                           Vec<3, double> RDF, Vec<3, double> LDF,
-                           Vec<3, double> LUB, Vec<3, double> RUB,
-                           Vec<3, double> RUF, Vec<3, double> LUF, //
-                           BasicColour D1, BasicColour D2, BasicColour L1,
-                           BasicColour L2, BasicColour R1, BasicColour R2,
-                           BasicColour B1, BasicColour B2, BasicColour F1,
-                           BasicColour F2, BasicColour U1, BasicColour U2)
+auto SceneObjects::add_cuboid(Vec<3, double> LDB, Vec<3, double> RDB,
+                              Vec<3, double> RDF, Vec<3, double> LDF,
+                              Vec<3, double> LUB, Vec<3, double> RUB,
+                              Vec<3, double> RUF, Vec<3, double> LUF, //
+                              BasicColour D1, BasicColour D2, BasicColour L1,
+                              BasicColour L2, BasicColour R1, BasicColour R2,
+                              BasicColour B1, BasicColour B2, BasicColour F1,
+                              BasicColour F2, BasicColour U1, BasicColour U2)
     -> void {
   // Form the 12 triangles
 

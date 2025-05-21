@@ -7,7 +7,7 @@ all_sources = files(
   'geometry/sphere.cc',
   'camera/camera.cc',
   'raylogic/raylogic.cc',
-  'window/raytracer/raytracer.cc'
+  'window/scene_objects/scene_objects.cc'
 )
 
 executable('raytracer', 

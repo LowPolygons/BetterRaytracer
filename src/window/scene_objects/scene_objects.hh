@@ -1,5 +1,5 @@
-#ifndef WINDOW_RAYTRACER_HH
-#define WINDOW_RAYTRACER_HH
+#ifndef WINDOW_SCENEOBJECTS_SCENEOBJECTS_HH
+#define WINDOW_SCENEOBJECTS_SCENEOBJECTS_HH
 
 #include "colour/colour.hh"
 #include "geometry/sphere.hh"
@@ -11,14 +11,13 @@ using Vectors::Vec;
 
 // Raytracer only needs one thing from the screen and it can be copied by value
 // therefore worthwhile storing as a separate object
-class Raytracer {
+class SceneObjects {
 private:
   std::vector<Sphere> spheres;
   std::vector<Triangle> triangles;
 
-  // PIXEL DATA
 public:
-  Raytracer() {};
+  SceneObjects() {};
 
   auto add_triangle(Triangle triangle) -> void;
   auto add_sphere(Sphere sphere) -> void;
