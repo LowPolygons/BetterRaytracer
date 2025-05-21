@@ -5,10 +5,11 @@
 #include <SDL2/SDL.h>
 #include <SFML/Graphics.hpp>
 #include <cstdint>
+#include <memory>
 
 #include "SDL_video.h"
 #include "WindowData.hh"
-#include <memory>
+#include "camera/camera.hh"
 
 using Window::WindowData_SDL;
 using Window::WindowData_SFML;
@@ -58,7 +59,7 @@ public:
   auto update(sf::Event &ev) -> bool;
 
   // Multi-threaded method implemented in seperate directory
-  auto render(std::size_t num_threads) -> void;
+  auto render(std::size_t num_threads, Camera &camera) -> void;
 
 private:
   WindowData_SFML window_data;

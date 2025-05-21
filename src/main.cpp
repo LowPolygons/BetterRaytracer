@@ -25,7 +25,8 @@ using Window::Screen_SFML;
 // end of all of the computation each thread will add their data to the new
 // pixel map
 
-auto main() -> int { //
+auto main() -> int {
+  // Parameters for the Screen
   auto constexpr POS_X = SDL_WINDOWPOS_CENTERED;
   auto constexpr POS_Y = SDL_WINDOWPOS_CENTERED;
   auto constexpr DIM_X = 1000;

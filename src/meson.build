@@ -3,7 +3,7 @@ dep_sfml = dependency('sfml-graphics', required: true)
 
 all_sources = files(
   'window/screen.cc',
-  'window/multi_threaded/screen.cc'
+  'window/multi_threaded/screen.cc',
   'geometry/triangle.cc',
   'geometry/sphere.cc',
   'camera/camera.cc',
