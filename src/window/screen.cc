@@ -58,7 +58,7 @@ auto Screen_SFML::init(std::mt19937 &rand_gen) -> bool {
                        {0.0, 0.0, 0.0});
   camera.populate_pixel_directions();
   // Call the raytracer method here
-  render(16, camera, 100, 5, rand_gen);
+  render(16, camera, 200, 8, rand_gen);
 
   if (((*pixel_map).copyToImage()).saveToFile("OutputScene.png")) {
     std::cout << "Saved to file: OutputScene.png" << std::endl;

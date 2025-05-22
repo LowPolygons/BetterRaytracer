@@ -10,6 +10,7 @@
 using Colours::BasicColour;
 using Vectors::Line;
 using Vectors::operator+;
+using Vectors::operator-;
 using Vectors::PI;
 
 // TODO: generate a program wide rand gen and device and pass it by ref
@@ -26,22 +27,31 @@ auto RayLogic::calculate_new_ray_direction(const Line<3, double> &ray,
   //
   // First confirm that the normal is the correct direction
   auto normal_clone = normal;
+  auto ray_clone = ray;
+
+  Vectors::normalise(ray_clone.second);
   Vectors::normalise(normal_clone);
 
-  auto ray_normal_dot = Vectors::dot(ray.second, normal_clone);
+  auto ray_normal_dot = Vectors::dot(ray_clone.second, normal_clone);
 
   if (ray_normal_dot >= 0) {
     normal_clone = Vectors::scale(normal_clone, -1.0);
   }
 
   // Perp to the incoming ray and the normal
-  auto ray_normal_cross = Vectors::cross(ray.second, normal_clone);
+  auto ray_normal_cross = Vectors::cross(ray_clone.second, normal_clone);
 
   // Perp to the normal and the previous result - this will lie in the same 2d
   // place as the incoming ray and the normal
   auto horizontal = Vectors::cross(normal_clone, ray_normal_cross);
+
   // The perfect specular ray
-  auto specular_bounce_dir = Vectors::cross(ray.second, ray_normal_cross);
+  // - auto specular_bounce_dir = Vectors::cross(ray_clone.second,
+  // ray_normal_cross);
+  auto specular_bounce_dir =
+      ray_clone.second -
+      Vectors::scale(normal_clone,
+                     2 * Vectors::dot(ray_clone.second, normal_clone));
 
   // Confirm the ray is actually bouncing away from the object
   if (Vectors::dot(specular_bounce_dir, normal_clone) < 0) {
