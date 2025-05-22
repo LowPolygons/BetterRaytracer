@@ -16,7 +16,8 @@ using Vectors::PI;
 auto RayLogic::calculate_new_ray_direction(const Line<3, double> &ray,
                                            const Vec<3, double> &p_of_i,
                                            const Vec<3, double> &normal,
-                                           const BasicColour &object_colour)
+                                           const BasicColour &object_colour,
+                                           std::mt19937 &rand_gen)
     -> Line<3, double> {
   // To get the perfectly specular bounce direction, cross the ray direction
   // with the normal, and then cross the ray direction with that result.
@@ -30,7 +31,7 @@ auto RayLogic::calculate_new_ray_direction(const Line<3, double> &ray,
   auto ray_normal_dot = Vectors::dot(ray.second, normal_clone);
 
   if (ray_normal_dot >= 0) {
-    normal_clone = Vectors::scale(normal_clone, -1);
+    normal_clone = Vectors::scale(normal_clone, -1.0);
   }
 
   // Perp to the incoming ray and the normal
@@ -57,13 +58,12 @@ auto RayLogic::calculate_new_ray_direction(const Line<3, double> &ray,
 
   // RNG things
   auto obj_col_specularity = object_colour[7];
-  std::random_device randomised_seed;
-  auto rand_gen = std::mt19937(randomised_seed());
   auto bounce_rand_range = PI * (1 - obj_col_specularity);
   // TODO: look for a cosine weighted distribution
 
   auto spec_distribution = std::uniform_real_distribution<double>(
       -bounce_rand_range / 2, bounce_rand_range / 2);
+  auto test_distribution = std::uniform_real_distribution<double>(-1.0, 1.0);
 
   // This is the angle which a vector should be formed from which lies in the
   // same plane as the normal clone, incoming bounce and outgoing bounce
@@ -87,6 +87,6 @@ auto RayLogic::calculate_new_ray_direction(const Line<3, double> &ray,
 
   Vectors::normalise(actual_bounce_dir);
 
-  return Line<3, double>(
-      std::make_pair(ray.first + normal_clone, actual_bounce_dir));
+  return Line<3, double>{
+      std::make_pair(p_of_i + normal_clone, actual_bounce_dir)};
 }

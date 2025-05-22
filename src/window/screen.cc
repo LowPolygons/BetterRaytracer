@@ -46,7 +46,7 @@ auto Screen_SDL::update(SDL_Event &ev) -> bool {
   return true;
 }
 
-auto Screen_SFML::init() -> bool {
+auto Screen_SFML::init(std::mt19937 &rand_gen) -> bool {
   screen = std::make_unique<sf::RenderWindow>(
       sf::VideoMode({window_data.d_x, window_data.d_y}), window_data.title);
   screen->display();
@@ -56,25 +56,29 @@ auto Screen_SFML::init() -> bool {
   std::cout << "got here lol" << std::endl;
   auto camera = Camera(window_data.d_x, window_data.d_y, 300, 0.0, 0.0, 0.0,
                        {0.0, 0.0, 0.0});
-
+  camera.populate_pixel_directions();
   // Call the raytracer method here
-  render(10, camera, 1, 3);
+  render(16, camera, 100, 5, rand_gen);
+
+  if (((*pixel_map).copyToImage()).saveToFile("OutputScene.png")) {
+    std::cout << "Saved to file: OutputScene.png" << std::endl;
+  }
 
   return true;
 }
 
 auto Screen_SFML::update(sf::Event &ev) -> bool {
-  while (screen->pollEvent(ev)) {
-    if (ev.type == sf::Event::Closed) {
-      return false;
-    }
-  }
-
   auto scene = sf::Sprite(*pixel_map);
 
   screen->clear();
   screen->draw(scene);
   screen->display();
+
+  while (screen->pollEvent(ev)) {
+    if (ev.type == sf::Event::Closed) {
+      return false;
+    }
+  }
 
   return true;
 }

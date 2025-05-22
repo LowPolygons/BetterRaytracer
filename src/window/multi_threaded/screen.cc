@@ -11,6 +11,8 @@
 #include "screen.hh"
 #include "vectors/vector_definitions.hh"
 
+#include <random>
+
 using Window::Screen_SFML;
 
 using Vectors::Line;
@@ -45,8 +47,8 @@ auto PopulateIndexArrays(
   for (auto thread_id : thread_iterator) {
     auto row_start = thread_id * t_div_r;
     auto row_end = (thread_id + ONE) * t_div_r - ONE;
-    auto buf_start = row_start * row_width;
-    auto buf_end = (row_end + ONE) * row_width - ONE;
+    auto buf_start = row_start * row_width * FOUR;
+    auto buf_end = (row_end + ONE) * row_width * FOUR - ONE;
 
     pixel_direcs_indexs.emplace_back(row_start, row_end);
     pixel_buffer_indexs.emplace_back(buf_start, buf_end);
@@ -66,18 +68,27 @@ auto PopulateIndexArrays(
       // Offset the rest by the number accounted for
       pixel_direcs_indexs[thread_id].second += accounted_for_rows;
       pixel_buffer_indexs[thread_id].first =
-          pixel_direcs_indexs[thread_id].first * row_width;
+          pixel_direcs_indexs[thread_id].first * row_width * FOUR;
       pixel_buffer_indexs[thread_id].second =
-          (pixel_direcs_indexs[thread_id].second + ONE) * row_width - ONE;
+          (pixel_direcs_indexs[thread_id].second + ONE) * row_width * FOUR -
+          ONE;
     }
+  }
+
+  for (auto pair : pixel_direcs_indexs) {
+    std::cout << pair.first << "," << pair.second << std::endl;
+  }
+
+  for (auto pair : pixel_buffer_indexs) {
+    std::cout << pair.first << "," << pair.second << std::endl;
   }
 }
 
 // TODO: consider implementing std::promise and future to work along side
 // threads so that they can finish in any order
 auto Screen_SFML::render(std::size_t num_threads, Camera &camera,
-                         std::size_t num_rays, std::size_t num_bounces)
-    -> void {
+                         std::size_t num_rays, std::size_t num_bounces,
+                         std::mt19937 &rand_gen) -> void {
   // Every 4 indexes represets a pixels RGBA channels
   std::vector<std::uint8_t> pixel_buffer(window_data.d_x * window_data.d_y *
                                          FOUR);
@@ -111,8 +122,9 @@ auto Screen_SFML::render(std::size_t num_threads, Camera &camera,
   auto render_call = [&](std::size_t thread_id) {
     std::cout << thread_id << ": Starting Ray Tracing" << std::endl;
     // Loop through the row indexes:
-    auto row_range = std::views::iota(pixel_direcs_indexs[thread_id].first,
-                                      pixel_direcs_indexs[thread_id].second);
+    auto row_range =
+        std::views::iota(pixel_direcs_indexs[thread_id].first,
+                         pixel_direcs_indexs[thread_id].second + ONE);
     auto num_pixels_done = 0;
 
     for (auto row : row_range) {
@@ -121,6 +133,10 @@ auto Screen_SFML::render(std::size_t num_threads, Camera &camera,
 
       if (!directions_optional)
         return false;
+      // For debugging
+      if (thread_id == 0)
+        std::cout << "Thread Zero is on row " << row << " of "
+                  << pixel_direcs_indexs[thread_id].second << std::endl;
 
       auto directions = directions_optional.value();
       // -  - For each Pixel:
@@ -134,6 +150,9 @@ auto Screen_SFML::render(std::size_t num_threads, Camera &camera,
         for (auto ray_num [[maybe_unused]] : num_ray_iterator) {
           // -  -  -  - Form an initial ray Line
           auto ray = Line<3, double>(camera_origin, pixel_ray_direction);
+          // Normalise the direction
+          Vectors::normalise(ray.second);
+
           auto ray_colour = ColourData();
 
           // -  -  -  - For each number of bounces:
@@ -174,7 +193,8 @@ auto Screen_SFML::render(std::size_t num_threads, Camera &camera,
               //-- the bounces
               ray = RayLogic::calculate_new_ray_direction(
                   ray, closest_object.point_of_intersection,
-                  closest_object.normal, closest_object.colour);
+                  closest_object.normal, closest_object.colour, rand_gen);
+
             } else {
               // TODO: Handle this case of ray never hitting anything
             }
@@ -191,11 +211,11 @@ auto Screen_SFML::render(std::size_t num_threads, Camera &camera,
             pixel_buffer_indexs[thread_id].first + (num_pixels_done * 4);
 
         pixel_buffer[current_pixel_start_index] =
-            255 * static_cast<std::uint8_t>(pixel_colour[3]);
+            static_cast<std::uint8_t>(255.0 * pixel_colour[3]);
         pixel_buffer[current_pixel_start_index + 1] =
-            255 * static_cast<std::uint8_t>(pixel_colour[4]);
+            static_cast<std::uint8_t>(255.0 * pixel_colour[4]);
         pixel_buffer[current_pixel_start_index + 2] =
-            255 * static_cast<std::uint8_t>(pixel_colour[5]);
+            static_cast<std::uint8_t>(255.0 * pixel_colour[5]);
         pixel_buffer[current_pixel_start_index + 3] = 255;
 
         num_pixels_done++;

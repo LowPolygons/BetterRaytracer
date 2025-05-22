@@ -28,17 +28,13 @@ auto Colours::ColourData::combine_colour_as_average(BasicColour new_colour)
     -> void {
   previous_colours.push_back(new_colour);
 
-  if (num_colours_accumulated == 0) {
-    total_colour = new_colour;
-  } else {
-    total_colour[3] += total_colour[0] * (new_colour[3] * new_colour[6]);
-    total_colour[4] += total_colour[1] * (new_colour[4] * new_colour[6]);
-    total_colour[5] += total_colour[2] * (new_colour[5] * new_colour[6]);
+  total_colour[3] += total_colour[0] * (new_colour[3] * new_colour[6]);
+  total_colour[4] += total_colour[1] * (new_colour[4] * new_colour[6]);
+  total_colour[5] += total_colour[2] * (new_colour[5] * new_colour[6]);
 
-    total_colour[0] *= new_colour[0];
-    total_colour[1] *= new_colour[1];
-    total_colour[2] *= new_colour[2];
-  }
+  total_colour[0] *= new_colour[0];
+  total_colour[1] *= new_colour[1];
+  total_colour[2] *= new_colour[2];
 
   num_colours_accumulated++;
 }

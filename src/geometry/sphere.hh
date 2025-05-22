@@ -9,7 +9,7 @@
 using Colours::BasicColour;
 using Vectors::Vec;
 
-class Sphere : public Shape {
+class Sphere {
 public:
   Sphere(Vec<3, double> ctr, //
          double rds,         //
@@ -20,8 +20,7 @@ public:
     colour_properties = clr;
   };
 
-  auto check_intersection(Line<3, double> ray) const
-      -> IntersectionReturnData override;
+  auto check_intersection(Line<3, double> ray) const -> IntersectionReturnData;
 
 private:
   Vec<3, double> centre;

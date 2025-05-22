@@ -60,6 +60,17 @@ auto constexpr magnitude(const Vec<Vs, V> &vec) -> V {
           )); //
 }
 
+template <std::size_t Vs, typename V> //
+auto constexpr magnitude_squared(const Vec<Vs, V> &vec) -> V {
+  return std::transform_reduce(     //
+      vec.begin(), vec.end(), V{0}, //
+      std::plus<V>{},               //
+      [&](auto coef) {              //
+        return coef * coef;
+      } //
+  ); //
+}
+
 // Method for getting the scalar distance between two vectors
 template <std::size_t Vs, typename V1, typename V2>
 auto constexpr scalar_distance(Vec<Vs, V1> &vec1, Vec<Vs, V2> &vec2)

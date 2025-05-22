@@ -13,7 +13,9 @@ using Vectors::Vec;
 using Vectors::operator-;
 using Vectors::operator+;
 
-auto Camera::get_pinhole_pos() -> Vec<3, double> { return pinhole_pos; }
+auto Camera::get_pinhole_pos() -> Vec<3, double> { 
+  return pinhole_pos; 
+}
 
 auto Camera::get_pixel(std::size_t width, std::size_t height)
     -> std::optional<Vec<3, double>> {
@@ -21,6 +23,7 @@ auto Camera::get_pixel(std::size_t width, std::size_t height)
     if (0 <= width and width < pixel_directions[height].size()) {
       return pixel_directions[height][width];
     }
+
   }
   return std::nullopt;
 };

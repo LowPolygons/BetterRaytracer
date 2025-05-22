@@ -21,7 +21,7 @@ auto Sphere::check_intersection(Line<3, double> ray) const
       Vectors::point_to_line_distance(ray_normalised, centre);
   auto dist_mag = Vectors::magnitude(lambda_dist_pair.second);
 
-  if (dist_mag <= radius) {
+  if (dist_mag <= radius and lambda_dist_pair.first >= 0) {
     // Using pythagoras, you can now get the point of intersection
     // Only possible if using a normalised direction vector
 
@@ -40,6 +40,7 @@ auto Sphere::check_intersection(Line<3, double> ray) const
     return_containter.point_of_intersection = p_of_i;
     return_containter.colour = colour_properties;
     return_containter.normal = normal_at_poi;
+    return_containter.lambda = lambda_dist_pair.first - lambda_offset;
 
     return return_containter;
   }

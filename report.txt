@@ -1,0 +1,2448 @@
+--------------------------------------------------------------------------------
+Profile data file 'callgrind.out.29771' (creator: callgrind-3.22.0)
+--------------------------------------------------------------------------------
+I1 cache: 
+D1 cache: 
+LL cache: 
+Timerange: Basic block 0 - 5239160135
+Trigger: Program termination
+Profiled target:  ./build/src/raytracer (PID 29771, part 1)
+Events recorded:  Ir
+Events shown:     Ir
+Event sort order: Ir
+Thresholds:       99
+Include dirs:     
+User annotated:   
+Auto-annotation:  on
+
+--------------------------------------------------------------------------------
+Ir                      
+--------------------------------------------------------------------------------
+47,796,341,599 (100.0%)  PROGRAM TOTALS
+
+--------------------------------------------------------------------------------
+Ir                       file:function
+--------------------------------------------------------------------------------
+15,776,188,794 (33.01%)  /usr/include/c++/13/bits/random.tcc:std::mersenne_twister_engine<unsigned long, 32ul, 624ul, 397ul, 31ul, 2567483615ul, 11ul, 4294967295ul, 7ul, 2636928640ul, 15ul, 4022730752ul, 18ul, 1812433253ul>::_M_gen_rand() [/home/trimmer/SOLID-Tracer/build/src/raytracer]
+13,508,809,164 (28.26%)  /usr/include/c++/13/bits/random.tcc:RayLogic::calculate_new_ray_direction(std::pair<std::array<double, 3ul>, std::array<double, 3ul> > const&, std::array<double, 3ul> const&, std::array<double, 3ul> const&, std::array<float, 8ul> const&)
+ 2,016,000,000 ( 4.22%)  /usr/include/c++/13/numeric:Triangle::check_intersection(std::pair<std::array<double, 3ul>, std::array<double, 3ul> >) const
+ 1,961,640,972 ( 4.10%)  build/../src/geometry/triangle.cc:Triangle::check_intersection(std::pair<std::array<double, 3ul>, std::array<double, 3ul> >) const [/home/trimmer/SOLID-Tracer/build/src/raytracer]
+ 1,897,399,645 ( 3.97%)  build/../src/window/multi_threaded/screen.cc:Window::Screen_SFML::render(unsigned long, Camera&, unsigned long, unsigned long)::{lambda(unsigned long)#1}::operator()(unsigned long) const [clone .isra.0] [/home/trimmer/SOLID-Tracer/build/src/raytracer]
+ 1,691,916,028 ( 3.54%)  /usr/include/c++/13/bits/random.h:RayLogic::calculate_new_ray_direction(std::pair<std::array<double, 3ul>, std::array<double, 3ul> > const&, std::array<double, 3ul> const&, std::array<double, 3ul> const&, std::array<float, 8ul> const&)
+ 1,116,000,000 ( 2.33%)  /usr/include/c++/13/bits/stl_construct.h:SceneObjects::get_triangles()
+   598,200,112 ( 1.25%)  ./malloc/./malloc/malloc.c:_int_free [/usr/lib/x86_64-linux-gnu/libc.so.6]
+   574,073,790 ( 1.20%)  ???:stbi_zlib_compress [/usr/lib/x86_64-linux-gnu/libstb.so.0.0]
+   531,035,869 ( 1.11%)  ./malloc/./malloc/malloc.c:malloc [/usr/lib/x86_64-linux-gnu/libc.so.6]
+   512,338,040 ( 1.07%)  build/../src/vectors/vector_methods.hh:Triangle::check_intersection(std::pair<std::array<double, 3ul>, std::array<double, 3ul> >) const
+   466,832,495 ( 0.98%)  build/../src/vectors/vector_methods.hh:RayLogic::calculate_new_ray_direction(std::pair<std::array<double, 3ul>, std::array<double, 3ul> > const&, std::array<double, 3ul> const&, std::array<double, 3ul> const&, std::array<float, 8ul> const&)
+   385,054,903 ( 0.81%)  ./malloc/./malloc/malloc.c:_int_malloc [/usr/lib/x86_64-linux-gnu/libc.so.6]
+   361,215,248 ( 0.76%)  /usr/include/c++/13/bits/stl_pair.h:Window::Screen_SFML::render(unsigned long, Camera&, unsigned long, unsigned long)::{lambda(unsigned long)#1}::operator()(unsigned long) const [clone .isra.0]
+   360,000,000 ( 0.75%)  /usr/include/c++/13/bits/stl_function.h:Triangle::check_intersection(std::pair<std::array<double, 3ul>, std::array<double, 3ul> >) const
+   360,000,000 ( 0.75%)  build/../src/vectors/vector_advanced.hh:Triangle::check_intersection(std::pair<std::array<double, 3ul>, std::array<double, 3ul> >) const
+   319,812,467 ( 0.67%)  ./math/../sysdeps/ieee754/dbl-64/s_sin.c:__sincos_fma
+   309,685,410 ( 0.65%)  ./malloc/./malloc/malloc.c:free [/usr/lib/x86_64-linux-gnu/libc.so.6]
+   304,922,073 ( 0.64%)  ???:0x0000000000038240 [/usr/lib/x86_64-linux-gnu/libstb.so.0.0]
+   225,465,617 ( 0.47%)  build/../src/geometry/sphere.cc:Sphere::check_intersection(std::pair<std::array<double, 3ul>, std::array<double, 3ul> >) const [/home/trimmer/SOLID-Tracer/build/src/raytracer]
+   217,625,066 ( 0.46%)  ./math/../sysdeps/ieee754/dbl-64/s_sincos.c:__sincos_fma [/usr/lib/x86_64-linux-gnu/libm.so.6]
+   186,643,956 ( 0.39%)  ./math/../sysdeps/ieee754/dbl-64/e_asin.c:__ieee754_acos_fma [/usr/lib/x86_64-linux-gnu/libm.so.6]
+   185,154,996 ( 0.39%)  build/../src/raylogic/raylogic.cc:RayLogic::calculate_new_ray_direction(std::pair<std::array<double, 3ul>, std::array<double, 3ul> > const&, std::array<double, 3ul> const&, std::array<double, 3ul> const&, std::array<float, 8ul> const&) [/home/trimmer/SOLID-Tracer/build/src/raytracer]
+   180,169,493 ( 0.38%)  ???:stbi_write_png_to_mem [/usr/lib/x86_64-linux-gnu/libstb.so.0.0]
+   180,000,000 ( 0.38%)  /usr/include/c++/13/bits/stl_algo.h:Triangle::check_intersection(std::pair<std::array<double, 3ul>, std::array<double, 3ul> >) const
+   176,097,088 ( 0.37%)  ???:operator new(unsigned long) [/usr/lib/x86_64-linux-gnu/libstdc++.so.6.0.33]
+   147,731,251 ( 0.31%)  ./malloc/./malloc/malloc.c:_int_free_merge_chunk [/usr/lib/x86_64-linux-gnu/libc.so.6]
+   145,854,830 ( 0.31%)  /usr/include/c++/13/bits/stl_function.h:RayLogic::calculate_new_ray_direction(std::pair<std::array<double, 3ul>, std::array<double, 3ul> > const&, std::array<double, 3ul> const&, std::array<double, 3ul> const&, std::array<float, 8ul> const&)
+   132,595,300 ( 0.28%)  ???:std::random_device::_M_init(std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> > const&) [/usr/lib/x86_64-linux-gnu/libstdc++.so.6.0.33]
+   129,731,026 ( 0.27%)  build/../src/vectors/vector_methods.hh:Sphere::check_intersection(std::pair<std::array<double, 3ul>, std::array<double, 3ul> >) const
+   126,938,939 ( 0.27%)  ./string/../sysdeps/x86_64/multiarch/memmove-vec-unaligned-erms.S:__memcpy_avx_unaligned_erms [/usr/lib/x86_64-linux-gnu/libc.so.6]
+   126,000,000 ( 0.26%)  build/../src/vectors/vector_advanced.hh:Sphere::check_intersection(std::pair<std::array<double, 3ul>, std::array<double, 3ul> >) const
+   121,193,266 ( 0.25%)  ./malloc/./malloc/arena.c:free
+   117,000,000 ( 0.24%)  build/../src/colour/colour.cc:Colours::ColourData::combine_colour_as_average(std::array<float, 8ul>) [/home/trimmer/SOLID-Tracer/build/src/raytracer]
+   114,032,438 ( 0.24%)  ???:std::random_device::_M_getval() [/usr/lib/x86_64-linux-gnu/libstdc++.so.6.0.33]
+   108,728,146 ( 0.23%)  /usr/include/c++/13/numeric:RayLogic::calculate_new_ray_direction(std::pair<std::array<double, 3ul>, std::array<double, 3ul> > const&, std::array<double, 3ul> const&, std::array<double, 3ul> const&, std::array<float, 8ul> const&)
+   108,277,677 ( 0.23%)  ./malloc/./malloc/malloc.c:_int_free_maybe_consolidate [/usr/lib/x86_64-linux-gnu/libc.so.6]
+    97,722,012 ( 0.20%)  /usr/include/c++/13/bits/stl_function.h:Sphere::check_intersection(std::pair<std::array<double, 3ul>, std::array<double, 3ul> >) const
+    84,000,000 ( 0.18%)  /usr/include/c++/13/bits/stl_uninitialized.h:SceneObjects::get_spheres()
+    74,011,007 ( 0.15%)  /usr/include/c++/13/bits/stl_vector.h:Window::Screen_SFML::render(unsigned long, Camera&, unsigned long, unsigned long)::{lambda(unsigned long)#1}::operator()(unsigned long) const [clone .isra.0]
+    72,000,000 ( 0.15%)  /usr/include/c++/13/array:Triangle::check_intersection(std::pair<std::array<double, 3ul>, std::array<double, 3ul> >) const
+    72,000,000 ( 0.15%)  /usr/include/c++/13/bits/std_abs.h:Triangle::check_intersection(std::pair<std::array<double, 3ul>, std::array<double, 3ul> >) const
+    72,000,000 ( 0.15%)  /usr/include/c++/13/bits/stl_pair.h:Sphere::check_intersection(std::pair<std::array<double, 3ul>, std::array<double, 3ul> >) const
+    58,341,932 ( 0.12%)  ./math/../sysdeps/x86/fpu/fenv_private.h:__sincos_fma
+    52,000,000 ( 0.11%)  /usr/include/c++/13/bits/stl_vector.h:Colours::ColourData::combine_colour_as_average(std::array<float, 8ul>)
+    45,000,090 ( 0.09%)  ./malloc/./malloc/arena.c:_int_free_maybe_consolidate
+    40,169,020 ( 0.08%)  build/../src/vectors/vector_overloads.hh:Triangle::check_intersection(std::pair<std::array<double, 3ul>, std::array<double, 3ul> >) const
+    39,157,022 ( 0.08%)  build/../src/vectors/vector_overloads.hh:Sphere::check_intersection(std::pair<std::array<double, 3ul>, std::array<double, 3ul> >) const
+    37,634,461 ( 0.08%)  ./string/../sysdeps/x86_64/multiarch/memset-vec-unaligned-erms.S:__memset_avx2_unaligned_erms [/usr/lib/x86_64-linux-gnu/libc.so.6]
+    36,574,004 ( 0.08%)  /usr/include/c++/13/numeric:Sphere::check_intersection(std::pair<std::array<double, 3ul>, std::array<double, 3ul> >) const
+    36,298,162 ( 0.08%)  /usr/include/c++/13/bits/stl_algo.h:RayLogic::calculate_new_ray_direction(std::pair<std::array<double, 3ul>, std::array<double, 3ul> > const&, std::array<double, 3ul> const&, std::array<double, 3ul> const&, std::array<float, 8ul> const&)
+    36,000,000 ( 0.08%)  /usr/include/c++/13/bits/stl_vector.h:SceneObjects::get_spheres()
+    36,000,000 ( 0.08%)  /usr/include/c++/13/bits/stl_vector.h:SceneObjects::get_triangles()
+    35,943,813 ( 0.08%)  ./elf/./elf/dl-lookup.c:do_lookup_x [/usr/lib/x86_64-linux-gnu/ld-linux-x86-64.so.2]
+    33,135,620 ( 0.07%)  ./malloc/./malloc/arena.c:malloc
+    33,000,000 ( 0.07%)  build/../src/window/scene_objects/scene_objects.cc:SceneObjects::get_spheres() [/home/trimmer/SOLID-Tracer/build/src/raytracer]
+    33,000,000 ( 0.07%)  build/../src/window/scene_objects/scene_objects.cc:SceneObjects::get_triangles() [/home/trimmer/SOLID-Tracer/build/src/raytracer]
+    29,676,808 ( 0.06%)  ???:0x000000000002eba0 [/usr/lib/x86_64-linux-gnu/libGLX_mesa.so.0.0.0]
+    29,012,000 ( 0.06%)  /usr/include/c++/13/bits/new_allocator.h:Window::Screen_SFML::render(unsigned long, Camera&, unsigned long, unsigned long)::{lambda(unsigned long)#1}::operator()(unsigned long) const [clone .isra.0]
+    28,000,000 ( 0.06%)  /usr/include/c++/13/bits/vector.tcc:Colours::ColourData::combine_colour_as_average(std::array<float, 8ul>)
+    26,000,000 ( 0.05%)  build/../src/colour/colour.cc:Colours::get_average_of_colours(std::vector<std::array<float, 8ul>, std::allocator<std::array<float, 8ul> > >) [/home/trimmer/SOLID-Tracer/build/src/raytracer]
+    24,000,000 ( 0.05%)  /usr/include/c++/13/bits/new_allocator.h:Colours::ColourData::combine_colour_as_average(std::array<float, 8ul>)
+    23,616,053 ( 0.05%)  build/../src/camera/camera.cc:Camera::populate_pixel_directions() [/home/trimmer/SOLID-Tracer/build/src/raytracer]
+    22,012,315 ( 0.05%)  ???:0x0000000004b5cc60 [???]
+    22,012,143 ( 0.05%)  ???:0x0000000004b5c210 [???]
+    22,012,124 ( 0.05%)  ???:operator delete(void*) [/usr/lib/x86_64-linux-gnu/libstdc++.so.6.0.33]
+    22,011,407 ( 0.05%)  ???:0x0000000004b5c430 [???]
+    22,011,396 ( 0.05%)  ???:operator delete(void*, unsigned long) [/usr/lib/x86_64-linux-gnu/libstdc++.so.6.0.33]
+    22,008,042 ( 0.05%)  ???:0x000000000010a5e0 [???]
+    22,008,040 ( 0.05%)  ???:0x000000000010a710 [???]
+    20,304,970 ( 0.04%)  ???:0x00000000000381c0 [/usr/lib/x86_64-linux-gnu/libstb.so.0.0]
+    19,435,010 ( 0.04%)  /usr/include/c++/13/bits/stl_algo.h:Sphere::check_intersection(std::pair<std::array<double, 3ul>, std::array<double, 3ul> >) const
+    18,563,342 ( 0.04%)  /usr/include/c++/13/bits/basic_string.h:RayLogic::calculate_new_ray_direction(std::pair<std::array<double, 3ul>, std::array<double, 3ul> > const&, std::array<double, 3ul> const&, std::array<double, 3ul> const&, std::array<float, 8ul> const&)
+    18,563,342 ( 0.04%)  /usr/include/c++/13/bits/stl_pair.h:RayLogic::calculate_new_ray_direction(std::pair<std::array<double, 3ul>, std::array<double, 3ul> > const&, std::array<double, 3ul> const&, std::array<double, 3ul> const&, std::array<float, 8ul> const&)
+    18,000,000 ( 0.04%)  /usr/include/c++/13/bits/new_allocator.h:SceneObjects::get_triangles()
+    17,729,928 ( 0.04%)  ./libio/./libio/getc.c:getc [/usr/lib/x86_64-linux-gnu/libc.so.6]
+    15,911,436 ( 0.03%)  ./math/./math/w_acos_compat.c:acos [/usr/lib/x86_64-linux-gnu/libm.so.6]
+    15,911,436 ( 0.03%)  build/../src/vectors/vector_advanced.hh:RayLogic::calculate_new_ray_direction(std::pair<std::array<double, 3ul>, std::array<double, 3ul> > const&, std::array<double, 3ul> const&, std::array<double, 3ul> const&, std::array<float, 8ul> const&)
+    15,911,436 ( 0.03%)  build/../src/vectors/vector_overloads.hh:RayLogic::calculate_new_ray_direction(std::pair<std::array<double, 3ul>, std::array<double, 3ul> > const&, std::array<double, 3ul> const&, std::array<double, 3ul> const&, std::array<float, 8ul> const&)
+    15,000,000 ( 0.03%)  /usr/include/c++/13/bits/new_allocator.h:SceneObjects::get_spheres()
+    15,000,000 ( 0.03%)  /usr/include/c++/13/bits/stl_uninitialized.h:SceneObjects::get_triangles()
+    15,000,000 ( 0.03%)  build/../src/vectors/vector_methods.hh:Window::Screen_SFML::render(unsigned long, Camera&, unsigned long, unsigned long)::{lambda(unsigned long)#1}::operator()(unsigned long) const [clone .isra.0]
+
+--------------------------------------------------------------------------------
+-- Auto-annotated source: build/../src/geometry/sphere.cc
+--------------------------------------------------------------------------------
+Ir                   
+
+-- line 4 ----------------------------------------
+          .           #include "vectors/vector_methods.hh"
+          .           #include "vectors/vector_overloads.hh"
+          .           
+          .           using Vectors::operator+;
+          .           using Vectors::operator-;
+          .           using Vectors::Vec;
+          .           
+          .           auto Sphere::check_intersection(Line<3, double> ray) const
+ 42,000,000 ( 0.09%)      -> IntersectionReturnData {
+          .             // Check the shortest distance between the line and a point
+          .             // Clone then normalise the ray direction vector
+          .             auto ray_normalised = ray;
+108,000,000 ( 0.23%)    auto return_containter = IntersectionReturnData();
+          .           
+          .             Vectors::normalise(ray_normalised.second);
+          .           
+          .             auto lambda_dist_pair =
+          .                 Vectors::point_to_line_distance(ray_normalised, centre);
+          .             auto dist_mag = Vectors::magnitude_squared(lambda_dist_pair.second);
+          .           
+ 24,861,866 ( 0.05%)    if (dist_mag <= radius * radius and lambda_dist_pair.first >= 0) {
+          .               // Using pythagoras, you can now get the point of intersection
+          .               // Only possible if using a normalised direction vector
+          .           
+          .               // Hypotenuse = radius, Side B = lambda_dist_pair.second, Solve for A
+  3,153,517 ( 0.01%)      auto lambda_offset = std::sqrt(radius * radius - dist_mag * dist_mag);
+ 14,601,351 ( 0.03%)  => ???:0x000000000010a450 (286,301x)
+          .           
+          .               auto p_of_i =
+    287,002 ( 0.00%)          ray.first + Vectors::scale(ray_normalised.second,
+          .                                              lambda_dist_pair.first - lambda_offset);
+          .           
+          .               // Normal at the point of intersection
+          .               auto normal_at_poi = p_of_i - centre;
+          .               Vectors::normalise(normal_at_poi);
+          .           
+    287,002 ( 0.00%)      return_containter.intersects = true;
+  1,148,008 ( 0.00%)      return_containter.point_of_intersection = p_of_i;
+  1,148,008 ( 0.00%)      return_containter.colour = colour_properties;
+  1,148,008 ( 0.00%)      return_containter.normal = normal_at_poi;
+    287,002 ( 0.00%)      return_containter.lambda = lambda_dist_pair.first - lambda_offset;
+          .           
+          .               return return_containter;
+          .             }
+          .             return return_containter;
+ 43,145,204 ( 0.09%)  }
+
+--------------------------------------------------------------------------------
+-- Auto-annotated source: /usr/include/c++/13/bits/stl_algo.h
+--------------------------------------------------------------------------------
+Ir                   
+
+-- line 4300 ----------------------------------------
+          .               {
+          .                 // concept requirements
+          .                 __glibcxx_function_requires(_InputIteratorConcept<_InputIterator>)
+          .                 __glibcxx_function_requires(_OutputIteratorConcept<_OutputIterator,
+          .           	    // "the type returned by a _UnaryOperation"
+          .           	    __typeof__(__unary_op(*__first))>)
+          .                 __glibcxx_requires_valid_range(__first, __last);
+          .           
+  8,258,726 ( 0.02%)        for (; __first != __last; ++__first, (void)++__result)
+     21,000 ( 0.00%)  => ???:0x000000000010a4f0 (1,000x)
+169,820,824 ( 0.36%)  	*__result = __unary_op(*__first);
+          .                 return __result;
+          .               }
+          .           
+          .             /**
+          .              *  @brief Perform an operation on corresponding elements of two sequences.
+          .              *  @ingroup mutating_algorithms
+          .              *  @param  __first1     An input iterator.
+          .              *  @param  __last1      An input iterator.
+-- line 4317 ----------------------------------------
+-- line 4341 ----------------------------------------
+          .                 __glibcxx_function_requires(_InputIteratorConcept<_InputIterator1>)
+          .                 __glibcxx_function_requires(_InputIteratorConcept<_InputIterator2>)
+          .                 __glibcxx_function_requires(_OutputIteratorConcept<_OutputIterator,
+          .           	    // "the type returned by a _BinaryOperation"
+          .           	    __typeof__(__binary_op(*__first1,*__first2))>)
+          .                 __glibcxx_requires_valid_range(__first1, __last1);
+          .           
+          .                 for (; __first1 != __last1; ++__first1, (void)++__first2, ++__result)
+ 65,181,863 ( 0.14%)  	*__result = __binary_op(*__first1, *__first2);
+          .                 return __result;
+          .               }
+          .           
+          .             /**
+          .              *  @brief Replace each occurrence of one value in a sequence with another
+          .              *         value.
+          .              *  @ingroup mutating_algorithms
+          .              *  @param  __first      A forward iterator.
+-- line 4357 ----------------------------------------
+
+--------------------------------------------------------------------------------
+-- Auto-annotated source: build/../src/vectors/vector_overloads.hh
+--------------------------------------------------------------------------------
+Ir                  
+
+-- line 22 ----------------------------------------
+         .                     typename V1,     //
+         .                     typename V2>     //
+         .           using OverloadReturnType =
+         .               Vec<(v1s >= v2s ? v1s : v2s),
+         .                   decltype(std::declval<V1>() + std::declval<V2>())>;
+         .           
+         .           // The + Overloaded Operator
+         .           template <std::size_t v1s, std::size_t v2s, typename V1, typename V2>
+         1 ( 0.00%)  auto operator+(const Vec<v1s, V1> &a, const Vec<v2s, V2> &b)
+         .               -> OverloadReturnType<v1s, v2s, V1, V2> {
+         .           
+70,376,474 ( 0.15%)    auto sum = [&](auto v1, auto v2) { return v1 + v2; };
+         .           
+         .             auto _ret = OverloadReturnType<v1s, v2s, V1, V2>();
+         .           
+         .             if (v1s > v2s) {
+         .               perform_overloaded_op(a, b, _ret, sum);
+         .             } else {
+         .               perform_overloaded_op(b, a, _ret, sum);
+         .             }
+         .             return _ret;
+         .           }
+         .           
+         .           // The - Overloaded Operator
+         .           template <std::size_t v1s, std::size_t v2s, typename V1, typename V2>
+        36 ( 0.00%)  auto operator-(const Vec<v1s, V1> &a, const Vec<v2s, V2> &b)
+         .               -> OverloadReturnType<v1s, v2s, V1, V2> {
+         .           
+         .             auto _ret = OverloadReturnType<v1s, v2s, V1, V2>();
+         .           
+         .             if (v1s > v2s) {
+         .               perform_overloaded_op(a, b, _ret,
+         .                                     [&](auto v2, auto v1) { return v1 - v2; });
+         .             } else {
+         .               perform_overloaded_op(b, a, _ret,
+30,861,066 ( 0.06%)                            [&](auto v1, auto v2) { return v1 - v2; });
+         .             }
+         .             return _ret;
+         .           }
+         .           
+         .           // The * Overloaded Operator
+         .           template <std::size_t v1s, std::size_t v2s, typename V1, typename V2>
+         .           auto operator*(const Vec<v1s, V1> &a, const Vec<v2s, V2> &b)
+         .               -> OverloadReturnType<v1s, v2s, V1, V2> {
+-- line 65 ----------------------------------------
+
+--------------------------------------------------------------------------------
+-- Auto-annotated source: /usr/include/c++/13/array
+--------------------------------------------------------------------------------
+Ir                  
+
+-- line 134 ----------------------------------------
+         .                 [[__gnu__::__const__, __nodiscard__]]
+         .                 _GLIBCXX17_CONSTEXPR iterator
+         .                 end() noexcept
+         .                 { return iterator(data() + _Nm); }
+         .           
+         .                 [[__nodiscard__]]
+         .                 _GLIBCXX17_CONSTEXPR const_iterator
+         .                 end() const noexcept
+38,651,906 ( 0.08%)        { return const_iterator(data() + _Nm); }
+         .           
+         .                 [[__gnu__::__const__, __nodiscard__]]
+         .                 _GLIBCXX17_CONSTEXPR reverse_iterator
+         .                 rbegin() noexcept
+         .                 { return reverse_iterator(end()); }
+         .           
+         .                 [[__nodiscard__]]
+         .                 _GLIBCXX17_CONSTEXPR const_reverse_iterator
+-- line 150 ----------------------------------------
+-- line 274 ----------------------------------------
+         .                 [[__nodiscard__, __gnu__::__const__, __gnu__::__always_inline__]]
+         .                 _GLIBCXX17_CONSTEXPR pointer
+         .                 data() noexcept
+         .                 { return static_cast<pointer>(_M_elems); }
+         .           
+         .                 [[__nodiscard__]]
+         .                 _GLIBCXX17_CONSTEXPR const_pointer
+         .                 data() const noexcept
+38,651,906 ( 0.08%)        { return static_cast<const_pointer>(_M_elems); }
+         .               };
+         .           
+         .           #if __cpp_deduction_guides >= 201606
+         .             template<typename _Tp, typename... _Up>
+         .               array(_Tp, _Up...)
+         .                 -> array<enable_if_t<(is_same_v<_Tp, _Up> && ...), _Tp>,
+         .           	       1 + sizeof...(_Up)>;
+         .           #endif
+-- line 290 ----------------------------------------
+
+--------------------------------------------------------------------------------
+-- Auto-annotated source: /usr/include/c++/13/bits/stl_construct.h
+--------------------------------------------------------------------------------
+Ir                     
+
+-- line 89 ----------------------------------------
+            .               }
+            .           
+            .           #if __cplusplus >= 202002L
+            .             template<typename _Tp, typename... _Args>
+            .               constexpr auto
+            .               construct_at(_Tp* __location, _Args&&... __args)
+            .               noexcept(noexcept(::new((void*)0) _Tp(std::declval<_Args>()...)))
+            .               -> decltype(::new((void*)0) _Tp(std::declval<_Args>()...))
+   16,000,635 ( 0.03%)      { return ::new((void*)__location) _Tp(std::forward<_Args>(__args)...); }
+            .           #endif // C++20
+            .           #endif// C++17
+            .           
+            .             /**
+            .              * Constructs an object in existing memory by invoking an allocated
+            .              * object's constructor with an initializer.
+            .              */
+            .           #if __cplusplus >= 201103L
+-- line 105 ----------------------------------------
+-- line 111 ----------------------------------------
+            .           #if __cplusplus >= 202002L
+            .                 if (std::__is_constant_evaluated())
+            .           	{
+            .           	  // Allow std::_Construct to be used in constant expressions.
+            .           	  std::construct_at(__p, std::forward<_Args>(__args)...);
+            .           	  return;
+            .           	}
+            .           #endif
+1,116,000,376 ( 2.33%)        ::new((void*)__p) _Tp(std::forward<_Args>(__args)...);
+            .               }
+            .           #else
+            .             template<typename _T1, typename _T2>
+            .               inline void
+            .               _Construct(_T1* __p, const _T2& __value)
+            .               {
+            .                 // _GLIBCXX_RESOLVE_LIB_DEFECTS
+            .                 // 402. wrong new expression in [some_]allocator::construct
+-- line 127 ----------------------------------------
+-- line 154 ----------------------------------------
+            .           
+            .             template<bool>
+            .               struct _Destroy_aux
+            .               {
+            .                 template<typename _ForwardIterator>
+            .           	static _GLIBCXX20_CONSTEXPR void
+            .           	__destroy(_ForwardIterator __first, _ForwardIterator __last)
+            .           	{
+        3,013 ( 0.00%)  	  for (; __first != __last; ++__first)
+            .           	    std::_Destroy(std::__addressof(*__first));
+            .           	}
+            .               };
+            .           
+            .             template<>
+            .               struct _Destroy_aux<true>
+            .               {
+            .                 template<typename _ForwardIterator>
+-- line 170 ----------------------------------------
+
+--------------------------------------------------------------------------------
+-- Auto-annotated source: build/../src/raylogic/raylogic.cc
+--------------------------------------------------------------------------------
+Ir                  
+
+-- line 12 ----------------------------------------
+         .           using Vectors::operator+;
+         .           using Vectors::PI;
+         .           
+         .           // TODO: generate a program wide rand gen and device and pass it by ref
+         .           auto RayLogic::calculate_new_ray_direction(const Line<3, double> &ray,
+         .                                                      const Vec<3, double> &p_of_i,
+         .                                                      const Vec<3, double> &normal,
+         .                                                      const BasicColour &object_colour)
+50,386,214 ( 0.11%)      -> Line<3, double> {
+         .             // To get the perfectly specular bounce direction, cross the ray direction
+         .             // with the normal, and then cross the ray direction with that result.
+         .             // Lastly, dot it with the normal and if the result is negative then invert
+         .             // each axis
+         .             //
+         .             // First confirm that the normal is the correct direction
+13,259,530 ( 0.03%)    auto normal_clone = normal;
+         .             Vectors::normalise(normal_clone);
+         .           
+         .             auto ray_normal_dot = Vectors::dot(ray.second, normal_clone);
+         .           
+10,607,624 ( 0.02%)    if (ray_normal_dot >= 0) {
+ 3,577,467 ( 0.01%)      normal_clone = Vectors::scale(normal_clone, -1.0);
+         .             }
+         .           
+         .             // Perp to the incoming ray and the normal
+         .             auto ray_normal_cross = Vectors::cross(ray.second, normal_clone);
+         .           
+         .             // Perp to the normal and the previous result - this will lie in the same 2d
+         .             // place as the incoming ray and the normal
+         .             auto horizontal = Vectors::cross(normal_clone, ray_normal_cross);
+         .             // The perfect specular ray
+         .             auto specular_bounce_dir = Vectors::cross(ray.second, ray_normal_cross);
+         .           
+         .             // Confirm the ray is actually bouncing away from the object
+10,046,030 ( 0.02%)    if (Vectors::dot(specular_bounce_dir, normal_clone) < 0) {
+ 7,113,327 ( 0.01%)      specular_bounce_dir = Vectors::scale(specular_bounce_dir, -1);
+         .             }
+         .           
+         .             // The angle between the perfect bounce and the horizontal
+         .             auto acute_spec_horiz =
+         .                 Vectors::angle_between_lines<true>(specular_bounce_dir, horizontal);
+         .           
+         .             // Offset is necessary because it it the angle range centered around the
+         .             // specular, not the normal
+ 7,955,718 ( 0.02%)    auto angle_offset = PI / 2 - acute_spec_horiz;
+         .           
+         .             // RNG things
+ 5,303,812 ( 0.01%)    auto obj_col_specularity = object_colour[7];
+         .             std::random_device randomised_seed;
+ 2,651,906 ( 0.01%)    auto rand_gen = std::mt19937(randomised_seed());
+13,259,530 ( 0.03%)    auto bounce_rand_range = PI * (1 - obj_col_specularity);
+         .             // TODO: look for a cosine weighted distribution
+         .           
+         .             auto spec_distribution = std::uniform_real_distribution<double>(
+ 5,303,812 ( 0.01%)        -bounce_rand_range / 2, bounce_rand_range / 2);
+         .             auto test_distribution = std::uniform_real_distribution<double>(-1.0, 1.0);
+         .           
+         .             // This is the angle which a vector should be formed from which lies in the
+         .             // same plane as the normal clone, incoming bounce and outgoing bounce
+ 5,303,812 ( 0.01%)    auto spec_norm_angle = spec_distribution(rand_gen) - angle_offset;
+         .             auto perpendicular_angle = spec_distribution(rand_gen);
+         .           
+         .             // Normalised versions of the 3 local axis for Spherical coordinates
+         .             Vectors::normalise(horizontal);
+         .             Vectors::normalise(ray_normal_cross);
+         .             Vectors::normalise(specular_bounce_dir);
+         .           
+         .             auto actual_bounce_dir =                            //
+         .                 Vectors::scale(specular_bounce_dir,             //
+         .                                std::cos(perpendicular_angle)) + //
+ 7,955,718 ( 0.02%)        Vectors::scale(horizontal,                      //
+         .                                std::sin(perpendicular_angle) *  //
+         .                                    std::cos(spec_norm_angle)) + //
+10,607,624 ( 0.02%)        Vectors::scale(ray_normal_cross,                //
+         .                                std::sin(perpendicular_angle) *  //
+         .                                    std::sin(spec_norm_angle));  //
+         .           
+         .             Vectors::normalise(actual_bounce_dir);
+         .           
+         .             return Line<3, double>{
+         .                 std::make_pair(p_of_i + normal_clone, actual_bounce_dir)};
+31,822,872 ( 0.07%)  }
+
+--------------------------------------------------------------------------------
+-- Auto-annotated source: /usr/include/c++/13/bits/random.h
+--------------------------------------------------------------------------------
+Ir                     
+
+-- line 135 ----------------------------------------
+            .               template<typename _Tp, _Tp __m, _Tp __a, _Tp __c, bool __s>
+            .                 struct _Mod<_Tp, __m, __a, __c, true, __s>
+            .                 {
+            .           	static _Tp
+            .           	__calc(_Tp __x)
+            .           	{
+            .           	  _Tp __res = __a * __x + __c;
+            .           	  if (__m)
+1,652,137,438 ( 3.46%)  	    __res %= __m;
+            .           	  return __res;
+            .           	}
+            .                 };
+            .           
+            .               template<typename _Tp, _Tp __m, _Tp __a = 1, _Tp __c = 0>
+            .                 inline _Tp
+            .                 __mod(_Tp __x)
+            .                 {
+-- line 151 ----------------------------------------
+-- line 1650 ----------------------------------------
+            .             class random_device
+            .             {
+            .             public:
+            .               /** The type of the generated random value. */
+            .               typedef unsigned int result_type;
+            .           
+            .               // constructors, destructors and member functions
+            .           
+   10,607,624 ( 0.02%)      random_device() { _M_init("default"); }
+  137,899,112 ( 0.29%)  => ???:0x000000000010a680 (2,651,906x)
+            .           
+            .               explicit
+            .               random_device(const std::string& __token) { _M_init(__token); }
+            .           
+            .               ~random_device()
+    5,303,812 ( 0.01%)      { _M_fini(); }
+   15,911,436 ( 0.03%)  => ???:0x000000000010a720 (2,651,906x)
+            .           
+            .               static constexpr result_type
+            .               min()
+            .               { return std::numeric_limits<result_type>::min(); }
+            .           
+            .               static constexpr result_type
+            .               max()
+            .               { return std::numeric_limits<result_type>::max(); }
+            .           
+            .               double
+            .               entropy() const noexcept
+            .               { return this->_M_getentropy(); }
+            .           
+            .               result_type
+            .               operator()()
+    5,303,812 ( 0.01%)      { return this->_M_getval(); }
+  119,336,250 ( 0.25%)  => ???:0x000000000010a500 (2,651,906x)
+            .           
+            .               // No copy functions.
+            .               random_device(const random_device&) = delete;
+            .               void operator=(const random_device&) = delete;
+            .           
+            .             private:
+            .           
+            .               void _M_init(const std::string& __token);
+-- line 1688 ----------------------------------------
+-- line 1901 ----------------------------------------
+            .           
+            .                 template<typename _UniformRandomNumberGenerator>
+            .           	result_type
+            .           	operator()(_UniformRandomNumberGenerator& __urng,
+            .           		   const param_type& __p)
+            .           	{
+            .           	  __detail::_Adaptor<_UniformRandomNumberGenerator, result_type>
+            .           	    __aurng(__urng);
+   18,563,342 ( 0.04%)  	  return (__aurng() * (__p.b() - __p.a())) + __p.a();
+            .           	}
+            .           
+            .                 template<typename _ForwardIterator,
+            .           	       typename _UniformRandomNumberGenerator>
+            .           	void
+            .           	__generate(_ForwardIterator __f, _ForwardIterator __t,
+            .           		   _UniformRandomNumberGenerator& __urng)
+            .           	{ this->__generate(__f, __t, __urng, _M_param); }
+-- line 1917 ----------------------------------------
+
+--------------------------------------------------------------------------------
+-- Auto-annotated source: /usr/include/c++/13/bits/new_allocator.h
+--------------------------------------------------------------------------------
+Ir                  
+
+-- line 126 ----------------------------------------
+         .                 allocate(size_type __n, const void* = static_cast<const void*>(0))
+         .                 {
+         .           #if __cplusplus >= 201103L
+         .           	// _GLIBCXX_RESOLVE_LIB_DEFECTS
+         .           	// 3308. std::allocator<void>().allocate(n)
+         .           	static_assert(sizeof(_Tp) != 0, "cannot allocate incomplete types");
+         .           #endif
+         .           
+21,010,013 ( 0.04%)  	if (__builtin_expect(__n > this->_M_max_size(), false))
+         .           	  {
+         .           	    // _GLIBCXX_RESOLVE_LIB_DEFECTS
+         .           	    // 3190. allocator::allocate sometimes returns too little storage
+         .           	    if (__n > (std::size_t(-1) / sizeof(_Tp)))
+         .           	      std::__throw_bad_array_new_length();
+         .           	    std::__throw_bad_alloc();
+         .           	  }
+         .           
+-- line 142 ----------------------------------------
+-- line 143 ----------------------------------------
+         .           #if __cpp_aligned_new
+         .           	if (alignof(_Tp) > __STDCPP_DEFAULT_NEW_ALIGNMENT__)
+         .           	  {
+         .           	    std::align_val_t __al = std::align_val_t(alignof(_Tp));
+         .           	    return static_cast<_Tp*>(_GLIBCXX_OPERATOR_NEW(__n * sizeof(_Tp),
+         .           							   __al));
+         .           	  }
+         .           #endif
+39,012,087 ( 0.08%)  	return static_cast<_Tp*>(_GLIBCXX_OPERATOR_NEW(__n * sizeof(_Tp)));
+195,000,336 ( 0.41%)  => ???:0x000000000010a710 (3,000,000x)
+         .                 }
+         .           
+         .                 // __p is not permitted to be a null pointer.
+         .                 void
+         .                 deallocate(_Tp* __p, size_type __n __attribute__ ((__unused__)))
+         .                 {
+         .           #if __cpp_sized_deallocation
+         .           # define _GLIBCXX_SIZED_DEALLOC(p, n) (p), (n) * sizeof(_Tp)
+-- line 159 ----------------------------------------
+-- line 164 ----------------------------------------
+         .           #if __cpp_aligned_new
+         .           	if (alignof(_Tp) > __STDCPP_DEFAULT_NEW_ALIGNMENT__)
+         .           	  {
+         .           	    _GLIBCXX_OPERATOR_DELETE(_GLIBCXX_SIZED_DEALLOC(__p, __n),
+         .           				     std::align_val_t(alignof(_Tp)));
+         .           	    return;
+         .           	  }
+         .           #endif
+26,008,035 ( 0.05%)  	_GLIBCXX_OPERATOR_DELETE(_GLIBCXX_SIZED_DEALLOC(__p, __n));
+206,000,000 ( 0.43%)  => ???:0x000000000010a5e0 (2,000,000x)
+         .                 }
+         .           
+         .           #undef _GLIBCXX_SIZED_DEALLOC
+         .           #undef _GLIBCXX_OPERATOR_DELETE
+         .           #undef _GLIBCXX_OPERATOR_NEW
+         .           
+         .           #if __cplusplus <= 201703L
+         .                 __attribute__((__always_inline__))
+-- line 180 ----------------------------------------
+
+--------------------------------------------------------------------------------
+-- Auto-annotated source: /usr/include/c++/13/numeric
+--------------------------------------------------------------------------------
+Ir                     
+
+-- line 370 ----------------------------------------
+            .               transform_reduce(_InputIterator1 __first1, _InputIterator1 __last1,
+            .           		     _InputIterator2 __first2, _Tp __init,
+            .           		     _BinaryOperation1 __binary_op1,
+            .           		     _BinaryOperation2 __binary_op2)
+            .               {
+            .                 if constexpr (__and_v<__is_random_access_iter<_InputIterator1>,
+            .           			    __is_random_access_iter<_InputIterator2>>)
+            .           	{
+  447,911,436 ( 0.94%)  	  while ((__last1 - __first1) >= 4)
+            .           	    {
+            .           	      _Tp __v1 = __binary_op1(__binary_op2(__first1[0], __first2[0]),
+            .           				      __binary_op2(__first1[1], __first2[1]));
+            .           	      _Tp __v2 = __binary_op1(__binary_op2(__first1[2], __first2[2]),
+            .           				      __binary_op2(__first1[3], __first2[3]));
+            .           	      _Tp __v3 = __binary_op1(__v1, __v2);
+            .           	      __init = __binary_op1(__init, __v3);
+            .           	      __first1 += 4;
+            .           	      __first2 += 4;
+            .           	    }
+            .           	}
+1,639,690,026 ( 3.43%)        for (; __first1 != __last1; ++__first1, (void) ++__first2)
+   13,259,530 ( 0.03%)  	__init = __binary_op1(__init, __binary_op2(*__first1, *__first2));
+            .                 return __init;
+            .               }
+            .           
+            .             /**
+            .              *  @brief  Combine elements from two ranges and reduce
+            .              *
+            .              *  @param  __first1  Start of first range.
+            .              *  @param  __last1  End of first range.
+-- line 399 ----------------------------------------
+-- line 447 ----------------------------------------
+            .           				     __unary_op(__first[1]));
+            .           	      _Tp __v2 = __binary_op(__unary_op(__first[2]),
+            .           				     __unary_op(__first[3]));
+            .           	      _Tp __v3 = __binary_op(__v1, __v2);
+            .           	      __init = __binary_op(__init, __v3);
+            .           	      __first += 4;
+            .           	    }
+            .           	}
+   43,137,346 ( 0.09%)        for (; __first != __last; ++__first)
+   17,303,860 ( 0.04%)  	__init = __binary_op(__init, __unary_op(*__first));
+            .                 return __init;
+            .               }
+            .           
+            .             /** @brief Output the cumulative sum of one range to a second range
+            .              *
+            .              *  @param __first  Start of input range.
+            .              *  @param __last   End of input range.
+            .              *  @param __result Start of output range.
+-- line 464 ----------------------------------------
+
+--------------------------------------------------------------------------------
+-- Auto-annotated source: /usr/include/c++/13/bits/basic_string.h
+--------------------------------------------------------------------------------
+Ir                 
+
+-- line 181 ----------------------------------------
+        .                 struct _Alloc_hider : allocator_type // TODO check __is_final
+        .                 {
+        .           #if __cplusplus < 201103L
+        .           	_Alloc_hider(pointer __dat, const _Alloc& __a = _Alloc())
+        .           	: allocator_type(__a), _M_p(__dat) { }
+        .           #else
+        .           	_GLIBCXX20_CONSTEXPR
+        .           	_Alloc_hider(pointer __dat, const _Alloc& __a)
+7,955,724 ( 0.02%)  	: allocator_type(__a), _M_p(__dat) { }
+        .           
+        .           	_GLIBCXX20_CONSTEXPR
+        .           	_Alloc_hider(pointer __dat, _Alloc&& __a = _Alloc())
+        1 ( 0.00%)  	: allocator_type(std::move(__a)), _M_p(__dat) { }
+        .           #endif
+        .           
+        .           	pointer _M_p; // The actual data.
+        .                 };
+        .           
+        .                 _Alloc_hider	_M_dataplus;
+        .                 size_type		_M_string_length;
+        .           
+-- line 201 ----------------------------------------
+-- line 210 ----------------------------------------
+        .                 _GLIBCXX20_CONSTEXPR
+        .                 void
+        .                 _M_data(pointer __p)
+        .                 { _M_dataplus._M_p = __p; }
+        .           
+        .                 _GLIBCXX20_CONSTEXPR
+        .                 void
+        .                 _M_length(size_type __length)
+2,651,910 ( 0.01%)        { _M_string_length = __length; }
+        .           
+        .                 _GLIBCXX20_CONSTEXPR
+        .                 pointer
+        .                 _M_data() const
+2,651,914 ( 0.01%)        { return _M_dataplus._M_p; }
+        .           
+        .                 _GLIBCXX20_CONSTEXPR
+        .                 pointer
+        .                 _M_local_data()
+        .                 {
+        .           #if __cplusplus >= 201103L
+        2 ( 0.00%)  	return std::pointer_traits<pointer>::pointer_to(*_M_local_buf);
+        .           #else
+        .           	return pointer(_M_local_buf);
+        .           #endif
+        .                 }
+        .           
+        .                 _GLIBCXX20_CONSTEXPR
+        .                 const_pointer
+        .                 _M_local_data() const
+        .                 {
+        .           #if __cplusplus >= 201103L
+        4 ( 0.00%)  	return std::pointer_traits<const_pointer>::pointer_to(*_M_local_buf);
+        .           #else
+        .           	return const_pointer(_M_local_buf);
+        .           #endif
+        .                 }
+        .           
+        .                 _GLIBCXX20_CONSTEXPR
+        .                 void
+        .                 _M_capacity(size_type __capacity)
+-- line 249 ----------------------------------------
+-- line 256 ----------------------------------------
+        .           	_M_length(__n);
+        .           	traits_type::assign(_M_data()[__n], _CharT());
+        .                 }
+        .           
+        .                 _GLIBCXX20_CONSTEXPR
+        .                 bool
+        .                 _M_is_local() const
+        .                 {
+5,303,825 ( 0.01%)  	if (_M_data() == _M_local_data())
+        .           	  {
+        .           	    if (_M_string_length > _S_local_capacity)
+        .           	      __builtin_unreachable();
+        .           	    return true;
+        .           	  }
+        .           	return false;
+        .                 }
+        .           
+        .                 // Create & Destroy
+        .                 _GLIBCXX20_CONSTEXPR
+        .                 pointer
+        .                 _M_create(size_type&, size_type);
+        .           
+        .                 _GLIBCXX20_CONSTEXPR
+        .                 void
+        3 ( 0.00%)        _M_dispose()
+        .                 {
+        .           	if (!_M_is_local())
+        .           	  _M_destroy(_M_allocated_capacity);
+        2 ( 0.00%)        }
+        .           
+        .                 _GLIBCXX20_CONSTEXPR
+        .                 void
+        .                 _M_destroy(size_type __size) throw()
+        2 ( 0.00%)        { _Alloc_traits::deallocate(_M_get_allocator(), _M_data(), __size + 1); }
+        .           
+        .           #if __cplusplus < 201103L || defined _GLIBCXX_DEFINING_STRING_INSTANTIATIONS
+        .                 // _M_construct_aux is used to implement the 21.3.1 para 15 which
+        .                 // requires special behaviour if _InIterator is an integral type
+        .                 template<typename _InIterator>
+        .                   void
+        .                   _M_construct_aux(_InIterator __beg, _InIterator __end,
+        .           			 std::__false_type)
+-- line 297 ----------------------------------------
+-- line 419 ----------------------------------------
+        .                 }
+        .           
+        .                 // When __n = 1 way faster than the general multichar
+        .                 // traits_type::copy/move/assign.
+        .                 _GLIBCXX20_CONSTEXPR
+        .                 static void
+        .                 _S_copy(_CharT* __d, const _CharT* __s, size_type __n)
+        .                 {
+        2 ( 0.00%)  	if (__n == 1)
+        .           	  traits_type::assign(*__d, *__s);
+        .           	else
+        .           	  traits_type::copy(__d, __s, __n);
+        .                 }
+        .           
+        .                 _GLIBCXX20_CONSTEXPR
+        .                 static void
+        .                 _S_move(_CharT* __d, const _CharT* __s, size_type __n)
+-- line 435 ----------------------------------------
+-- line 796 ----------------------------------------
+        .           	: basic_string(__sv_wrapper(_S_to_string_view(__t)), __a) { }
+        .           #endif // C++17
+        .           
+        .                 /**
+        .                  *  @brief  Destroy the string instance.
+        .                  */
+        .                 _GLIBCXX20_CONSTEXPR
+        .                 ~basic_string()
+        2 ( 0.00%)        { _M_dispose(); }
+        6 ( 0.00%)  => /usr/include/c++/13/bits/basic_string.h:std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> >::_M_dispose() (1x)
+        .           
+        .                 /**
+        .                  *  @brief  Assign the value of @a str to this string.
+        .                  *  @param  __str  Source string.
+        .                  */
+        .                 _GLIBCXX20_CONSTEXPR
+        .                 basic_string&
+        .                 operator=(const basic_string& __str)
+-- line 812 ----------------------------------------
+-- line 1071 ----------------------------------------
+        .                 size() const _GLIBCXX_NOEXCEPT
+        .                 { return _M_string_length; }
+        .           
+        .                 ///  Returns the number of characters in the string, not including any
+        .                 ///  null-termination.
+        .                 _GLIBCXX_NODISCARD _GLIBCXX20_CONSTEXPR
+        .                 size_type
+        .                 length() const _GLIBCXX_NOEXCEPT
+        2 ( 0.00%)        { return _M_string_length; }
+        .           
+        .                 ///  Returns the size() of the largest possible %string.
+        .                 _GLIBCXX_NODISCARD _GLIBCXX20_CONSTEXPR
+        .                 size_type
+        .                 max_size() const _GLIBCXX_NOEXCEPT
+        .                 { return (_Alloc_traits::max_size(_M_get_allocator()) - 1) / 2; }
+        .           
+        .                 /**
+-- line 1087 ----------------------------------------
+
+--------------------------------------------------------------------------------
+-- Auto-annotated source: build/../src/vectors/vector_methods.hh
+--------------------------------------------------------------------------------
+Ir                   
+
+-- line 38 ----------------------------------------
+          .           //
+          .           template <std::size_t Vs, typename V, typename S> //
+          .           auto constexpr scale(const Vec<Vs, V> &vec, S scale_factor)
+          .               -> Vec<Vs, decltype(std::declval<V>() + std::declval<S>())> {
+          .           
+          .             auto new_vec = vec;
+          .           
+          .             std::transform(vec.begin(), vec.end(), new_vec.begin(),
+154,013,583 ( 0.32%)                   [&](auto coef) { return coef * scale_factor; });
+          .           
+          .             return new_vec;
+          .           }
+          .           
+          .           template <std::size_t Vs, typename V> //
+  7,955,718 ( 0.02%)  auto constexpr magnitude(const Vec<Vs, V> &vec) -> V {
+ 84,888,464 ( 0.18%)    return std::sqrt(                     //
+606,387,089 ( 1.27%)  => ???:0x000000000010a4a0 (5,303,812x)
+          .                 std::transform_reduce(            //
+          .                     vec.begin(), vec.end(), V{0}, //
+          .                     std::plus<V>{},               //
+          .                     [&](auto coef) {              //
+124,749,470 ( 0.26%)              return coef * coef;
+          .                     } //
+          .                     )); //
+          .           }
+          .           
+          .           template <std::size_t Vs, typename V> //
+          .           auto constexpr magnitude_squared(const Vec<Vs, V> &vec) -> V {
+          .             return std::transform_reduce(     //
+          .                 vec.begin(), vec.end(), V{0}, //
+          .                 std::plus<V>{},               //
+          .                 [&](auto coef) {              //
+ 12,000,000 ( 0.03%)          return coef * coef;
+          .                 } //
+          .             ); //
+          .           }
+          .           
+          .           // Method for getting the scalar distance between two vectors
+          .           template <std::size_t Vs, typename V1, typename V2>
+          .           auto constexpr scalar_distance(Vec<Vs, V1> &vec1, Vec<Vs, V2> &vec2)
+          .               -> decltype(std::declval<V1>() + std::declval<V2>()) {
+-- line 77 ----------------------------------------
+-- line 80 ----------------------------------------
+          .           }
+          .           
+          .           // Method to normalise a vector
+          .           template <std::size_t Vs, typename V> //
+          .           auto constexpr normalise(Vec<Vs, V> &vec) -> void {
+          .             auto mag = magnitude(vec);
+          .           
+          .             std::transform(vec.begin(), vec.end(), vec.begin(),
+117,357,094 ( 0.25%)                   [&](auto val) { return val / mag; });
+          .           }
+          .           
+          .           // To get an ABS vector
+          .           template <std::size_t Vs, typename V> //
+          .           auto constexpr as_abs(Vec<Vs, V> &vec) -> void {
+          .             std::transform(vec.begin(), vec.end(), vec.begin(),
+          .                            [&](auto val) { return std::abs(val); });
+          .           }
+-- line 96 ----------------------------------------
+-- line 97 ----------------------------------------
+          .           
+          .           // Dot product
+          .           template <std::size_t Vs, typename V1, typename V2>
+          .           auto constexpr dot(const Vec<Vs, V1> &vec1, const Vec<Vs, V2> &vec2)
+          .               -> JointType<V1, V2> {
+          .             return std::transform_reduce(vec1.begin(), vec1.end(), vec2.begin(),
+          .                                          JointType<V1, V2>{0},
+          .                                          std::plus<JointType<V1, V2>>{},
+461,171,020 ( 0.96%)                                 [&](auto v1, auto v2) { return v1 * v2; });
+          .           }
+          .           
+          .           // Cross Product
+          .           template <typename V1, typename V2>
+         10 ( 0.00%)  auto constexpr cross(const Vec<3, V1> &vec1, const Vec<3, V2> &vec2)
+          .               -> Vec<3, decltype(std::declval<V1>() + std::declval<V2>())> {
+          .             return Vec<3, decltype(std::declval<V1>() + std::declval<V2>())>({
+ 50,386,318 ( 0.11%)        (vec1.at(1) * vec2.at(2) - vec1.at(2) * vec2.at(1)),
+ 60,993,905 ( 0.13%)        -1 * (vec1.at(0) * vec2.at(2) - vec1.at(2) * vec2.at(0)),
+ 45,082,473 ( 0.09%)        (vec1.at(0) * vec2.at(1) - vec1.at(1) * vec2.at(0)),
+  5,303,812 ( 0.01%)    });
+          .           };
+          .           
+          .           } // namespace Vectors
+          .           
+          .           #endif
+
+--------------------------------------------------------------------------------
+-- Auto-annotated source: /usr/include/c++/13/bits/stl_pair.h
+--------------------------------------------------------------------------------
+Ir                   
+
+-- line 244 ----------------------------------------
+          .           
+          .                 /// Default constructor
+          .                 constexpr
+          .                 explicit(__not_<__and_<__is_implicitly_default_constructible<_T1>,
+          .           			     __is_implicitly_default_constructible<_T2>>>())
+          .                 pair()
+          .                 requires is_default_constructible_v<_T1>
+          .           	       && is_default_constructible_v<_T2>
+         71 ( 0.00%)        : first(), second()
+          .                 { }
+          .           
+          .               private:
+          .           
+          .                 /// @cond undocumented
+          .                 template<typename _U1, typename _U2>
+          .           	static constexpr bool
+          .           	_S_constructible()
+-- line 260 ----------------------------------------
+-- line 309 ----------------------------------------
+          .                 { }
+          .           
+          .                 /// Constructor accepting two values of arbitrary types
+          .                 template<typename _U1, typename _U2>
+          .           	requires (_S_constructible<_U1, _U2>()) && (!_S_dangles<_U1, _U2>())
+          .           	constexpr explicit(!_S_convertible<_U1, _U2>())
+          .           	pair(_U1&& __x, _U2&& __y)
+          .           	noexcept(_S_nothrow_constructible<_U1, _U2>())
+ 46,563,444 ( 0.10%)  	: first(std::forward<_U1>(__x)), second(std::forward<_U2>(__y))
+          .           	{ }
+          .           
+          .                 template<typename _U1, typename _U2>
+          .           	requires (_S_constructible<_U1, _U2>()) && (_S_dangles<_U1, _U2>())
+          .           	constexpr explicit(!_S_convertible<_U1, _U2>())
+          .           	pair(_U1&&, _U2&&) = delete;
+          .           
+          .                 /// Converting constructor from a const `pair<U1, U2>` lvalue
+-- line 325 ----------------------------------------
+-- line 355 ----------------------------------------
+          .           
+          .           #if __cplusplus > 202002L
+          .                 /// Converting constructor from a non-const `pair<U1, U2>` lvalue
+          .                 template<typename _U1, typename _U2>
+          .           	requires (_S_constructible<_U1&, _U2&>()) && (!_S_dangles<_U1&, _U2&>())
+          .           	constexpr explicit(!_S_convertible<_U1&, _U2&>())
+          .           	pair(pair<_U1, _U2>& __p)
+          .           	noexcept(_S_nothrow_constructible<_U1&, _U2&>())
+384,000,002 ( 0.80%)  	: first(__p.first), second(__p.second)
+          .           	{ }
+          .           
+          .                 template<typename _U1, typename _U2>
+          .           	requires (_S_constructible<_U1&, _U2&>()) && (_S_dangles<_U1&, _U2&>())
+          .           	constexpr explicit(!_S_convertible<_U1&, _U2&>())
+          .           	pair(pair<_U1, _U2>&) = delete;
+          .           
+          .                 /// Converting constructor from a const `pair<U1, U2>` rvalue
+-- line 371 ----------------------------------------
+-- line 419 ----------------------------------------
+          .                 {
+          .           	first = __p.first;
+          .           	second = __p.second;
+          .           	return *this;
+          .                 }
+          .           
+          .                 /// Move assignment operator
+          .                 constexpr pair&
+          8 ( 0.00%)        operator=(pair&& __p)
+          .                 noexcept(_S_nothrow_assignable<_T1, _T2>())
+          .                 requires (_S_assignable<_T1, _T2>())
+          .                 {
+ 10,607,701 ( 0.02%)  	first = std::forward<first_type>(__p.first);
+ 10,607,624 ( 0.02%)  	second = std::forward<second_type>(__p.second);
+          .           	return *this;
+          .                 }
+          .           
+          .                 /// Converting assignment from a const `pair<U1, U2>` lvalue
+          .                 template<typename _U1, typename _U2>
+          .           	constexpr pair&
+          .           	operator=(const pair<_U1, _U2>& __p)
+          .           	noexcept(_S_nothrow_assignable<const _U1&, const _U2&>())
+-- line 440 ----------------------------------------
+
+--------------------------------------------------------------------------------
+-- Auto-annotated source: build/../src/camera/camera.cc
+--------------------------------------------------------------------------------
+Ir                 
+
+-- line 8 ----------------------------------------
+        .           #include <optional>
+        .           #include <ranges>
+        .           #include <vector>
+        .           
+        .           using Vectors::Vec;
+        .           using Vectors::operator-;
+        .           using Vectors::operator+;
+        .           
+        2 ( 0.00%)  auto Camera::get_pinhole_pos() -> Vec<3, double> { 
+        4 ( 0.00%)    return pinhole_pos; 
+        1 ( 0.00%)  }
+        .           
+        .           auto Camera::get_pixel(std::size_t width, std::size_t height)
+        .               -> std::optional<Vec<3, double>> {
+        .             if (0 <= height and height < pixel_directions.size()) {
+        .               if (0 <= width and width < pixel_directions[height].size()) {
+        .                 return pixel_directions[height][width];
+        .               }
+        .           
+        .             }
+        .             return std::nullopt;
+        .           };
+        .           
+        .           auto Camera::get_row(std::size_t height)
+    5,000 ( 0.00%)      -> std::optional<std::vector<Vec<3, double>>> {
+    2,000 ( 0.00%)    if (0 <= height and height < pixel_directions.size()) {
+        .               return pixel_directions[height];
+        .             }
+        .             return std::nullopt;
+    5,000 ( 0.00%)  }
+        .           
+        9 ( 0.00%)  auto Camera::populate_pixel_directions() -> void {
+        .             // Use the dist from screen to calculate the initial vectors needed for each
+        .             // pixel Then loop through the vectors and rotate them all by the given angles
+        .             // Finally use the offset given to offset the entire thing
+        .           
+        3 ( 0.00%)    pinhole_pos =
+        9 ( 0.00%)        Vec<3, double>({0.0, 0.0, -1.0 * static_cast<double>(dist_from_screen)});
+        .           
+        .             // Needed during the spherical coordinates
+        .             auto global_z_axis = Vec<3, double>({0.0, 0.0, 1.0});
+        .             auto global_y_axis = Vec<3, double>({0.0, 1.0, 0.0});
+        .           
+        .             // Temporarily store the positions of each pixel in the pixel_directions array
+        .             auto x = std::views::iota(std::size_t{0}, width);
+        .             auto y = std::views::iota(std::size_t{0}, height);
+        .           
+        8 ( 0.00%)    auto x_offset = (static_cast<double>(width) - 1.0) / 2.0;
+        6 ( 0.00%)    auto y_offset = (static_cast<double>(height) - 1.0) / 2.0;
+        .           
+        .             // Populate the array
+    4,004 ( 0.00%)    for (auto y_index : y) {
+4,000,000 ( 0.01%)      for (auto x_index : x) {
+3,000,000 ( 0.01%)        pixel_directions[y_index][x_index] =
+3,000,000 ( 0.01%)            Vec<3, double>({static_cast<double>(x_index) - x_offset,
+    6,000 ( 0.00%)                            static_cast<double>(y_index) - y_offset, 0.0});
+        .               }
+        .             }
+        .           
+        .             // Make the new formed vectors become the vectors from the origin,
+        .             // then rotate them correctly
+        .             std::transform(
+        .                 pixel_directions.begin(), pixel_directions.end(),
+        .                 pixel_directions.begin(), //
+        .                 [&](auto &row) {
+        .                   std::transform(row.begin(), row.end(), row.begin(), [&](auto &vec) {
+        .                     vec = vec - pinhole_pos; // The new local Z axis
+        .                     auto rotated_vec = vec;
+        .                     auto pitched_vec = rotated_vec;
+        .                     // First rotate the points in the angle the camera should be at
+        .                     rotated_vec[0] =
+3,017,000 ( 0.01%)                vec[0] * std::cos(camera_angle) - vec[1] * std::sin(camera_angle);
+   42,000 ( 0.00%)  => ???:0x000000000010a4f0 (2,000x)
+        .                     rotated_vec[1] =
+1,500,000 ( 0.00%)                vec[0] * std::sin(camera_angle) + vec[1] * std::cos(camera_angle);
+        .                     rotated_vec[2] = vec[2];
+        .           
+        .                     // Rotation in the x axis to then control pitch
+        .                     pitched_vec[0] = rotated_vec[0];
+1,500,000 ( 0.00%)            pitched_vec[1] = rotated_vec[1] * std::cos(y_xz_angle) -
+1,000,000 ( 0.00%)                             rotated_vec[2] * std::sin(y_xz_angle);
+1,000,000 ( 0.00%)            pitched_vec[2] = rotated_vec[1] * std::sin(y_xz_angle) +
+  500,000 ( 0.00%)                             rotated_vec[2] * std::cos(y_xz_angle);
+        .           
+        .                     // Rotation in the y axis to control yaw
+1,514,000 ( 0.00%)            vec[0] = pitched_vec[0] * std::cos(xz_angle) +
+1,075,000 ( 0.00%)                     pitched_vec[2] * std::sin(xz_angle);
+        .                     vec[1] = pitched_vec[1];
+2,000,000 ( 0.00%)            vec[2] = pitched_vec[2] * std::cos(xz_angle) -
+  500,000 ( 0.00%)                     pitched_vec[0] * std::sin(xz_angle);
+        .           
+        .                     return vec;
+        .                   });
+        .                   return row;
+        .                 });
+        .           
+        .             // Finally, add the offset to the pinhole camera
+        3 ( 0.00%)    pinhole_pos = pinhole_pos + offset;
+       11 ( 0.00%)  };
+
+--------------------------------------------------------------------------------
+-- Auto-annotated source: /usr/include/c++/13/bits/stl_uninitialized.h
+--------------------------------------------------------------------------------
+Ir                  
+
+-- line 108 ----------------------------------------
+         .           #endif
+         .           
+         .             template<typename _InputIterator, typename _ForwardIterator>
+         .               _GLIBCXX20_CONSTEXPR
+         .               _ForwardIterator
+         .               __do_uninit_copy(_InputIterator __first, _InputIterator __last,
+         .           		     _ForwardIterator __result)
+         .               {
+ 6,000,003 ( 0.01%)        _ForwardIterator __cur = __result;
+         .                 __try
+         .           	{
+93,000,422 ( 0.19%)  	  for (; __first != __last; ++__first, (void)++__cur)
+         .           	    std::_Construct(std::__addressof(*__cur), *__first);
+         .           	  return __cur;
+         .           	}
+         .                 __catch(...)
+         .           	{
+         .           	  std::_Destroy(__result, __cur);
+         .           	  __throw_exception_again;
+         .           	}
+-- line 127 ----------------------------------------
+-- line 255 ----------------------------------------
+         .           
+         .             /// @cond undocumented
+         .           
+         .             template<typename _ForwardIterator, typename _Size, typename _Tp>
+         .               _GLIBCXX20_CONSTEXPR
+         .               _ForwardIterator
+         .               __do_uninit_fill_n(_ForwardIterator __first, _Size __n, const _Tp& __x)
+         .               {
+         4 ( 0.00%)        _ForwardIterator __cur = __first;
+         .                 __try
+         .           	{
+     3,005 ( 0.00%)  	  for (; __n > 0; --__n, (void) ++__cur)
+         .           	    std::_Construct(std::__addressof(*__cur), __x);
+         .           	  return __cur;
+         .           	}
+         .                 __catch(...)
+         .           	{
+         .           	  std::_Destroy(__first, __cur);
+         .           	  __throw_exception_again;
+         .           	}
+-- line 274 ----------------------------------------
+-- line 659 ----------------------------------------
+         .                   static _ForwardIterator
+         .                   __uninit_default_n(_ForwardIterator __first, _Size __n)
+         .                   {
+         .           	  if (__n > 0)
+         .           	    {
+         .           	      typename iterator_traits<_ForwardIterator>::value_type* __val
+         .           		= std::__addressof(*__first);
+         .           	      std::_Construct(__val);
+         2 ( 0.00%)  	      ++__first;
+         1 ( 0.00%)  	      __first = std::fill_n(__first, __n - 1, *__val);
+         .           	    }
+         .           	  return __first;
+         .           	}
+         .               };
+         .           
+         .             // __uninitialized_default
+         .             // Fills [first, last) with value-initialized value_types.
+         .             template<typename _ForwardIterator>
+-- line 676 ----------------------------------------
+-- line 1095 ----------------------------------------
+         .           					       __alloc)))
+         .               {
+         .                 typedef typename iterator_traits<_InputIterator>::value_type
+         .           	_ValueType;
+         .                 typedef typename iterator_traits<_ForwardIterator>::value_type
+         .           	_ValueType2;
+         .                 static_assert(std::is_same<_ValueType, _ValueType2>::value,
+         .           	  "relocation is only possible for values of the same type");
+         2 ( 0.00%)        _ForwardIterator __cur = __result;
+       110 ( 0.00%)        for (; __first != __last; ++__first, (void)++__cur)
+         .           	std::__relocate_object_a(std::__addressof(*__cur),
+         .           				 std::__addressof(*__first), __alloc);
+         .                 return __cur;
+         .               }
+         .           
+         .           #if _GLIBCXX_HOSTED
+         .             template <typename _Tp, typename _Up>
+         .               _GLIBCXX20_CONSTEXPR
+         .               inline __enable_if_t<std::__is_bitwise_relocatable<_Tp>::value, _Tp*>
+         .               __relocate_a_1(_Tp* __first, _Tp* __last,
+         .           		   _Tp* __result,
+         .           		   [[__maybe_unused__]] allocator<_Up>& __alloc) noexcept
+         .               {
+         .                 ptrdiff_t __count = __last - __first;
+ 8,000,000 ( 0.02%)        if (__count > 0)
+         .           	{
+         .           #ifdef __cpp_lib_is_constant_evaluated
+         .           	  if (std::is_constant_evaluated())
+         .           	    {
+         .           	      // Can't use memmove. Wrap the pointer so that __relocate_a_1
+         .           	      // resolves to the non-trivial overload above.
+         .           	      __gnu_cxx::__normal_iterator<_Tp*, void> __out(__result);
+         .           	      __out = std::__relocate_a_1(__first, __last, __out, __alloc);
+         .           	      return __out.base();
+         .           	    }
+         .           #endif
+ 8,000,000 ( 0.02%)  	  __builtin_memmove(__result, __first, __count * sizeof(_Tp));
+28,000,000 ( 0.06%)  => ???:0x000000000010a5f0 (2,000,000x)
+         .           	}
+         .                 return __result + __count;
+         .               }
+         .           #endif
+         .           
+         .             template <typename _InputIterator, typename _ForwardIterator,
+         .           	    typename _Allocator>
+         .               _GLIBCXX20_CONSTEXPR
+-- line 1139 ----------------------------------------
+
+--------------------------------------------------------------------------------
+-- Auto-annotated source: build/../src/vectors/vector_advanced.hh
+--------------------------------------------------------------------------------
+Ir                   
+
+-- line 16 ----------------------------------------
+          .           auto constexpr line_intersects_plane(const Line<3, V> &line,
+          .                                                const Plane<P> &plane)
+          .               -> std::optional<std::pair<JointType<V, P>, Vec<3, JointType<V, P>>>> {
+          .             // Derivation comes from solving (a + lambda[b]) dot n = d for lambda
+          .           
+          .             auto descriminant = Vectors::dot(plane.first, line.second);
+          .           
+          .             // If determinant is zero then the line is likely parallel
+108,000,000 ( 0.23%)    if (std::abs(descriminant) < 1e-09)
+          .               return std::nullopt;
+          .           
+          .             auto lambda =
+252,000,000 ( 0.53%)        (plane.second - Vectors::dot(plane.first, line.first)) / descriminant;
+          .           
+          .             return std::make_pair(lambda,
+          .                                   line.first + Vectors::scale(line.second, lambda));
+          .           }
+          .           // Does a given point lie on a plane of any type
+          .           template <typename V, typename P>
+          .           auto is_point_on_plane(Vec<3, V> &point, Plane<P> &plane) -> bool {
+          .             // Form a new line with point (inp) and direction (plane normal) and solve for
+-- line 36 ----------------------------------------
+-- line 53 ----------------------------------------
+          .           
+          .           template <bool WANTS_ACUTE, typename V1, typename V2>
+          .           auto constexpr angle_between_lines(const Vec<3, V1> &v1, const Vec<3, V2> &v2)
+          .               -> JointType<V1, V2> {
+          .             // a dot b = mod(a) mod(b) cos(theta)
+          .             // theta = a dot b / (moda modb)
+          .             auto dot_product = Vectors::dot(v1, v2);
+          .           
+  5,303,812 ( 0.01%)    if (dot_product < 0) {
+          .               dot_product = Vectors::dot(v1, Vectors::scale(v2, -1));
+          .             }
+          .           
+  7,955,718 ( 0.02%)    auto acute_angle = std::acos(
+213,163,016 ( 0.45%)  => ???:0x000000000010a560 (2,651,906x)
+  2,651,906 ( 0.01%)        dot_product / (Vectors::magnitude(v1) * Vectors::magnitude(v2)));
+          .           
+          .             if (WANTS_ACUTE) {
+          .               return acute_angle;
+          .             } else {
+          .               return PI - acute_angle;
+          .             }
+          .           }
+          .           
+-- line 74 ----------------------------------------
+-- line 79 ----------------------------------------
+          .               -> std::pair<JointType<V1, V2>, Vec<Vs, JointType<V1, V2>>> {
+          .             // Derivation can be completed by having a generic point, and then creating a
+          .             // vector from that point to any point on the line. Then, dotting that generic
+          .             // point + some unknown amount of the direction vector with teh direction
+          .             // vector and solving equation to zero
+          .           
+          .             auto determinant = std::pow(Vectors::magnitude(line.second), 2);
+          .           
+ 18,000,000 ( 0.04%)    if (determinant < 1e-09)
+          .               return std::make_pair(JointType<V1, V2>{0}, Vec<Vs, JointType<V1, V2>>({}));
+          .           
+          .             auto lambda =
+ 24,000,000 ( 0.05%)        line.second.at(0) * (point.at(0) - line.first.at(0)) +
+ 48,000,000 ( 0.10%)        line.second.at(1) * (point.at(1) - line.first.at(1)) +
+ 36,000,000 ( 0.08%)        line.second.at(2) * (point.at(2) - line.first.at(2)) / determinant;
+          .           
+          .             return std::make_pair(lambda, (line.first - point) +
+          .                                               Vectors::scale(line.second, lambda));
+          .           }
+          .           
+          .           // Returns the acute or obstuse angle between a line and a plane, or nothing
+          .           template <typename V, typename P>
+          .           auto constexpr angle_between_line_and_plane(Line<3, V> &line, Plane<P> &plane)
+-- line 101 ----------------------------------------
+
+--------------------------------------------------------------------------------
+-- Auto-annotated source: build/../src/window/scene_objects/scene_objects.cc
+--------------------------------------------------------------------------------
+Ir                  
+
+-- line 5 ----------------------------------------
+         .           #include "vectors/vector_definitions.hh"
+         .           
+         .           using Colours::BasicColour;
+         .           using Vectors::Vec;
+         .           
+         .           auto SceneObjects::add_triangle(Triangle triangle) -> void {
+         .             triangles.push_back(triangle);
+         .           }
+        14 ( 0.00%)  auto SceneObjects::add_sphere(Sphere sphere) -> void {
+         .             spheres.push_back(sphere);
+        14 ( 0.00%)  }
+         .           
+         .           auto SceneObjects::add_cuboid(Vec<3, double> LDB, Vec<3, double> RDB,
+         .                                         Vec<3, double> RDF, Vec<3, double> LDF,
+         .                                         Vec<3, double> LUB, Vec<3, double> RUB,
+         .                                         Vec<3, double> RUF, Vec<3, double> LUF, //
+         .                                         BasicColour D1, BasicColour D2, BasicColour L1,
+         .                                         BasicColour L2, BasicColour R1, BasicColour R2,
+         .                                         BasicColour B1, BasicColour B2, BasicColour F1,
+         .                                         BasicColour F2, BasicColour U1, BasicColour U2)
+        18 ( 0.00%)      -> void {
+         .             // Form the 12 triangles
+         .           
+         .             // Down
+         1 ( 0.00%)    add_triangle(Triangle(LDB, RDB, RDF, B1));
+         .             add_triangle(Triangle(LDB, LDF, RDF, B2));
+         .           
+         .             // Up
+         1 ( 0.00%)    add_triangle(Triangle(LUB, RUB, RUF, U1));
+         1 ( 0.00%)    add_triangle(Triangle(LUB, LUF, RUF, U2));
+         .           
+         .             // Left
+         .             add_triangle(Triangle(LDB, LUB, LUF, L1));
+         .             add_triangle(Triangle(LDB, LDF, LUF, L2));
+         .           
+         .             // Right
+         .             add_triangle(Triangle(RDB, RUB, RUF, R1));
+         .             add_triangle(Triangle(RDB, RDF, RUF, R2));
+-- line 42 ----------------------------------------
+-- line 43 ----------------------------------------
+         .           
+         .             // Back
+         .             add_triangle(Triangle(LDB, RDB, RUB, B1));
+         .             add_triangle(Triangle(LDB, LUB, RUB, B2));
+         .           
+         .             // Forward
+         .             add_triangle(Triangle(LDF, RDF, RUF, F1));
+         .             add_triangle(Triangle(LDF, LUF, RUF, F2));
+        11 ( 0.00%)  }
+         .           
+33,000,000 ( 0.07%)  auto SceneObjects::get_spheres() -> std::vector<Sphere> { return spheres; }
+18,000,000 ( 0.04%)  auto SceneObjects::get_triangles() -> std::vector<Triangle> {
+         .             return triangles;
+15,000,000 ( 0.03%)  }
+
+--------------------------------------------------------------------------------
+-- Auto-annotated source: build/../src/geometry/triangle.cc
+--------------------------------------------------------------------------------
+Ir                   
+
+-- line 10 ----------------------------------------
+          .           
+          .           using Vectors::Line;
+          .           using Vectors::Plane;
+          .           using Vectors::Vec;
+          .           
+          .           using Vectors::operator-;
+          .           auto const CUTOFF = 1e-09;
+          .           
+         96 ( 0.00%)  auto Triangle::get_valid_vectors() -> void {
+          .             /* - When calculating barycentric coordinates, it involves doing a division
+          .                  with two of the three components of the vector x 2
+          .           
+          .                - This function will change the two vectors is uses to ensure that
+          .                  at least one of them is parallel to noaxis, which is guaranteed in any
+          .                  triangle.
+          .           
+          .                - This ensures that it will have at least 2 non zero components
+-- line 26 ----------------------------------------
+-- line 43 ----------------------------------------
+          .           
+          .             auto CA = std::make_pair(corners[0] - corners[2], int{0});
+          .             auto CB = std::make_pair(corners[1] - corners[2], int{0});
+          .           
+          .             // Check how many coefficients equal to zero there are in 2/3 vectors
+          .             AB.second = std::transform_reduce(AB.first.begin(), AB.first.end(), int{0}, //
+          .                                               std::plus<int>{},                         //
+          .                                               [&](auto coef) {                          //
+        120 ( 0.00%)                                        if (std::abs(coef) < CUTOFF) {          //
+          .                                                   return 1;                             //
+          .                                                 }
+          .                                                 return 0;
+          .                                               });
+          .             AC.second = std::transform_reduce(AC.first.begin(), AC.first.end(), int{0}, //
+          .                                               std::plus<int>{},                         //
+          .                                               [&](auto coef) {                          //
+        108 ( 0.00%)                                        if (std::abs(coef) < CUTOFF) {          //
+          .                                                   return 1;                             //
+          .                                                 }
+          .                                                 return 0;
+          .                                               });
+          .             // There are 3 cases for the origin: A, A or C
+         12 ( 0.00%)    index_of_vec_origin = 0;
+          .           
+          .             // Check how many zero coefs there are
+         24 ( 0.00%)    if (AB.second < 2) {
+          .               vectors[0] = AB.first;
+         12 ( 0.00%)      vectors[1] = AC.first;
+         24 ( 0.00%)    } else if (AC.second < 2) {
+         48 ( 0.00%)      vectors[0] = AC.first;
+         24 ( 0.00%)      vectors[1] = AB.first;
+          .             } else {
+          .               // If it gets here, it means with certainty that the remaining
+          .               // vector has no zero component
+          .               index_of_vec_origin = 2;
+          .               vectors[0] = CB.first;
+          .               vectors[1] = CA.first;
+          .             }
+          .           
+          .             // Choosing the two coefs used when solving simulatenous EQs for barycentrics
+          .           
+          .             // Checking for parallelism with axis
+         48 ( 0.00%)    if (std::abs(vectors[0][0]) < CUTOFF and //
+          .                 std::abs(vectors[1][0]) < CUTOFF) {
+          .               // The triangle is parallel to the X axis so use Y and Z
+         24 ( 0.00%)      indexs_for_baryc = {1, 2};
+         40 ( 0.00%)    } else if (std::abs(vectors[0][1]) < CUTOFF and
+          .                        std::abs(vectors[1][1]) < CUTOFF) {
+          .               // The triangle is parallel to the Y axis so use X and Z
+          .               indexs_for_baryc = {0, 2};
+          .             } else {
+          .               // Either parallel to Z axis, or parallel to none
+          .               indexs_for_baryc = {0, 1};
+          .             }
+         60 ( 0.00%)  }
+          .           
+          .           // TODO: Add a check to the triangle check_intersection method to confirm that
+          .           // the dot between the normal and the incoming ray is obtuse (MAY NOT BE
+          .           // NECESSARY)
+          .           auto Triangle::check_intersection(Line<3, double> ray) const
+288,000,000 ( 0.60%)      -> IntersectionReturnData {
+          .             // By default, it suits the criteria for a non intersection
+576,000,000 ( 1.21%)    auto return_containter = IntersectionReturnData();
+          .             // Return constants needed:
+          .             //  - Lambda value
+          .             //  - POI,
+          .             //  - Success status
+          .             // TODO: remove this comment once implemented
+          .           
+          .             // Check if the line intersects the plane
+          .             auto point_of_intersection =
+          .                 Vectors::line_intersects_plane(ray, triangle_plane);
+          .           
+          .             if (!point_of_intersection)
+          .               return return_containter;
+          .           
+108,000,000 ( 0.23%)    if (point_of_intersection.value().first < 0)
+          .               return return_containter;
+          .           
+          .             auto p_of_i =
+ 40,169,020 ( 0.08%)        point_of_intersection.value().second; // .first is the lambda value
+          .           
+          .             // Get the Lambda and Mu vals when converting the POI to barycentrics
+          .             // Shorter alias for indexes
+ 20,084,510 ( 0.04%)    auto i1 = indexs_for_baryc[0];
+ 20,084,510 ( 0.04%)    auto i2 = indexs_for_baryc[1];
+ 20,084,510 ( 0.04%)    auto oi = index_of_vec_origin; // origin index
+          .           
+          .             /*
+          .                Derive from solving the simulatenous equation:
+          .                 o + λa + μb = c
+          .                Where o = Local Origin, a and b are the vectors, c is the p.o.i
+          .                Solving for lambda and mu
+          .             */
+          .           
+          .             auto lambda =
+180,760,590 ( 0.38%)        (p_of_i[i2] * vectors[0][i1] - p_of_i[i1] * vectors[0][i2] -
+180,760,590 ( 0.38%)         corners[oi][i2] * vectors[0][i1] + corners[oi][i1] * vectors[0][i2]) /
+120,507,060 ( 0.25%)        (vectors[1][i2] * vectors[0][i1] - vectors[1][i1] * vectors[0][i2]);
+          .           
+          .             auto mu =
+ 19,488,668 ( 0.04%)        (p_of_i[i1] - corners[oi][i1] - lambda * vectors[1][i1]) / vectors[0][i1];
+          .           
+ 76,873,487 ( 0.16%)    if (((0 - CUTOFF) < lambda and lambda < (1 + CUTOFF)) and
+  8,276,800 ( 0.02%)        ((0 - CUTOFF) < mu and mu < (1 + CUTOFF))) {
+          .               // Lies at least inside the quadrilateral
+ 10,746,132 ( 0.02%)      if (lambda + mu < (1 + CUTOFF)) {
+          .                 // The ray has collided with the triangle
+  2,653,673 ( 0.01%)        return_containter.intersects = true;
+ 10,614,692 ( 0.02%)        return_containter.colour = colour_properties;
+ 10,614,692 ( 0.02%)        return_containter.point_of_intersection = p_of_i;
+ 10,614,692 ( 0.02%)        return_containter.normal = triangle_plane.first;
+  2,653,673 ( 0.01%)        return_containter.lambda = point_of_intersection.value().first;
+          .           
+  2,653,673 ( 0.01%)        return return_containter;
+          .               }
+          .             }
+          .             return return_containter;
+252,000,000 ( 0.53%)  }
+
+--------------------------------------------------------------------------------
+-- Auto-annotated source: build/../src/colour/colour.cc
+--------------------------------------------------------------------------------
+Ir                  
+
+         .           #include "colour.hh"
+         .           #include "vectors/vector_definitions.hh"
+         .           #include <vector>
+         .           
+         .           #include <algorithm>
+         .           using Colours::BasicColour;
+         .           
+         .           auto Colours::get_average_of_colours(std::vector<BasicColour> colours)
+ 1,000,000 ( 0.00%)      -> BasicColour {
+ 3,000,000 ( 0.01%)    auto summed = BasicColour({0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0});
+         .           
+16,000,000 ( 0.03%)    for (auto colour : colours) {
+         .               std::transform(colour.begin(), colour.end(), summed.begin(), summed.begin(),
+ 4,000,000 ( 0.01%)                     [&](auto c, auto s) { return c + s; });
+         .             }
+         .           
+         .             // std::transform(summed.begin(), summed.end(), summed.begin(),
+         .             //                [&](auto sum) { return sum / colours.size(); });
+         .           
+         .             // return colours[0];
+         .           
+         .             return summed;
+ 2,000,000 ( 0.00%)  }
+         .           
+ 2,000,000 ( 0.00%)  auto Colours::ColourData::get_total_colour() -> BasicColour {
+ 4,000,000 ( 0.01%)    return total_colour;
+ 1,000,000 ( 0.00%)  }
+         .           
+         .           auto Colours::ColourData::combine_colour_as_average(BasicColour new_colour)
+27,000,000 ( 0.06%)      -> void {
+         .             previous_colours.push_back(new_colour);
+         .           
+ 9,000,000 ( 0.02%)    if (num_colours_accumulated == 0) {
+ 5,000,000 ( 0.01%)      total_colour = new_colour;
+         .             } else {
+12,000,000 ( 0.03%)      total_colour[3] += total_colour[0] * (new_colour[3] * new_colour[6]);
+16,000,000 ( 0.03%)      total_colour[4] += total_colour[1] * (new_colour[4] * new_colour[6]);
+         .               total_colour[5] += total_colour[2] * (new_colour[5] * new_colour[6]);
+         .           
+10,000,000 ( 0.02%)      total_colour[0] *= new_colour[0];
+ 4,000,000 ( 0.01%)      total_colour[1] *= new_colour[1];
+ 4,000,000 ( 0.01%)      total_colour[2] *= new_colour[2];
+         .             }
+         .           
+ 6,000,000 ( 0.01%)    num_colours_accumulated++;
+24,000,000 ( 0.05%)  }
+
+--------------------------------------------------------------------------------
+-- Auto-annotated source: /usr/include/c++/13/bits/std_abs.h
+--------------------------------------------------------------------------------
+Ir                  
+
+-- line 64 ----------------------------------------
+         .           // _GLIBCXX_RESOLVE_LIB_DEFECTS
+         .           // 2192. Validity and return type of std::abs(0u) is unclear
+         .           // 2294. <cstdlib> should declare abs(double)
+         .           // 2735. std::abs(short), std::abs(signed char) and others should return int
+         .           
+         .           #ifndef __CORRECT_ISO_CPP_MATH_H_PROTO
+         .             inline _GLIBCXX_CONSTEXPR double
+         .             abs(double __x)
+72,000,164 ( 0.15%)    { return __builtin_fabs(__x); }
+         .           
+         .             inline _GLIBCXX_CONSTEXPR float
+         .             abs(float __x)
+         .             { return __builtin_fabsf(__x); }
+         .           
+         .             inline _GLIBCXX_CONSTEXPR long double
+         .             abs(long double __x)
+         .             { return __builtin_fabsl(__x); }
+-- line 80 ----------------------------------------
+
+--------------------------------------------------------------------------------
+-- Auto-annotated source: /usr/include/c++/13/bits/stl_vector.h
+--------------------------------------------------------------------------------
+Ir                  
+
+-- line 92 ----------------------------------------
+         .                 struct _Vector_impl_data
+         .                 {
+         .           	pointer _M_start;
+         .           	pointer _M_finish;
+         .           	pointer _M_end_of_storage;
+         .           
+         .           	_GLIBCXX20_CONSTEXPR
+         .           	_Vector_impl_data() _GLIBCXX_NOEXCEPT
+24,006,021 ( 0.05%)  	: _M_start(), _M_finish(), _M_end_of_storage()
+         .           	{ }
+         .           
+         .           #if __cplusplus >= 201103L
+         .           	_GLIBCXX20_CONSTEXPR
+         .           	_Vector_impl_data(_Vector_impl_data&& __x) noexcept
+         .           	: _M_start(__x._M_start), _M_finish(__x._M_finish),
+         .           	  _M_end_of_storage(__x._M_end_of_storage)
+         .           	{ __x._M_start = __x._M_finish = __x._M_end_of_storage = pointer(); }
+         .           #endif
+         .           
+         .           	_GLIBCXX20_CONSTEXPR
+         .           	void
+         .           	_M_copy_data(_Vector_impl_data const& __x) _GLIBCXX_NOEXCEPT
+         .           	{
+     2,004 ( 0.00%)  	  _M_start = __x._M_start;
+         2 ( 0.00%)  	  _M_finish = __x._M_finish;
+     1,003 ( 0.00%)  	  _M_end_of_storage = __x._M_end_of_storage;
+         .           	}
+         .           
+         .           	_GLIBCXX20_CONSTEXPR
+         .           	void
+         .           	_M_swap_data(_Vector_impl_data& __x) _GLIBCXX_NOEXCEPT
+         .           	{
+         .           	  // Do not use std::swap(_M_start, __x._M_start), etc as it loses
+         .           	  // information used by TBAA.
+-- line 125 ----------------------------------------
+-- line 362 ----------------------------------------
+         .                 : _M_impl(_Tp_alloc_type(__a), std::move(__x._M_impl))
+         .                 { }
+         .           #endif
+         .           
+         .                 _GLIBCXX20_CONSTEXPR
+         .                 ~_Vector_base() _GLIBCXX_NOEXCEPT
+         .                 {
+         .           	_M_deallocate(_M_impl._M_start,
+26,008,032 ( 0.05%)  		      _M_impl._M_end_of_storage - _M_impl._M_start);
+         .                 }
+         .           
+         .               public:
+         .                 _Vector_impl _M_impl;
+         .           
+         .                 _GLIBCXX20_CONSTEXPR
+         .                 pointer
+         .                 _M_allocate(size_t __n)
+         .                 {
+         .           	typedef __gnu_cxx::__alloc_traits<_Tp_alloc_type> _Tr;
+13,007,018 ( 0.03%)  	return __n != 0 ? _Tr::allocate(_M_impl, __n) : pointer();
+         .                 }
+         .           
+         .                 _GLIBCXX20_CONSTEXPR
+         .                 void
+         .                 _M_deallocate(pointer __p, size_t __n)
+         .                 {
+         .           	typedef __gnu_cxx::__alloc_traits<_Tp_alloc_type> _Tr;
+22,006,052 ( 0.05%)  	if (__p)
+         .           	  _Tr::deallocate(_M_impl, __p, __n);
+         .                 }
+         .           
+         .               protected:
+         .                 _GLIBCXX20_CONSTEXPR
+         .                 void
+         .                 _M_create_storage(size_t __n)
+         .                 {
+19,004,011 ( 0.04%)  	this->_M_impl._M_start = this->_M_allocate(__n);
+         .           	this->_M_impl._M_finish = this->_M_impl._M_start;
+14,006,011 ( 0.03%)  	this->_M_impl._M_end_of_storage = this->_M_impl._M_start + __n;
+         .                 }
+         .               };
+         .           
+         .             /**
+         .              *  @brief A standard container which offers fixed time access to
+         .              *  individual elements in any order.
+         .              *
+         .              *  @ingroup sequences
+-- line 408 ----------------------------------------
+-- line 597 ----------------------------------------
+         .                  *  The newly-created %vector uses a copy of the allocator object used
+         .                  *  by @a __x (unless the allocator traits dictate a different object).
+         .                  */
+         .                 _GLIBCXX20_CONSTEXPR
+         .                 vector(const vector& __x)
+         .                 : _Base(__x.size(),
+         .           	_Alloc_traits::_S_select_on_copy(__x._M_get_Tp_allocator()))
+         .                 {
+ 7,002,002 ( 0.01%)  	this->_M_impl._M_finish =
+         .           	  std::__uninitialized_copy_a(__x.begin(), __x.end(),
+         .           				      this->_M_impl._M_start,
+         .           				      _M_get_Tp_allocator());
+         .                 }
+         .           
+         .           #if __cplusplus >= 201103L
+         .                 /**
+         .                  *  @brief  %Vector move constructor.
+-- line 613 ----------------------------------------
+-- line 725 ----------------------------------------
+         .           
+         .                 /**
+         .                  *  The dtor only erases the elements, and note that if the
+         .                  *  elements themselves are pointers, the pointed-to memory is
+         .                  *  not touched in any way.  Managing the pointer is the user's
+         .                  *  responsibility.
+         .                  */
+         .                 _GLIBCXX20_CONSTEXPR
+         4 ( 0.00%)        ~vector() _GLIBCXX_NOEXCEPT
+         .                 {
+         2 ( 0.00%)  	std::_Destroy(this->_M_impl._M_start, this->_M_impl._M_finish,
+         .           		      _M_get_Tp_allocator());
+         .           	_GLIBCXX_ASAN_ANNOTATE_BEFORE_DEALLOC;
+         .                 }
+         .           
+         .                 /**
+         .                  *  @brief  %Vector assignment operator.
+         .                  *  @param  __x  A %vector of identical element and allocator types.
+         .                  *
+-- line 743 ----------------------------------------
+-- line 985 ----------------------------------------
+         .                 { return const_reverse_iterator(begin()); }
+         .           #endif
+         .           
+         .                 // [23.2.4.2] capacity
+         .                 /**  Returns the number of elements in the %vector.  */
+         .                 _GLIBCXX_NODISCARD _GLIBCXX20_CONSTEXPR
+         .                 size_type
+         .                 size() const _GLIBCXX_NOEXCEPT
+28,011,063 ( 0.06%)        { return size_type(this->_M_impl._M_finish - this->_M_impl._M_start); }
+         .           
+         .                 /**  Returns the size() of the largest possible %vector.  */
+         .                 _GLIBCXX_NODISCARD _GLIBCXX20_CONSTEXPR
+         .                 size_type
+         .                 max_size() const _GLIBCXX_NOEXCEPT
+         .                 { return _S_max_size(_M_get_Tp_allocator()); }
+         .           
+         .           #if __cplusplus >= 201103L
+-- line 1001 ----------------------------------------
+-- line 1072 ----------------------------------------
+         .                 /**
+         .                  *  Returns the total number of elements that the %vector can
+         .                  *  hold before needing to allocate more memory.
+         .                  */
+         .                 _GLIBCXX_NODISCARD _GLIBCXX20_CONSTEXPR
+         .                 size_type
+         .                 capacity() const _GLIBCXX_NOEXCEPT
+         .                 { return size_type(this->_M_impl._M_end_of_storage
+         6 ( 0.00%)  			 - this->_M_impl._M_start); }
+         .           
+         .                 /**
+         .                  *  Returns true if the %vector is empty.  (Thus begin() would
+         .                  *  equal end().)
+         .                  */
+         .                 _GLIBCXX_NODISCARD _GLIBCXX20_CONSTEXPR
+         .                 bool
+         .                 empty() const _GLIBCXX_NOEXCEPT
+-- line 1088 ----------------------------------------
+-- line 1121 ----------------------------------------
+         .                  *  out_of_range lookups are not defined. (For checked lookups
+         .                  *  see at().)
+         .                  */
+         .                 _GLIBCXX_NODISCARD _GLIBCXX20_CONSTEXPR
+         .                 reference
+         .                 operator[](size_type __n) _GLIBCXX_NOEXCEPT
+         .                 {
+         .           	__glibcxx_requires_subscript(__n);
+ 5,003,011 ( 0.01%)  	return *(this->_M_impl._M_start + __n);
+         .                 }
+         .           
+         .                 /**
+         .                  *  @brief  Subscript access to the data contained in the %vector.
+         .                  *  @param __n The index of the element for which data should be
+         .                  *  accessed.
+         .                  *  @return  Read-only (constant) reference to data.
+         .                  *
+-- line 1137 ----------------------------------------
+-- line 1275 ----------------------------------------
+         .                  *  to it.  Due to the nature of a %vector this operation can be
+         .                  *  done in constant time if the %vector has preallocated space
+         .                  *  available.
+         .                  */
+         .                 _GLIBCXX20_CONSTEXPR
+         .                 void
+         .                 push_back(const value_type& __x)
+         .                 {
+ 9,000,141 ( 0.02%)  	if (this->_M_impl._M_finish != this->_M_impl._M_end_of_storage)
+         .           	  {
+         .           	    _GLIBCXX_ASAN_ANNOTATE_GROW(1);
+         .           	    _Alloc_traits::construct(this->_M_impl, this->_M_impl._M_finish,
+         .           				     __x);
+        14 ( 0.00%)  	    ++this->_M_impl._M_finish;
+         .           	    _GLIBCXX_ASAN_ANNOTATE_GREW(1);
+         .           	  }
+         .           	else
+         .           	  _M_realloc_insert(end(), __x);
+         .                 }
+         .           
+         .           #if __cplusplus >= 201103L
+         .                 _GLIBCXX20_CONSTEXPR
+-- line 1296 ----------------------------------------
+-- line 1709 ----------------------------------------
+         .                 }
+         .           
+         .           #if __cplusplus >= 201103L
+         .                 // Called by the vector(n) constructor.
+         .                 _GLIBCXX20_CONSTEXPR
+         .                 void
+         .                 _M_default_initialize(size_type __n)
+         .                 {
+         1 ( 0.00%)  	this->_M_impl._M_finish =
+         .           	  std::__uninitialized_default_n_a(this->_M_impl._M_start, __n,
+         .           					   _M_get_Tp_allocator());
+         .                 }
+         .           #endif
+         .           
+         .                 // Internal assign functions follow.  The *_aux functions do the actual
+         .                 // assignment work for the range versions.
+         .           
+-- line 1725 ----------------------------------------
+-- line 1890 ----------------------------------------
+         .                 { return _M_insert_rval(__position, std::move(__v)); }
+         .           #endif
+         .           
+         .                 // Called by _M_fill_insert, _M_insert_aux etc.
+         .                 _GLIBCXX20_CONSTEXPR
+         .                 size_type
+         .                 _M_check_len(size_type __n, const char* __s) const
+         .                 {
+12,000,033 ( 0.03%)  	if (max_size() - size() < __n)
+         .           	  __throw_length_error(__N(__s));
+         .           
+ 2,000,005 ( 0.00%)  	const size_type __len = size() + (std::max)(size(), __n);
+17,000,041 ( 0.04%)  	return (__len < size() || __len > max_size()) ? max_size() : __len;
+         .                 }
+         .           
+         .                 // Called by constructors to check initial size.
+         .                 static _GLIBCXX20_CONSTEXPR size_type
+         .                 _S_check_init_len(size_type __n, const allocator_type& __a)
+         .                 {
+         3 ( 0.00%)  	if (__n > _S_max_size(_Tp_alloc_type(__a)))
+         .           	  __throw_length_error(
+         .           	      __N("cannot create std::vector larger than max_size()"));
+         .           	return __n;
+         .                 }
+         .           
+         .                 static _GLIBCXX20_CONSTEXPR size_type
+         .                 _S_max_size(const _Tp_alloc_type& __a) _GLIBCXX_NOEXCEPT
+         .                 {
+-- line 1917 ----------------------------------------
+
+--------------------------------------------------------------------------------
+-- Auto-annotated source: build/../src/window/multi_threaded/screen.cc
+--------------------------------------------------------------------------------
+Ir                     
+
+-- line 28 ----------------------------------------
+            .           
+            .           // Distribute the number of rows across the threads including indexes
+            .           // - Need the indexes as if it is a 1D array for the pixel buffer
+            .           // - Need the indexes as if it is a 2D array for accessing the ray dirs
+            .           auto PopulateIndexArrays(
+            .               std::size_t &num_threads, std::size_t &row_width, std::size_t &num_rows,
+            .               std::vector<std::pair<std::size_t, std::size_t>> &pixel_direcs_indexs,
+            .               std::vector<std::pair<std::size_t, std::size_t>> &pixel_buffer_indexs)
+           11 ( 0.00%)      -> void {
+            .           
+            .             auto thread_iterator = std::views::iota(std::size_t{ZERO}, num_threads);
+            .             // Number of excess rows
+            5 ( 0.00%)    auto t_mod_r = num_rows % num_threads;
+            .             // Base num of rows per thread
+            4 ( 0.00%)    auto t_div_r = (num_rows - t_mod_r) / num_threads;
+            .           
+            .             // First, calculate the indexes as if it was a whole divsion
+           15 ( 0.00%)    for (auto thread_id : thread_iterator) {
+            3 ( 0.00%)      auto row_start = thread_id * t_div_r;
+            1 ( 0.00%)      auto row_end = (thread_id + ONE) * t_div_r - ONE;
+            2 ( 0.00%)      auto buf_start = row_start * row_width * FOUR;
+            2 ( 0.00%)      auto buf_end = (row_end + ONE) * row_width * FOUR - ONE;
+            .           
+            .               pixel_direcs_indexs.emplace_back(row_start, row_end);
+            .               pixel_buffer_indexs.emplace_back(buf_start, buf_end);
+            .             }
+            .             // If the mod was not zero, add one row to as many threads as needed
+            2 ( 0.00%)    if (t_mod_r != ZERO) {
+            .               auto accounted_for_rows = ZERO;
+            .           
+            2 ( 0.00%)      for (auto thread_id : thread_iterator) {
+            .                 // Add however many have already been accounted for to start
+            .                 pixel_direcs_indexs[thread_id].first += accounted_for_rows;
+            .           
+            .                 // If we need to account for another, increment
+            .                 if (accounted_for_rows != t_mod_r)
+            .                   accounted_for_rows += ONE;
+            .           
+            .                 // Offset the rest by the number accounted for
+-- line 66 ----------------------------------------
+-- line 68 ----------------------------------------
+            .                 pixel_buffer_indexs[thread_id].first =
+            .                     pixel_direcs_indexs[thread_id].first * row_width * FOUR;
+            .                 pixel_buffer_indexs[thread_id].second =
+            .                     (pixel_direcs_indexs[thread_id].second + ONE) * row_width * FOUR -
+            .                     ONE;
+            .               }
+            .             }
+            .           
+           11 ( 0.00%)    for (auto pair : pixel_direcs_indexs) {
+            .               std::cout << pair.first << "," << pair.second << std::endl;
+            .             }
+            .           
+           12 ( 0.00%)    for (auto pair : pixel_buffer_indexs) {
+            .               std::cout << pair.first << "," << pair.second << std::endl;
+            .             }
+            8 ( 0.00%)  }
+            .           
+            .           // TODO: consider implementing std::promise and future to work along side
+            .           // threads so that they can finish in any order
+            .           auto Screen_SFML::render(std::size_t num_threads, Camera &camera,
+            .                                    std::size_t num_rays, std::size_t num_bounces)
+           16 ( 0.00%)      -> void {
+            .             // Every 4 indexes represets a pixels RGBA channels
+            4 ( 0.00%)    std::vector<std::uint8_t> pixel_buffer(window_data.d_x * window_data.d_y *
+            1 ( 0.00%)                                           FOUR);
+            .             // Incase the scene window is tiny
+            .             auto num_threads_needed =
+            2 ( 0.00%)        std::min(num_threads, static_cast<std::size_t>(window_data.d_y));
+            .             auto thread_iterator = std::views::iota(std::size_t{0}, num_threads_needed);
+            .           
+            .             // Initialise a number of threads
+            3 ( 0.00%)    auto threads = std::vector<std::thread>();
+            .           
+            .             // Start and end index for each thread in the pixel buffer
+            3 ( 0.00%)    auto pixel_buffer_indexs = std::vector<std::pair<std::size_t, std::size_t>>();
+            .             // Start and end index for each row from camera for a given thread
+            2 ( 0.00%)    auto pixel_direcs_indexs = std::vector<std::pair<std::size_t, std::size_t>>();
+            .           
+            .             auto indexs_paired = std::make_pair(pixel_direcs_indexs, pixel_buffer_indexs);
+            .           
+            3 ( 0.00%)    auto row_width = static_cast<std::size_t>(window_data.d_x);
+            1 ( 0.00%)    auto num_rows = static_cast<std::size_t>(window_data.d_y);
+            .           
+            9 ( 0.00%)    PopulateIndexArrays(num_threads_needed, row_width, num_rows,
+        4,946 ( 0.00%)  => build/../src/window/multi_threaded/screen.cc:PopulateIndexArrays(unsigned long&, unsigned long&, unsigned long&, std::vector<std::pair<unsigned long, unsigned long>, std::allocator<std::pair<unsigned long, unsigned long> > >&, std::vector<std::pair<unsigned long, unsigned long>, std::allocator<std::pair<unsigned long, unsigned long> > >&) (1x)
+            .                                 pixel_direcs_indexs, pixel_buffer_indexs);
+            .             // Anonymous function for each thread to call
+            .             // TODO: Possibly Move this to a screen method possibly so this isnt super
+            .             // cluttered
+            .           
+            5 ( 0.00%)    auto camera_origin = camera.get_pinhole_pos();
+            7 ( 0.00%)  => /home/trimmer/SOLID-Tracer/build/../src/camera/camera.cc:Camera::get_pinhole_pos() (1x)
+            .           
+            .             // Return value is just a bool
+           13 ( 0.00%)    auto render_call = [&](std::size_t thread_id) {
+            .               std::cout << thread_id << ": Starting Ray Tracing" << std::endl;
+            .               // Loop through the row indexes:
+            .               auto row_range =
+            .                   std::views::iota(pixel_direcs_indexs[thread_id].first,
+            4 ( 0.00%)                           pixel_direcs_indexs[thread_id].second + ONE);
+            1 ( 0.00%)      auto num_pixels_done = 0;
+            .           
+        6,001 ( 0.00%)      for (auto row : row_range) {
+            .                 // - Get the row from the camera
+        4,000 ( 0.00%)        auto directions_optional = camera.get_row(row);
+   24,447,819 ( 0.05%)  => /home/trimmer/SOLID-Tracer/build/../src/camera/camera.cc:Camera::get_row(unsigned long) (1,000x)
+            .           
+        2,000 ( 0.00%)        if (!directions_optional)
+            .                   return false;
+            .                 // For debugging
+        2,000 ( 0.00%)        if (thread_id == 0)
+            .                   std::cout << "Thread Zero is on row " << row << " of "
+        1,000 ( 0.00%)                    << pixel_direcs_indexs[thread_id].second << std::endl;
+            .           
+            .                 auto directions = directions_optional.value();
+            .                 // -  - For each Pixel:
+    9,006,000 ( 0.02%)        for (auto pixel_ray_direction : directions) {
+            .                   auto num_ray_iterator = std::views::iota(std::size_t{0}, num_rays);
+            .                   auto num_bounce_iterator =
+            .                       std::views::iota(std::size_t{0}, num_bounces);
+            .                   // Vector to contain all the ray colours
+    3,000,000 ( 0.01%)          auto colours_for_pixel = std::vector<BasicColour>();
+            .                   // -  -  - For each number of rays:
+    8,000,000 ( 0.02%)          for (auto ray_num [[maybe_unused]] : num_ray_iterator) {
+            .                     // -  -  -  - Form an initial ray Line
+    1,000,000 ( 0.00%)            auto ray = Line<3, double>(camera_origin, pixel_ray_direction);
+            .                     // Normalise the direction
+            .                     Vectors::normalise(ray.second);
+            .           
+            .                     auto ray_colour = ColourData();
+            .           
+            .                     // -  -  -  - For each number of bounces:
+   18,000,000 ( 0.04%)            for (auto bounce_num [[maybe_unused]] : num_bounce_iterator) {
+   54,000,000 ( 0.11%)              auto closest_object = IntersectionReturnData();
+            .                       // -  -  -  -  - For each object:
+            .                       // -  -  -  -  -  - Check if ray intersects object
+            .                       // -  -  -  -  -  - If it does, store its impact data
+            .                       // TODO: join spheres and triangles to be in the same list
+   93,000,000 ( 0.19%)              for (auto obj : objects.get_spheres()) {
+  369,000,165 ( 0.77%)  => /home/trimmer/SOLID-Tracer/build/../src/window/scene_objects/scene_objects.cc:SceneObjects::get_spheres() (3,000,000x)
+   60,000,000 ( 0.13%)                auto return_data = obj.check_intersection(ray);
+  766,686,042 ( 1.60%)  => /home/trimmer/SOLID-Tracer/build/../src/geometry/sphere.cc:Sphere::check_intersection(std::pair<std::array<double, 3ul>, std::array<double, 3ul> >) const (6,000,000x)
+            .           
+   12,000,000 ( 0.03%)                if (return_data.intersects) {
+            .                           // As rays travel forward, it will never be zero for an actual
+            .                           // intersection
+    1,722,012 ( 0.00%)                  if (return_data.lambda < closest_object.lambda or
+            .                               closest_object.lambda < 0) {
+    3,377,856 ( 0.01%)                    closest_object = return_data;
+            .                           }
+            .                         }
+            .                       }
+1,071,000,000 ( 2.24%)              for (auto obj : objects.get_triangles()) {
+1,875,143,856 ( 3.92%)  => /home/trimmer/SOLID-Tracer/build/../src/window/scene_objects/scene_objects.cc:SceneObjects::get_triangles() (3,000,000x)
+  360,000,000 ( 0.75%)                auto return_data = obj.check_intersection(ray);
+5,574,148,032 (11.66%)  => /home/trimmer/SOLID-Tracer/build/../src/geometry/triangle.cc:Triangle::check_intersection(std::pair<std::array<double, 3ul>, std::array<double, 3ul> >) const (36,000,000x)
+            .           
+   72,000,000 ( 0.15%)                if (return_data.intersects) {
+            .                           // As rays travel forward, it will never be zero for an actual
+            .                           // intersection
+   15,921,951 ( 0.03%)                  if (return_data.lambda < closest_object.lambda or
+            .                               closest_object.lambda < 0) {
+   28,445,364 ( 0.06%)                    closest_object = return_data;
+            .                           }
+            .                         }
+            .                       }
+            .                       // -  -  -  -  - Get object closest to ray
+    6,000,000 ( 0.01%)              if (closest_object.intersects) {
+            .                         //-- It never hits anything anyway, so dont continue doing the
+            .                         // rest of
+            .                         //-- the bounces
+   15,911,436 ( 0.03%)                ray = RayLogic::calculate_new_ray_direction(
+33,094,688,604 (69.24%)  => /home/trimmer/SOLID-Tracer/build/../src/raylogic/raylogic.cc:RayLogic::calculate_new_ray_direction(std::pair<std::array<double, 3ul>, std::array<double, 3ul> > const&, std::array<double, 3ul> const&, std::array<double, 3ul> const&, std::array<float, 8ul> const&) (2,651,906x)
+            .                             ray, closest_object.point_of_intersection,
+            .                             closest_object.normal, closest_object.colour);
+            .           
+            .                       } else {
+            .                         // TODO: Handle this case of ray never hitting anything
+            .                       }
+            .                       // -  -  -  -  - Update ray with new direction
+            .                       // -  -  -  -  - Store accumulated colour
+   27,000,000 ( 0.06%)              ray_colour.combine_colour_as_average(closest_object.colour);
+  682,000,336 ( 1.43%)  => /home/trimmer/SOLID-Tracer/build/../src/colour/colour.cc:Colours::ColourData::combine_colour_as_average(std::array<float, 8ul>) (3,000,000x)
+            .                     }
+            .                     // -  -  -  - Add colour to pixel total
+    5,000,000 ( 0.01%)            colours_for_pixel.push_back(ray_colour.get_total_colour());
+    7,000,000 ( 0.01%)  => /home/trimmer/SOLID-Tracer/build/../src/colour/colour.cc:Colours::ColourData::get_total_colour() (1,000,000x)
+            .                   }
+            .                   // -  -  - Get the average pixel colour and store in pixel buffer
+    5,000,000 ( 0.01%)          auto pixel_colour = Colours::get_average_of_colours(colours_for_pixel);
+   28,000,000 ( 0.06%)  => /home/trimmer/SOLID-Tracer/build/../src/colour/colour.cc:Colours::get_average_of_colours(std::vector<std::array<float, 8ul>, std::allocator<std::array<float, 8ul> > >) (1,000,000x)
+            .                   auto current_pixel_start_index =
+    6,000,000 ( 0.01%)              pixel_buffer_indexs[thread_id].first + (num_pixels_done * 4);
+            .           
+    1,000,000 ( 0.00%)          pixel_buffer[current_pixel_start_index] =
+    6,000,000 ( 0.01%)              static_cast<std::uint8_t>(255.0 * pixel_colour[3]);
+    1,000,000 ( 0.00%)          pixel_buffer[current_pixel_start_index + 1] =
+    5,000,000 ( 0.01%)              static_cast<std::uint8_t>(255.0 * pixel_colour[4]);
+    1,000,000 ( 0.00%)          pixel_buffer[current_pixel_start_index + 2] =
+    5,000,000 ( 0.01%)              static_cast<std::uint8_t>(255.0 * pixel_colour[5]);
+    2,000,000 ( 0.00%)          pixel_buffer[current_pixel_start_index + 3] = 255;
+            .           
+    1,000,000 ( 0.00%)          num_pixels_done++;
+            .                 }
+            .               }
+            .           
+            .               std::cout << thread_id << ": Finished Ray Tracing" << std::endl;
+            .           
+            .               return true;
+            7 ( 0.00%)    };
+            .           
+            .             // Create the threads
+            7 ( 0.00%)    for (auto thread_id : thread_iterator) {
+            .               threads.emplace_back(render_call, thread_id);
+            .             }
+            .             // Wait for threads to join
+            .             // - Warning: thread 2 wont be checked until thread 1 is done, etc
+            7 ( 0.00%)    for (auto &thread : threads) {
+            2 ( 0.00%)      thread.join();
+        1,257 ( 0.00%)  => ???:0x000000000010a410 (1x)
+            .             }
+            .           
+            .             // Convert pixel_buffer into data for the texture
+            .           
+            .             // Texture -> Image -> Render
+            3 ( 0.00%)    pixel_map->update(pixel_buffer.data());
+      646,423 ( 0.00%)  => ???:0x000000000010a6d0 (1x)
+           13 ( 0.00%)  }
+
+--------------------------------------------------------------------------------
+-- Auto-annotated source: /usr/include/c++/13/bits/stl_function.h
+--------------------------------------------------------------------------------
+Ir                   
+
+-- line 181 ----------------------------------------
+          .           
+          .             /// One of the @link arithmetic_functors math functors@endlink.
+          .             template<typename _Tp>
+          .               struct plus : public binary_function<_Tp, _Tp, _Tp>
+          .               {
+          .                 /// Returns the sum
+          .                 _GLIBCXX14_CONSTEXPR
+          .                 _Tp
+ 58,198,438 ( 0.12%)        operator()(const _Tp& __x, const _Tp& __y) const
+549,378,555 ( 1.15%)        { return __x + __y; }
+          .               };
+          .           
+          .             /// One of the @link arithmetic_functors math functors@endlink.
+          .             template<typename _Tp>
+          .               struct minus : public binary_function<_Tp, _Tp, _Tp>
+          .               {
+          .                 _GLIBCXX14_CONSTEXPR
+          .                 _Tp
+-- line 198 ----------------------------------------
+
+--------------------------------------------------------------------------------
+-- Auto-annotated source: /usr/include/c++/13/bits/vector.tcc
+--------------------------------------------------------------------------------
+Ir                  
+
+-- line 106 ----------------------------------------
+         .                 _GLIBCXX20_CONSTEXPR
+         .                 typename vector<_Tp, _Alloc>::reference
+         .           #else
+         .                 void
+         .           #endif
+         .                 vector<_Tp, _Alloc>::
+         .                 emplace_back(_Args&&... __args)
+         .                 {
+ 4,000,011 ( 0.01%)  	if (this->_M_impl._M_finish != this->_M_impl._M_end_of_storage)
+         .           	  {
+         .           	    _GLIBCXX_ASAN_ANNOTATE_GROW(1);
+         .           	    _Alloc_traits::construct(this->_M_impl, this->_M_impl._M_finish,
+         .           				     std::forward<_Args>(__args)...);
+         .           	    ++this->_M_impl._M_finish;
+         .           	    _GLIBCXX_ASAN_ANNOTATE_GREW(1);
+         .           	  }
+         .           	else
+-- line 122 ----------------------------------------
+-- line 205 ----------------------------------------
+         .               }
+         .           
+         .             template<typename _Tp, typename _Alloc>
+         .               _GLIBCXX20_CONSTEXPR
+         .               vector<_Tp, _Alloc>&
+         .               vector<_Tp, _Alloc>::
+         .               operator=(const vector<_Tp, _Alloc>& __x)
+         .               {
+         5 ( 0.00%)        if (std::__addressof(__x) != this)
+         .           	{
+         .           	  _GLIBCXX_ASAN_ANNOTATE_REINIT;
+         .           #if __cplusplus >= 201103L
+         .           	  if (_Alloc_traits::_S_propagate_on_copy_assign())
+         .           	    {
+         .           	      if (!_Alloc_traits::_S_always_equal()
+         .           	          && _M_get_Tp_allocator() != __x._M_get_Tp_allocator())
+         .           	        {
+-- line 221 ----------------------------------------
+-- line 228 ----------------------------------------
+         .           		  this->_M_impl._M_finish = nullptr;
+         .           		  this->_M_impl._M_end_of_storage = nullptr;
+         .           		}
+         .           	      std::__alloc_on_copy(_M_get_Tp_allocator(),
+         .           				   __x._M_get_Tp_allocator());
+         .           	    }
+         .           #endif
+         .           	  const size_type __xlen = __x.size();
+         4 ( 0.00%)  	  if (__xlen > capacity())
+         .           	    {
+         .           	      pointer __tmp = _M_allocate_and_copy(__xlen, __x.begin(),
+         .           						   __x.end());
+         .           	      std::_Destroy(this->_M_impl._M_start, this->_M_impl._M_finish,
+         .           			    _M_get_Tp_allocator());
+         .           	      _M_deallocate(this->_M_impl._M_start,
+         1 ( 0.00%)  			    this->_M_impl._M_end_of_storage
+         2 ( 0.00%)  			    - this->_M_impl._M_start);
+         2 ( 0.00%)  	      this->_M_impl._M_start = __tmp;
+         7 ( 0.00%)  	      this->_M_impl._M_end_of_storage = this->_M_impl._M_start + __xlen;
+         .           	    }
+         .           	  else if (size() >= __xlen)
+         .           	    {
+         .           	      std::_Destroy(std::copy(__x.begin(), __x.end(), begin()),
+         .           			    end(), _M_get_Tp_allocator());
+         .           	    }
+         .           	  else
+         .           	    {
+         .           	      std::copy(__x._M_impl._M_start, __x._M_impl._M_start + size(),
+         .           			this->_M_impl._M_start);
+         .           	      std::__uninitialized_copy_a(__x._M_impl._M_start + size(),
+         .           					  __x._M_impl._M_finish,
+         .           					  this->_M_impl._M_finish,
+         .           					  _M_get_Tp_allocator());
+         .           	    }
+         2 ( 0.00%)  	  this->_M_impl._M_finish = this->_M_impl._M_start + __xlen;
+         .           	}
+         .                 return *this;
+         .               }
+         .           
+         .             template<typename _Tp, typename _Alloc>
+         .               _GLIBCXX20_CONSTEXPR
+         .               void
+         .               vector<_Tp, _Alloc>::
+-- line 270 ----------------------------------------
+-- line 437 ----------------------------------------
+         .           #endif
+         .               }
+         .           
+         .           #if __cplusplus >= 201103L
+         .             template<typename _Tp, typename _Alloc>
+         .               template<typename... _Args>
+         .                 _GLIBCXX20_CONSTEXPR
+         .                 void
+ 3,000,006 ( 0.01%)        vector<_Tp, _Alloc>::
+         .                 _M_realloc_insert(iterator __position, _Args&&... __args)
+         .           #else
+         .             template<typename _Tp, typename _Alloc>
+         .               void
+         .               vector<_Tp, _Alloc>::
+         .               _M_realloc_insert(iterator __position, const _Tp& __x)
+         .           #endif
+         .               {
+-- line 453 ----------------------------------------
+-- line 460 ----------------------------------------
+         .                 pointer __new_finish(__new_start);
+         .                 __try
+         .           	{
+         .           	  // The order of the three operations is dictated by the C++11
+         .           	  // case, where the moves could alter a new element belonging
+         .           	  // to the existing vector.  This is an issue only for callers
+         .           	  // taking the element by lvalue ref (see last bullet of C++11
+         .           	  // [res.on.arguments]).
+         6 ( 0.00%)  	  _Alloc_traits::construct(this->_M_impl,
+         .           				   __new_start + __elems_before,
+         .           #if __cplusplus >= 201103L
+         .           				   std::forward<_Args>(__args)...);
+         .           #else
+         .           				   __x);
+         .           #endif
+         .           	  __new_finish = pointer();
+         .           
+         .           #if __cplusplus >= 201103L
+         .           	  if _GLIBCXX17_CONSTEXPR (_S_use_relocate())
+         .           	    {
+         .           	      __new_finish = _S_relocate(__old_start, __position.base(),
+         .           					 __new_start, _M_get_Tp_allocator());
+         .           
+ 5,000,055 ( 0.01%)  	      ++__new_finish;
+         .           
+         .           	      __new_finish = _S_relocate(__position.base(), __old_finish,
+         .           					 __new_finish, _M_get_Tp_allocator());
+         .           	    }
+         .           	  else
+         .           #endif
+         .           	    {
+         .           	      __new_finish
+-- line 491 ----------------------------------------
+-- line 512 ----------------------------------------
+         .           	  __throw_exception_again;
+         .           	}
+         .           #if __cplusplus >= 201103L
+         .                 if _GLIBCXX17_CONSTEXPR (!_S_use_relocate())
+         .           #endif
+         .           	std::_Destroy(__old_start, __old_finish, _M_get_Tp_allocator());
+         .                 _GLIBCXX_ASAN_ANNOTATE_REINIT;
+         .                 _M_deallocate(__old_start,
+ 4,000,018 ( 0.01%)  		    this->_M_impl._M_end_of_storage - __old_start);
+ 4,000,010 ( 0.01%)        this->_M_impl._M_start = __new_start;
+ 5,000,009 ( 0.01%)        this->_M_impl._M_finish = __new_finish;
+17,000,029 ( 0.04%)        this->_M_impl._M_end_of_storage = __new_start + __len;
+         .               }
+         .           
+         .             template<typename _Tp, typename _Alloc>
+         .               _GLIBCXX20_CONSTEXPR
+         .               void
+         .               vector<_Tp, _Alloc>::
+         .               _M_fill_insert(iterator __position, size_type __n, const value_type& __x)
+         .               {
+-- line 531 ----------------------------------------
+
+--------------------------------------------------------------------------------
+-- Auto-annotated source: /usr/include/c++/13/bits/random.tcc
+--------------------------------------------------------------------------------
+Ir                     
+
+-- line 322 ----------------------------------------
+            .           	   _UIntType __a, size_t __u, _UIntType __d, size_t __s,
+            .           	   _UIntType __b, size_t __t, _UIntType __c, size_t __l,
+            .           	   _UIntType __f>
+            .               void
+            .               mersenne_twister_engine<_UIntType, __w, __n, __m, __r, __a, __u, __d,
+            .           			    __s, __b, __t, __c, __l, __f>::
+            .               seed(result_type __sd)
+            .               {
+    2,651,906 ( 0.01%)        _M_x[0] = __detail::__mod<_UIntType,
+            .           	__detail::_Shift<_UIntType, __w>::__value>(__sd);
+            .           
+4,961,716,126 (10.38%)        for (size_t __i = 1; __i < state_size; ++__i)
+            .           	{
+            .           	  _UIntType __x = _M_x[__i - 1];
+4,956,412,314 (10.37%)  	  __x ^= __x >> (__w - 2);
+1,652,137,438 ( 3.46%)  	  __x *= __f;
+            .           	  __x += __detail::__mod<_UIntType, __n>(__i);
+1,652,137,438 ( 3.46%)  	  _M_x[__i] = __detail::__mod<_UIntType,
+            .           	    __detail::_Shift<_UIntType, __w>::__value>(__x);
+            .           	}
+    2,651,906 ( 0.01%)        _M_p = state_size;
+            .               }
+            .           
+            .             template<typename _UIntType,
+            .           	   size_t __w, size_t __n, size_t __m, size_t __r,
+            .           	   _UIntType __a, size_t __u, _UIntType __d, size_t __s,
+            .           	   _UIntType __b, size_t __t, _UIntType __c, size_t __l,
+            .           	   _UIntType __f>
+            .               template<typename _Sseq>
+-- line 350 ----------------------------------------
+-- line 389 ----------------------------------------
+            .                 }
+            .           
+            .             template<typename _UIntType, size_t __w,
+            .           	   size_t __n, size_t __m, size_t __r,
+            .           	   _UIntType __a, size_t __u, _UIntType __d, size_t __s,
+            .           	   _UIntType __b, size_t __t, _UIntType __c, size_t __l,
+            .           	   _UIntType __f>
+            .               void
+   18,563,342 ( 0.04%)      mersenne_twister_engine<_UIntType, __w, __n, __m, __r, __a, __u, __d,
+            .           			    __s, __b, __t, __c, __l, __f>::
+            .               _M_gen_rand(void)
+            .               {
+            .                 const _UIntType __upper_mask = (~_UIntType()) << __r;
+            .                 const _UIntType __lower_mask = ~__upper_mask;
+            .           
+  604,634,568 ( 1.27%)        for (size_t __k = 0; __k < (__n - __m); ++__k)
+            .                   {
+  906,951,852 ( 1.90%)  	  _UIntType __y = ((_M_x[__k] & __upper_mask)
+  904,299,946 ( 1.89%)  			   | (_M_x[__k + 1] & __lower_mask));
+3,007,261,404 ( 6.29%)  	  _M_x[__k] = (_M_x[__k + __m] ^ (__y >> 1)
+  315,576,814 ( 0.66%)  		       ^ ((__y & 0x01) ? __a : 0));
+            .                   }
+            .           
+1,050,154,776 ( 2.20%)        for (size_t __k = (__n - __m); __k < (__n - 1); ++__k)
+            .           	{
+1,575,232,164 ( 3.30%)  	  _UIntType __y = ((_M_x[__k] & __upper_mask)
+1,575,232,164 ( 3.30%)  			   | (_M_x[__k + 1] & __lower_mask));
+5,253,425,786 (10.99%)  	  _M_x[__k] = (_M_x[__k + (__m - __n)] ^ (__y >> 1)
+  525,077,388 ( 1.10%)  		       ^ ((__y & 0x01) ? __a : 0));
+            .           	}
+            .           
+    7,955,718 ( 0.02%)        _UIntType __y = ((_M_x[__n - 1] & __upper_mask)
+    5,303,812 ( 0.01%)  		       | (_M_x[0] & __lower_mask));
+    7,955,718 ( 0.02%)        _M_x[__n - 1] = (_M_x[__m - 1] ^ (__y >> 1)
+   13,259,530 ( 0.03%)  		       ^ ((__y & 0x01) ? __a : 0));
+    2,651,906 ( 0.01%)        _M_p = 0;
+    2,651,906 ( 0.01%)      }
+            .           
+            .             template<typename _UIntType, size_t __w,
+            .           	   size_t __n, size_t __m, size_t __r,
+            .           	   _UIntType __a, size_t __u, _UIntType __d, size_t __s,
+            .           	   _UIntType __b, size_t __t, _UIntType __c, size_t __l,
+            .           	   _UIntType __f>
+            .               void
+            .               mersenne_twister_engine<_UIntType, __w, __n, __m, __r, __a, __u, __d,
+-- line 433 ----------------------------------------
+-- line 450 ----------------------------------------
+            .               typename
+            .               mersenne_twister_engine<_UIntType, __w, __n, __m, __r, __a, __u, __d,
+            .           			    __s, __b, __t, __c, __l, __f>::result_type
+            .               mersenne_twister_engine<_UIntType, __w, __n, __m, __r, __a, __u, __d,
+            .           			    __s, __b, __t, __c, __l, __f>::
+            .               operator()()
+            .               {
+            .                 // Reload the vector - cost is O(n) amortized over n calls.
+   15,911,436 ( 0.03%)        if (_M_p >= state_size)
+    5,303,812 ( 0.01%)  	_M_gen_rand();
+15,776,188,794 (33.01%)  => /usr/include/c++/13/bits/random.tcc:std::mersenne_twister_engine<unsigned long, 32ul, 624ul, 397ul, 31ul, 2567483615ul, 11ul, 4294967295ul, 7ul, 2636928640ul, 15ul, 4022730752ul, 18ul, 1812433253ul>::_M_gen_rand() (2,651,906x)
+            .           
+            .                 // Calculate o(x(i)).
+   29,170,966 ( 0.06%)        result_type __z = _M_x[_M_p++];
+   42,430,496 ( 0.09%)        __z ^= (__z >> __u) & __d;
+   42,430,496 ( 0.09%)        __z ^= (__z << __s) & __b;
+   42,430,496 ( 0.09%)        __z ^= (__z << __t) & __c;
+   21,215,248 ( 0.04%)        __z ^= (__z >> __l);
+            .           
+            .                 return __z;
+            .               }
+            .           
+            .             template<typename _UIntType, size_t __w,
+            .           	   size_t __n, size_t __m, size_t __r,
+            .           	   _UIntType __a, size_t __u, _UIntType __d, size_t __s,
+            .           	   _UIntType __b, size_t __t, _UIntType __c, size_t __l,
+-- line 474 ----------------------------------------
+-- line 3359 ----------------------------------------
+            .                 const size_t __log2r = std::log(__r) / std::log(2.0L);
+            .                 const size_t __m = std::max<size_t>(1UL,
+            .           					  (__b + __log2r - 1UL) / __log2r);
+            .                 _RealType __ret;
+            .                 _RealType __sum = _RealType(0);
+            .                 _RealType __tmp = _RealType(1);
+            .                 for (size_t __k = __m; __k != 0; --__k)
+            .           	{
+   66,297,650 ( 0.14%)  	  __sum += _RealType(__urng() - __urng.min()) * __tmp;
+            .           	  __tmp *= __r;
+            .           	}
+    5,303,812 ( 0.01%)        __ret = __sum / __tmp;
+   10,607,624 ( 0.02%)        if (__builtin_expect(__ret >= _RealType(1), 0))
+            .           	{
+            .           #if _GLIBCXX_USE_C99_MATH_TR1
+            .           	  __ret = std::nextafter(_RealType(1), _RealType(0));
+            .           #else
+            .           	  __ret = _RealType(1)
+            .           	    - std::numeric_limits<_RealType>::epsilon() / _RealType(2);
+            .           #endif
+            .           	}
+-- line 3379 ----------------------------------------
+
+--------------------------------------------------------------------------------
+The following files chosen for auto-annotation could not be found:
+--------------------------------------------------------------------------------
+  ./elf/./elf/dl-lookup.c
+  ./libio/./libio/getc.c
+  ./malloc/./malloc/arena.c
+  ./malloc/./malloc/malloc.c
+  ./math/../sysdeps/ieee754/dbl-64/e_asin.c
+  ./math/../sysdeps/ieee754/dbl-64/s_sin.c
+  ./math/../sysdeps/ieee754/dbl-64/s_sincos.c
+  ./math/../sysdeps/x86/fpu/fenv_private.h
+  ./math/./math/w_acos_compat.c
+  ./string/../sysdeps/x86_64/multiarch/memmove-vec-unaligned-erms.S
+  ./string/../sysdeps/x86_64/multiarch/memset-vec-unaligned-erms.S
+
+--------------------------------------------------------------------------------
+Ir                      
+--------------------------------------------------------------------------------
+42,418,136,193 (88.75%)  events annotated
+
