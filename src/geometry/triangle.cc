@@ -96,18 +96,10 @@ auto Triangle::get_valid_vectors() -> void {
   }
 }
 
-// TODO: Add a check to the triangle check_intersection method to confirm that
-// the dot between the normal and the incoming ray is obtuse (MAY NOT BE
-// NECESSARY)
 auto Triangle::check_intersection(Line<3, double> ray) const
     -> IntersectionReturnData {
   // By default, it suits the criteria for a non intersection
   auto return_containter = IntersectionReturnData();
-  // Return constants needed:
-  //  - Lambda value
-  //  - POI,
-  //  - Success status
-  // TODO: remove this comment once implemented
 
   // Check if the line intersects the plane
   auto point_of_intersection =

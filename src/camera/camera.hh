@@ -23,16 +23,8 @@ private:
   Vec<3, double> offset;
   Vec<3, double> pinhole_pos;
 
-  // TODO: consider swapping to an mdspan for its contiguous memory as well as
-  // its non owning nature. Then you can compress this into a 1d array and
-  // access via mdspan
-  // Eventually figure out how to use experimental/mdspan in a meson project
   std::vector<std::vector<Vec<3, double>>> pixel_directions;
 
-  // Do some spherical coordinate magic again
-  // Most likely store this instantiated object in a mutex so that all threads
-  // can access it
-  // Probably in a shared_ptr
 public:
   Camera(std::size_t _width, std::size_t _height, std::size_t _dist_from_screen,
          float horiz_rotation, float vert_rotation, float camera_rotation,

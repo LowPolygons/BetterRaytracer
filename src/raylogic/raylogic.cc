@@ -13,7 +13,6 @@ using Vectors::operator+;
 using Vectors::operator-;
 using Vectors::PI;
 
-// TODO: generate a program wide rand gen and device and pass it by ref
 auto RayLogic::calculate_new_ray_direction(const Line<3, double> &ray,
                                            const Vec<3, double> &p_of_i,
                                            const Vec<3, double> &normal,

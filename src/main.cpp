@@ -19,22 +19,21 @@
 
 #include "SceneConfig.hh"
 
-using Vectors::PI;
-using Window::Screen_SDL;
 using Window::Screen_SFML;
 
 auto constexpr ONE = std::size_t{1};
 auto constexpr MAX = std::size_t{999999};
 
 /* TODO:
- * - where applicable go through classes and make getters be const &
  * - standardise I/O to be neater
- * -
- * - Make an assets directory which then stores 'object' templates as general
+ * - Rethink SceneConfig so that you don't have to recompile when changing scene
  */
 
 auto main() -> int {
   SceneConfig scene_setup;
+  // Display the Scene Setup
+  scene_setup.DisplaySceneSetup();
+
   std::mt19937 rand_gen;
 
   //==// Check the random seed was given //==/
@@ -66,7 +65,6 @@ auto main() -> int {
   auto file_id = std::uniform_int_distribution<int>(ONE, MAX);
   auto output_name = std::string("scenes/OutputScene_" +
                                  std::to_string(file_id(rand_gen)) + ".png");
-
   if (image.saveToFile(output_name)) {
     std::cout << "Saved Scene to file: " << output_name << std::endl;
   }
@@ -74,11 +72,9 @@ auto main() -> int {
   //==// Code to Allow Runtime viewing of the Simulation //==//
   auto isRunning = true;
 
-  // SDL_Event ev;
   sf::Event event;
 
   while (isRunning) {
-    // isRunning = sdl_screen.update(ev);
     isRunning = sfml_screen.update(event);
   }
 }

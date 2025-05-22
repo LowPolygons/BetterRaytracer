@@ -42,5 +42,6 @@ struct SceneConfig {
   RandomSeed SceneSeed;
 
   Function GetSceneSetup();
+  Function DisplaySceneSetup();
 };
 #endif

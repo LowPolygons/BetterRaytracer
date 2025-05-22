@@ -34,7 +34,6 @@ public:
     get_valid_vectors();
     colour_properties = clr;
 
-    // TODO: rewrite when function calls accept const lvalues
     auto vec1 = vectors.at(0);
     auto vec2 = vectors.at(1);
     auto point = corners.at(1);
