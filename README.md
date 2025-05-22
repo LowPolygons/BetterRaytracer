@@ -1,4 +1,7 @@
-# Example Scenes
+# SOLID-Tracer
+This is a total remaster of an old Raytracer I may, only know I follow standard conventions and aim for actually pleasant code
 
-## 200 Rays, 5 Bounces
+## Example Scenes
+
+### 200 Rays, 5 Bounces
 ![Example Scene - 200 Rays, 5 Bounces](scenes/OutputScene.png)
