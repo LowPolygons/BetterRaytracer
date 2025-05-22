@@ -43,7 +43,7 @@ Function SceneConfig::GetSceneSetup() {
 
   NumThreads = 16;
   NumRays = 100;
-  NumBounces = 5;
+  NumBounces = 30;
 
   Width = 1000;
   Height = 1000;
