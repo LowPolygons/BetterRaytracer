@@ -17,62 +17,61 @@
 
 #include <random>
 
+#include "SceneConfig.hh"
+
 using Vectors::PI;
 using Window::Screen_SDL;
 using Window::Screen_SFML;
+
+auto constexpr ONE = std::size_t{1};
+auto constexpr MAX = std::size_t{999999};
+
 /* TODO:
  * - where applicable go through classes and make getters be const &
  * - standardise I/O to be neater
+ * -
+ * - Make an assets directory which then stores 'object' templates as general
  */
 
-//(MAYBE DONT NEED TO STORE IN A MUTEX)
-// Get a copy of the pixel map before running. Then, store in a mutex and at the
-// end of all of the computation each thread will add their data to the new
-// pixel map
-
 auto main() -> int {
-  // Parameters for the Screen
-  auto constexpr POS_X = SDL_WINDOWPOS_CENTERED;
-  auto constexpr POS_Y = SDL_WINDOWPOS_CENTERED;
-  auto constexpr DIM_X = 1000;
-  auto constexpr DIM_Y = 1000;
-  auto constexpr TITLE = "Window";
-  auto constexpr FLAGS = SDL_WINDOW_RESIZABLE | SDL_WINDOW_SHOWN;
+  SceneConfig scene_setup;
+  std::mt19937 rand_gen;
 
-  // The program wide rand_gen
-  std::random_device randomised_seed;
-  auto rand_gen = std::mt19937(randomised_seed());
+  //==// Check the random seed was given //==/
+  if (scene_setup.SceneSeed) {
+    rand_gen = std::mt19937(scene_setup.SceneSeed.value());
+  } else {
+    std::random_device seed;
+    rand_gen = std::mt19937(seed());
+  }
 
-  // auto sdl_screen = Screen(TITLE, POS_X, POS_Y, DIM_X, DIM_Y, FLAGS);
-  //
-  auto scene_objects = SceneObjects();
+  //==// Create the Scene object and call its Init //==//
+  auto sfml_screen = Screen_SFML(scene_setup.WindowTitle, scene_setup.Width,
+                                 scene_setup.Height, scene_setup.SceneSetup);
+  sfml_screen.init();
 
-  scene_objects.add_sphere(Sphere({-400.0, -700.0, 600.0}, 300.0,
-                                  {0.7, 0.7, 0.7, 0.0, 0.0, 0.0, 0.0, 0.0}));
+  //==// Set up the Camera  //==//
+  auto camera =
+      Camera(scene_setup.Width, scene_setup.Height, scene_setup.FieldOfView,
+             scene_setup.HorizontalRotation, scene_setup.VerticalRotation,
+             scene_setup.CameraRotation, scene_setup.CameraPosition);
+  camera.populate_pixel_directions();
 
-  scene_objects.add_cuboid(
-      {-1000.0, -1000.0, -1000.0}, {1000.0, -1000.0, -1000.0},
-      {1000.0, -1000.0, 1000.0}, {-1000.0, -1000.0, 1000.0},
-      {-1000.0, 1000.0, -1000.0}, {1000.0, 1000.0, -1000.0},
-      {1000.0, 1000.0, 1000.0}, {-1000.0, 1000.0, 1000.0},
-      {1.0, 1.0, 1.0, 0.0, 0.0, 0.0, 0.0, 0.0},
-      {1.0, 1.0, 1.0, 0.0, 0.0, 0.0, 0.0, 0.0},
-      {0.2, 1.0, 0.8, 0.0, 0.0, 0.0, 0.0, 0.0},
-      {1.0, 1.0, 1.0, 0.0, 0.0, 0.0, 0.0, 0.0},
-      {1.0, 1.0, 1.0, 0.0, 0.0, 0.0, 0.0, 0.0},
-      {0.0, 0.0, 0.0, 1.0, 1.0, 0.8, 1.0, 0.0},
-      {1.0, 1.0, 1.0, 0.0, 0.0, 0.0, 0.0, 0.0},
-      {1.0, 1.0, 1.0, 0.0, 0.0, 0.0, 0.0, 0.0},
-      {1.0, 1.0, 1.0, 0.0, 0.0, 0.0, 0.0, 1.0},
-      {1.0, 1.0, 1.0, 0.0, 0.0, 0.0, 0.0, 1.0},
-      {0.0, 0.3, 0.9, 0.0, 0.0, 0.0, 0.0, 0.0},
-      {1.0, 1.0, 1.0, 0.0, 0.0, 0.0, 0.0, 0.0});
+  //==// Call the [BLOCKING] Render function //==//
+  auto image =
+      sfml_screen.render(scene_setup.NumThreads, camera, scene_setup.NumRays,
+                         scene_setup.NumBounces, rand_gen);
 
-  auto sfml_screen = Screen_SFML(TITLE, DIM_X, DIM_Y, scene_objects);
+  //==// Prepare a File Name for the created image and save it
+  auto file_id = std::uniform_int_distribution<int>(ONE, MAX);
+  auto output_name = std::string("scenes/OutputScene_" +
+                                 std::to_string(file_id(rand_gen)) + ".png");
 
-  // sdl_screen.init();
-  sfml_screen.init(rand_gen);
+  if (image.saveToFile(output_name)) {
+    std::cout << "Saved Scene to file: " << output_name << std::endl;
+  }
 
+  //==// Code to Allow Runtime viewing of the Simulation //==//
   auto isRunning = true;
 
   // SDL_Event ev;

@@ -10,6 +10,7 @@
 #include "raylogic/raylogic.hh"
 #include "screen.hh"
 #include "vectors/vector_definitions.hh"
+#include <SFML/Graphics.hpp>
 
 #include <random>
 
@@ -74,21 +75,13 @@ auto PopulateIndexArrays(
           ONE;
     }
   }
-
-  for (auto pair : pixel_direcs_indexs) {
-    std::cout << pair.first << "," << pair.second << std::endl;
-  }
-
-  for (auto pair : pixel_buffer_indexs) {
-    std::cout << pair.first << "," << pair.second << std::endl;
-  }
 }
 
 // TODO: consider implementing std::promise and future to work along side
 // threads so that they can finish in any order
 auto Screen_SFML::render(std::size_t num_threads, Camera &camera,
                          std::size_t num_rays, std::size_t num_bounces,
-                         std::mt19937 &rand_gen) -> void {
+                         std::mt19937 &rand_gen) -> sf::Image {
   // Every 4 indexes represets a pixels RGBA channels
   std::vector<std::uint8_t> pixel_buffer(window_data.d_x * window_data.d_y *
                                          FOUR);
@@ -241,4 +234,8 @@ auto Screen_SFML::render(std::size_t num_threads, Camera &camera,
 
   // Texture -> Image -> Render
   pixel_map->update(pixel_buffer.data());
+
+  auto image_of_texture = pixel_map->copyToImage();
+
+  return image_of_texture;
 }

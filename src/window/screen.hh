@@ -60,13 +60,13 @@ public:
     pixel_map = std::make_unique<sf::Texture>();
   }
 
-  auto init(std::mt19937 &rand_gen) -> bool;
+  auto init() -> bool;
 
   auto update(sf::Event &ev) -> bool;
 
   // Multi-threaded method implemented in seperate directory
   auto render(std::size_t num_threads, Camera &camera, std::size_t num_rays,
-              std::size_t num_bounces, std::mt19937 &rand_gen) -> void;
+              std::size_t num_bounces, std::mt19937 &rand_gen) -> sf::Image;
 
 private:
   WindowData_SFML window_data;

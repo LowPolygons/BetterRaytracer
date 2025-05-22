@@ -17,8 +17,6 @@ using BasicColour = Vec<8, float>;
 auto get_average_of_colours(std::vector<BasicColour> colours) -> BasicColour;
 
 // Each Ray has its own corresponding Colour Data
-// TODO: Implement these methods
-//
 class ColourData {
 private:
   BasicColour total_colour;
