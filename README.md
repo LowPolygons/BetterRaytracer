@@ -1,5 +1,5 @@
 # SOLID-Tracer
-This is a total remaster of an old Raytracer I may, only know I follow standard conventions and aim for actually pleasant code
+This is a total remaster of an old Raytracer I made, only know I follow standard conventions and aim for actually pleasant code
 
 ## Example Scenes
 
