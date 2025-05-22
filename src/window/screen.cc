@@ -60,8 +60,13 @@ auto Screen_SFML::init(std::mt19937 &rand_gen) -> bool {
   // Call the raytracer method here
   render(16, camera, 200, 8, rand_gen);
 
-  if (((*pixel_map).copyToImage()).saveToFile("OutputScene.png")) {
-    std::cout << "Saved to file: OutputScene.png" << std::endl;
+  // Random int for scene name
+  auto int_suffix = std::uniform_int_distribution<int>(1, 999999);
+
+  auto output_name = std::string("scenes/OutputScene_" +
+                                 std::to_string(int_suffix(rand_gen)) + ".png");
+  if (((*pixel_map).copyToImage()).saveToFile(output_name)) {
+    std::cout << "Saved to file: " << output_name << std::endl;
   }
 
   return true;

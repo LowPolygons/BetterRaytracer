@@ -21,9 +21,8 @@ using Vectors::PI;
 using Window::Screen_SDL;
 using Window::Screen_SFML;
 /* TODO:
- * - Add a multithreading manager
- * - make it actually raytrace
  * - where applicable go through classes and make getters be const &
+ * - standardise I/O to be neater
  */
 
 //(MAYBE DONT NEED TO STORE IN A MUTEX)
