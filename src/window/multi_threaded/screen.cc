@@ -81,8 +81,8 @@ auto PopulateIndexArrays(
 // threads so that they can finish in any order
 auto Screen_SFML::render(std::size_t num_threads, Camera &camera,
                          std::size_t num_rays, std::size_t num_bounces,
-                         std::mt19937 &rand_gen, std::size_t stat_log_every)
-    -> sf::Image {
+                         std::mt19937 &rand_gen, std::size_t stat_log_every,
+                         float contribution) -> sf::Image {
   // Every 4 indexes represets a pixels RGBA channels
   std::vector<std::uint8_t> pixel_buffer(window_data.d_x * window_data.d_y *
                                          FOUR);
@@ -199,7 +199,8 @@ auto Screen_SFML::render(std::size_t num_threads, Camera &camera,
             }
             // -  -  -  -  - Update ray with new direction
             // -  -  -  -  - Store accumulated colour
-            ray_colour.combine_colour_as_average(closest_object.colour);
+            ray_colour.combine_colour_as_average(closest_object.colour,
+                                                 bounce_num, contribution);
           }
           // -  -  -  - Add colour to pixel total
           colours_for_pixel.push_back(ray_colour.get_total_colour());

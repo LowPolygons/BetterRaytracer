@@ -32,7 +32,9 @@ public:
 
   // Given a new colour, adds it to the list of previous_colours
   // and then joins it to the total colour
-  auto combine_colour_as_average(BasicColour new_colour) -> void;
+  auto combine_colour_as_average(BasicColour new_colour,
+                                 std::size_t bounce_info, float contribution)
+      -> void;
 
   auto get_total_colour() -> BasicColour;
 };

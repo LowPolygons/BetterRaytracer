@@ -58,9 +58,10 @@ auto main() -> int {
   //==// Call the [BLOCKING] Render function //==//
   sfml_screen.init_texture();
 
-  auto image = sfml_screen.render(
-      scene_setup.NumThreads, camera, scene_setup.NumRays,
-      scene_setup.NumBounces, rand_gen, scene_setup.PrintPercentStatusEvery);
+  auto image = sfml_screen.render(scene_setup.NumThreads, camera,
+                                  scene_setup.NumRays, scene_setup.NumBounces,
+                                  rand_gen, scene_setup.PrintPercentStatusEvery,
+                                  scene_setup.ContributionPerBounce);
 
   //==// Prepare a File Name for the created image and save it
   if (scene_setup.StoreResultToFile) {

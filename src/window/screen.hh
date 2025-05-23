@@ -68,7 +68,7 @@ public:
   // Multi-threaded method implemented in seperate directory
   auto render(std::size_t num_threads, Camera &camera, std::size_t num_rays,
               std::size_t num_bounces, std::mt19937 &rand_gen,
-              std::size_t stat_log_every) -> sf::Image;
+              std::size_t stat_log_every, float contribution) -> sf::Image;
 
 private:
   WindowData_SFML window_data;

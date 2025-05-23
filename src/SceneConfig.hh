@@ -11,7 +11,7 @@
 using Constant = std::size_t;
 using Offset = Vec<3, double>;
 using Title = std::string;
-using Angle = float;
+using Precise = float;
 // If it isn't defined, it'll use the random_device
 using RandomSeed = std::optional<std::uint32_t>;
 using Function = void;
@@ -28,14 +28,15 @@ struct SceneConfig {
   Constant NumThreads;
   Constant NumRays;
   Constant NumBounces;
+  Precise ContributionPerBounce;
 
   // Camera Configuration
   Constant Width;
   Constant Height;
   Constant FieldOfView;
-  Angle HorizontalRotation;
-  Angle VerticalRotation;
-  Angle CameraRotation;
+  Precise HorizontalRotation;
+  Precise VerticalRotation;
+  Precise CameraRotation;
   Offset CameraPosition;
 
   // Object Configuration
