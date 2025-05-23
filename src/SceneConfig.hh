@@ -15,6 +15,7 @@ using Angle = float;
 // If it isn't defined, it'll use the random_device
 using RandomSeed = std::optional<std::uint32_t>;
 using Function = void;
+using Confirmation = bool;
 
 // Used essentialy as a config file
 // Style is different to signify direct user interaction
@@ -40,6 +41,12 @@ struct SceneConfig {
   // Object Configuration
   SceneObjects SceneSetup;
   RandomSeed SceneSeed;
+
+  // Stat Info
+  Constant PrintPercentStatusEvery;
+
+  Confirmation StoreResultToFile;
+  Confirmation DisplayResultOnScreen;
 
   Function GetSceneSetup();
   Function DisplaySceneSetup();

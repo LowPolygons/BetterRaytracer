@@ -31,9 +31,6 @@ auto constexpr MAX = std::size_t{999999};
 
 auto main() -> int {
   SceneConfig scene_setup;
-  // Display the Scene Setup
-  scene_setup.DisplaySceneSetup();
-
   std::mt19937 rand_gen;
 
   //==// Check the random seed was given //==/
@@ -47,7 +44,9 @@ auto main() -> int {
   //==// Create the Scene object and call its Init //==//
   auto sfml_screen = Screen_SFML(scene_setup.WindowTitle, scene_setup.Width,
                                  scene_setup.Height, scene_setup.SceneSetup);
-  sfml_screen.init();
+
+  //==// Display the Scene Setup //==//
+  scene_setup.DisplaySceneSetup();
 
   //==// Set up the Camera  //==//
   auto camera =
@@ -57,24 +56,31 @@ auto main() -> int {
   camera.populate_pixel_directions();
 
   //==// Call the [BLOCKING] Render function //==//
-  auto image =
-      sfml_screen.render(scene_setup.NumThreads, camera, scene_setup.NumRays,
-                         scene_setup.NumBounces, rand_gen);
+  sfml_screen.init_texture();
+
+  auto image = sfml_screen.render(
+      scene_setup.NumThreads, camera, scene_setup.NumRays,
+      scene_setup.NumBounces, rand_gen, scene_setup.PrintPercentStatusEvery);
 
   //==// Prepare a File Name for the created image and save it
-  auto file_id = std::uniform_int_distribution<int>(ONE, MAX);
-  auto output_name = std::string("scenes/OutputScene_" +
-                                 std::to_string(file_id(rand_gen)) + ".png");
-  if (image.saveToFile(output_name)) {
-    std::cout << "Saved Scene to file: " << output_name << std::endl;
+  if (scene_setup.StoreResultToFile) {
+    auto file_id = std::uniform_int_distribution<int>(ONE, MAX);
+    auto output_name = std::string("scenes/OutputScene_" +
+                                   std::to_string(file_id(rand_gen)) + ".png");
+    if (image.saveToFile(output_name)) {
+      std::cout << "Saved Scene to file: " << output_name << std::endl;
+    }
   }
-
   //==// Code to Allow Runtime viewing of the Simulation //==//
-  auto isRunning = true;
+  if (scene_setup.DisplayResultOnScreen) {
+    sfml_screen.init_window();
 
-  sf::Event event;
+    auto isRunning = true;
 
-  while (isRunning) {
-    isRunning = sfml_screen.update(event);
+    sf::Event event;
+
+    while (isRunning) {
+      isRunning = sfml_screen.update(event);
+    }
   }
 }

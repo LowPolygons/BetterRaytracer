@@ -81,7 +81,8 @@ auto PopulateIndexArrays(
 // threads so that they can finish in any order
 auto Screen_SFML::render(std::size_t num_threads, Camera &camera,
                          std::size_t num_rays, std::size_t num_bounces,
-                         std::mt19937 &rand_gen) -> sf::Image {
+                         std::mt19937 &rand_gen, std::size_t stat_log_every)
+    -> sf::Image {
   // Every 4 indexes represets a pixels RGBA channels
   std::vector<std::uint8_t> pixel_buffer(window_data.d_x * window_data.d_y *
                                          FOUR);
@@ -113,12 +114,12 @@ auto Screen_SFML::render(std::size_t num_threads, Camera &camera,
 
   // Return value is just a bool
   auto render_call = [&](std::size_t thread_id) {
-    std::cout << thread_id << ": Starting Ray Tracing" << std::endl;
     // Loop through the row indexes:
     auto row_range =
         std::views::iota(pixel_direcs_indexs[thread_id].first,
                          pixel_direcs_indexs[thread_id].second + ONE);
     auto num_pixels_done = 0;
+    auto lowest_passed = 0;
 
     for (auto row : row_range) {
       // - Get the row from the camera
@@ -126,10 +127,15 @@ auto Screen_SFML::render(std::size_t num_threads, Camera &camera,
 
       if (!directions_optional)
         return false;
-      // For debugging
-      if (thread_id == 0)
-        std::cout << "Thread Zero is on row " << row << " of "
-                  << pixel_direcs_indexs[thread_id].second << std::endl;
+
+      // Some I/O
+      auto perc_done = 100.0 * row / pixel_direcs_indexs[thread_id].second;
+
+      if (thread_id == 0 and static_cast<int>(perc_done) > lowest_passed) {
+        lowest_passed = lowest_passed + stat_log_every;
+        std::cout << ">>> Approximate Completion: " << perc_done << "%"
+                  << std::endl;
+      }
 
       auto directions = directions_optional.value();
       // -  - For each Pixel:
@@ -215,10 +221,10 @@ auto Screen_SFML::render(std::size_t num_threads, Camera &camera,
       }
     }
 
-    std::cout << thread_id << ": Finished Ray Tracing" << std::endl;
-
     return true;
   };
+
+  std::cout << ">>> Beginning Computation" << std::endl;
 
   // Create the threads
   for (auto thread_id : thread_iterator) {
@@ -229,6 +235,8 @@ auto Screen_SFML::render(std::size_t num_threads, Camera &camera,
   for (auto &thread : threads) {
     thread.join();
   }
+
+  std::cout << ">>> Computation Finished" << std::endl;
 
   // Convert pixel_buffer into data for the texture
 

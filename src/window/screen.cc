@@ -46,10 +46,15 @@ auto Screen_SDL::update(SDL_Event &ev) -> bool {
   return true;
 }
 
-auto Screen_SFML::init() -> bool {
+auto Screen_SFML::init_window() -> bool {
   screen = std::make_unique<sf::RenderWindow>(
       sf::VideoMode({window_data.d_x, window_data.d_y}), window_data.title);
   screen->display();
+
+  return true;
+}
+
+auto Screen_SFML::init_texture() -> bool {
   pixel_map->create(window_data.d_x, window_data.d_y);
 
   return true;
