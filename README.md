@@ -1,5 +1,5 @@
 # SOLID-Tracer
-This is a total remaster of an old Raytracer I made, only know I follow standard conventions and aim for actually pleasant code
+This is a total remaster of an old Raytracer I made, only now I follow standard conventions and aim for actually pleasant code
 
 ## How To Use 
 Nagivate to `src/SceneConfig.cc` and set the configuration you want.
