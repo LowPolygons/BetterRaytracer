@@ -10,7 +10,7 @@ Run `run-scripts/release.md`
 ## 200 Rays, 5 Bounces
 ![Example Scene 1](scenes/FirstDecent.png)
 
-## 100 Rays, 5 Bounces
+## 300 Rays, 5 Bounces
 
 ![Example Scene 2](scenes/MultiColour.png)
 
