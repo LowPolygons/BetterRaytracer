@@ -15,7 +15,7 @@ using Vectors::Vec;
 
 class Triangle {
 public:
-  // A function which picks which two vectors should be used for barycentrics
+  // Picks which two vectors should be used for barycentrics
   auto get_valid_vectors() -> void;
 
   auto check_intersection(Line<3, double> ray) const -> IntersectionReturnData;

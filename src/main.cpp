@@ -27,6 +27,9 @@ auto constexpr MAX = std::size_t{999999};
 /* TODO:
  * - standardise I/O to be neater
  * - Rethink SceneConfig so that you don't have to recompile when changing scene
+ * - Post processing effects
+ * - Different camera type (rather than pinhole, have all initial vectors be
+ * parallel)
  */
 
 auto main() -> int {
