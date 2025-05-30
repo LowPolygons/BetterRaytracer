@@ -21,3 +21,7 @@ Run `run-scripts/release.md`
 ## 1000 Rays, 20 Bounces 
 
 ![Example Scene 4](scenes/RedSphereDarkRoom.png)
+
+## 1200 Rays, 20 Bounces
+
+![Example Scene 4](scenes/MirrorsAllAround.png)

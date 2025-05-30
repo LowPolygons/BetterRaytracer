@@ -13,6 +13,8 @@ using Vectors::operator+;
 using Vectors::operator-;
 using Vectors::PI;
 
+auto constexpr BIAS = 1e-04;
+
 auto RayLogic::calculate_new_ray_direction(const Line<3, double> &ray,
                                            const Vec<3, double> &p_of_i,
                                            const Vec<3, double> &normal,
@@ -96,6 +98,6 @@ auto RayLogic::calculate_new_ray_direction(const Line<3, double> &ray,
 
   Vectors::normalise(actual_bounce_dir);
 
-  return Line<3, double>{
-      std::make_pair(p_of_i + normal_clone, actual_bounce_dir)};
+  return Line<3, double>{std::make_pair(
+      p_of_i + Vectors::scale(normal_clone, BIAS), actual_bounce_dir)};
 }
