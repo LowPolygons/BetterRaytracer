@@ -2,6 +2,10 @@
 This is a total remaster of an old Raytracer I made, only know I follow standard conventions and aim for actually pleasant code
 
 ## How To Use 
+Clone the Repository
+
+Run the `get_dependencies.sh` script (for Debian/Ubuntu platforms) to automatically install all needed packages
+
 Nagivate to `src/SceneConfig.cc` and set the configuration you want.
 
 Run `run-scripts/release.md`
