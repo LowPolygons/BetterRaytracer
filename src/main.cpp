@@ -19,6 +19,8 @@
 
 #include "SceneConfig.hh"
 
+#include <GL/gl.h>
+
 using Window::Screen_SFML;
 
 auto constexpr ONE = std::size_t{1};
@@ -33,6 +35,7 @@ auto constexpr MAX = std::size_t{999999};
  */
 
 auto main() -> int {
+
   SceneConfig scene_setup;
   std::mt19937 rand_gen;
 

@@ -1,5 +1,6 @@
 dep_sdl2 = dependency('sdl2', required: true)
 dep_sfml = dependency('sfml-graphics', required: true)
+dep_opengl = dependency('opengl', required: true)
 
 all_sources = files(
   'window/screen.cc',
@@ -16,5 +17,5 @@ all_sources = files(
 executable('raytracer', 
   sources: ['main.cpp'] + all_sources,
   include_directories: include_directories('window', 'vectors', 'geometry'),
-  dependencies: [dep_sdl2] + [dep_sfml]
+  dependencies: [dep_sdl2] + [dep_sfml] + [dep_opengl]
 )
