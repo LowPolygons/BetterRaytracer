@@ -242,9 +242,9 @@ auto Screen_SFML::render(std::size_t num_threads, Camera &camera,
   // Convert pixel_buffer into data for the texture
 
   // Texture -> Image -> Render
-  pixel_map->update(pixel_buffer.data());
+  pixel_map.update(pixel_buffer.data());
 
-  auto image_of_texture = pixel_map->copyToImage();
+  auto image_of_texture = pixel_map.copyToImage();
 
   return image_of_texture;
 }

@@ -50,15 +50,12 @@ private:
 
 class Screen_SFML {
 public:
-  Screen_SFML(std::string title, std::size_t d_x, std::size_t d_y,
-              SceneObjects _objects) {
-    window_data.title = title;
-    window_data.d_x = d_x;
-    window_data.d_y = d_y;
-    objects = _objects;
-
-    pixel_map = std::make_unique<sf::Texture>();
-  }
+  Screen_SFML(std::string title, std::uint32_t d_x, std::uint32_t d_y,
+              SceneObjects _objects)
+      : window_data({.title = title, .d_x = d_x, .d_y = d_y}),
+        screen(sf::VideoMode({window_data.d_x, window_data.d_y}),
+               window_data.title),
+        pixel_map(), objects(_objects) {}
 
   auto init_window() -> bool;
   auto init_texture() -> bool;
@@ -72,10 +69,26 @@ public:
 
 private:
   WindowData_SFML window_data;
+
+  sf::RenderWindow screen;
+  sf::Texture pixel_map;
+
+  SceneObjects objects;
+};
+
+class NoGpu_Screen {
+public:
+  NoGpu_Screen(std::string title, std::size_t d_x, std::size_t d_y,
+               SceneObjects _objects) {}
+
+  auto render(std::size_t num_threads, Camera &camera, std::size_t num_rays,
+              std::size_t num_bounces, std::mt19937 &rand_gen,
+              std::size_t stat_log_every, float contribution) -> void;
+
+private:
   SceneObjects objects;
 
-  std::unique_ptr<sf::RenderWindow> screen;
-  std::unique_ptr<sf::Texture> pixel_map;
+  std::vector<std::uint8_t> pixel_data;
 };
 
 } // namespace Window

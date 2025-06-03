@@ -47,27 +47,26 @@ auto Screen_SDL::update(SDL_Event &ev) -> bool {
 }
 
 auto Screen_SFML::init_window() -> bool {
-  screen = std::make_unique<sf::RenderWindow>(
-      sf::VideoMode({window_data.d_x, window_data.d_y}), window_data.title);
-  screen->display();
+  screen.setActive(true);
+  screen.display();
 
   return true;
 }
 
 auto Screen_SFML::init_texture() -> bool {
-  pixel_map->create(window_data.d_x, window_data.d_y);
+  pixel_map.create(window_data.d_x, window_data.d_y);
 
   return true;
 }
 
 auto Screen_SFML::update(sf::Event &ev) -> bool {
-  auto scene = sf::Sprite(*pixel_map);
+  auto scene = sf::Sprite(pixel_map);
 
-  screen->clear();
-  screen->draw(scene);
-  screen->display();
+  screen.clear();
+  screen.draw(scene);
+  screen.display();
 
-  while (screen->pollEvent(ev)) {
+  while (screen.pollEvent(ev)) {
     if (ev.type == sf::Event::Closed) {
       return false;
     }

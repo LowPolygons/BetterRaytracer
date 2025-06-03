@@ -32,6 +32,7 @@ auto constexpr MAX = std::size_t{999999};
  * - Post processing effects
  * - Different camera type (rather than pinhole, have all initial vectors be
  * parallel)
+ * - Make an alternative option which does not use any rendering library
  */
 
 auto main() -> int {
@@ -39,7 +40,7 @@ auto main() -> int {
   SceneConfig scene_setup;
   std::mt19937 rand_gen;
 
-  //==// Check the random seed was given //==/
+  //==// Check the random seed was given //==//
   if (scene_setup.SceneSeed) {
     rand_gen = std::mt19937(scene_setup.SceneSeed.value());
   } else {
