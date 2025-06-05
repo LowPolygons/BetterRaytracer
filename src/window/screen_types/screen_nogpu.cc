@@ -4,7 +4,7 @@
 #include <ranges>
 
 // Credit to Sean Barrett - https://github.com/nothings/stb
-#include "stb/stb_image_write.h"
+#include "external/stb/stb_image_write.h"
 
 using Window::Screen_NOGPU;
 
