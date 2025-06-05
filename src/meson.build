@@ -10,8 +10,11 @@ all_sources = files(
   'camera/camera.cc',
   'raylogic/raylogic.cc',
   'window/scene_objects/scene_objects.cc',
+  'window/screen_types/screen_nogpu.cc',
+  'window/screen_types/screen_sfml.cc',
   'colour/colour.cc',
-  'SceneConfig.cc'
+  'SceneConfig.cc',
+  'stb/stb_image_write.cc'
 )
 
 executable('raytracer', 

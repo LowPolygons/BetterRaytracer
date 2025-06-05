@@ -55,11 +55,11 @@ BasicColour constexpr RED_METAL = {0.76, 0.235, 0.235, 0.0,
                                    0.0,  0.0,   0.0,   0.35};
 Function SceneConfig::GetSceneSetup() {
   WindowTitle = "Example Scene";
-
+  RenderOption = RenderMode::NOGPU;
   NumThreads = 16;
-  NumRays = 300;
-  NumBounces = 10;
-  ContributionPerBounce = 0.8;
+  NumRays = 50;
+  NumBounces = 5;
+  ContributionPerBounce = 0.999;
 
   Width = 1000;
   Height = 1000;

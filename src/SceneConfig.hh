@@ -17,12 +17,14 @@ using RandomSeed = std::optional<std::uint32_t>;
 using Function = void;
 using Confirmation = bool;
 
+enum RenderMode { SFML, NOGPU };
 // Used essentialy as a config file
 // Style is different to signify direct user interaction
 struct SceneConfig {
   SceneConfig() { GetSceneSetup(); }
   // Window Configuration
   Title WindowTitle;
+  RenderMode RenderOption;
 
   // Ray Configuration
   Constant NumThreads;

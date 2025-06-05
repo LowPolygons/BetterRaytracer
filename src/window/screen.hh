@@ -7,17 +7,33 @@
 #include <cstdint>
 #include <memory>
 
-#include "SDL_video.h"
+#include "../camera/camera.hh"
 #include "WindowData.hh"
-#include "camera/camera.hh"
 #include "scene_objects/scene_objects.hh"
+#include <SDL2/SDL_video.h>
 #include <random>
 
 using Window::WindowData_SDL;
 using Window::WindowData_SFML;
 
+/* Container for the various options for Window Rendering
+ */
+
+// TODO: quite a bit of redundant data here, clean up
 namespace Window {
-// A class which will manage the sdl functions
+
+auto PopulateIndexArrays(
+    std::size_t &num_threads, std::size_t &row_width, std::size_t &num_rows,
+    std::vector<std::pair<std::size_t, std::size_t>> &pixel_direcs_indexs,
+    std::vector<std::pair<std::size_t, std::size_t>> &pixel_buffer_indexs)
+    -> void;
+
+auto render(std::size_t width, std::size_t height, SceneObjects objects,
+            std::size_t num_threads, Camera &camera, std::size_t num_rays,
+            std::size_t num_bounces, std::mt19937 &rand_gen,
+            std::size_t stat_log_every, float contribution)
+    -> std::vector<std::uint8_t>;
+
 class Screen_SDL {
 public:
   Screen_SDL(std::string title,                //
@@ -36,6 +52,8 @@ public:
 
   // Use to initialise unique ptrs stored in class
   auto init() -> bool;
+
+  auto handle_pixel_data(std::vector<std::uint8_t> pixel_buffer) -> void;
 
   // The raytracer body
   auto update(SDL_Event &ev) -> bool;
@@ -60,12 +78,12 @@ public:
   auto init_window() -> bool;
   auto init_texture() -> bool;
 
-  auto update(sf::Event &ev) -> bool;
+  auto handle_pixel_data(std::vector<std::uint8_t> pixel_buffer) -> void;
 
-  // Multi-threaded method implemented in seperate directory
-  auto render(std::size_t num_threads, Camera &camera, std::size_t num_rays,
-              std::size_t num_bounces, std::mt19937 &rand_gen,
-              std::size_t stat_log_every, float contribution) -> sf::Image;
+  auto save_image(std::vector<std::uint8_t> pixel_buffer, std::string file_name)
+      -> bool;
+
+  auto update(sf::Event &ev) -> bool;
 
 private:
   WindowData_SFML window_data;
@@ -76,18 +94,22 @@ private:
   SceneObjects objects;
 };
 
-class NoGpu_Screen {
+class Screen_NOGPU {
 public:
-  NoGpu_Screen(std::string title, std::size_t d_x, std::size_t d_y,
-               SceneObjects _objects) {}
+  Screen_NOGPU(std::size_t d_x, std::size_t d_y, SceneObjects _objects)
+      : width(d_x), height(d_y), objects(_objects) {}
 
-  auto render(std::size_t num_threads, Camera &camera, std::size_t num_rays,
-              std::size_t num_bounces, std::mt19937 &rand_gen,
-              std::size_t stat_log_every, float contribution) -> void;
+  auto save_image(const std::string &file_name, const std::size_t &width,
+                  const std::size_t &height,
+                  const std::vector<std::uint8_t> &pixel_buffer) -> bool;
 
 private:
+  std::size_t width;
+  std::size_t height;
+
   SceneObjects objects;
 
+  std::vector<std::uint8_t> bmp_data;
   std::vector<std::uint8_t> pixel_data;
 };
 

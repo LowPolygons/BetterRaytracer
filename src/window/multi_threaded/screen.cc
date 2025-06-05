@@ -32,7 +32,7 @@ auto constexpr ZERO = 0;
 // Distribute the number of rows across the threads including indexes
 // - Need the indexes as if it is a 1D array for the pixel buffer
 // - Need the indexes as if it is a 2D array for accessing the ray dirs
-auto PopulateIndexArrays(
+auto Window::PopulateIndexArrays(
     std::size_t &num_threads, std::size_t &row_width, std::size_t &num_rows,
     std::vector<std::pair<std::size_t, std::size_t>> &pixel_direcs_indexs,
     std::vector<std::pair<std::size_t, std::size_t>> &pixel_buffer_indexs)
@@ -78,17 +78,17 @@ auto PopulateIndexArrays(
 }
 
 // TODO: consider implementing std::promise and future to work along side
-// threads so that they can finish in any order
-auto Screen_SFML::render(std::size_t num_threads, Camera &camera,
-                         std::size_t num_rays, std::size_t num_bounces,
-                         std::mt19937 &rand_gen, std::size_t stat_log_every,
-                         float contribution) -> sf::Image {
+// threads that they can finish in any order
+auto Window::render(std::size_t width, std::size_t height, SceneObjects objects,
+                    std::size_t num_threads, Camera &camera,
+                    std::size_t num_rays, std::size_t num_bounces,
+                    std::mt19937 &rand_gen, std::size_t stat_log_every,
+                    float contribution) -> std::vector<std::uint8_t> {
   // Every 4 indexes represets a pixels RGBA channels
-  std::vector<std::uint8_t> pixel_buffer(window_data.d_x * window_data.d_y *
-                                         FOUR);
+  std::vector<std::uint8_t> pixel_buffer(width * height * FOUR);
   // Incase the scene window is tiny
   auto num_threads_needed =
-      std::min(num_threads, static_cast<std::size_t>(window_data.d_y));
+      std::min(num_threads, static_cast<std::size_t>(height));
   auto thread_iterator = std::views::iota(std::size_t{0}, num_threads_needed);
 
   // Initialise a number of threads
@@ -101,8 +101,8 @@ auto Screen_SFML::render(std::size_t num_threads, Camera &camera,
 
   auto indexs_paired = std::make_pair(pixel_direcs_indexs, pixel_buffer_indexs);
 
-  auto row_width = static_cast<std::size_t>(window_data.d_x);
-  auto num_rows = static_cast<std::size_t>(window_data.d_y);
+  auto row_width = static_cast<std::size_t>(width);
+  auto num_rows = static_cast<std::size_t>(height);
 
   PopulateIndexArrays(num_threads_needed, row_width, num_rows,
                       pixel_direcs_indexs, pixel_buffer_indexs);
@@ -232,19 +232,12 @@ auto Screen_SFML::render(std::size_t num_threads, Camera &camera,
     threads.emplace_back(render_call, thread_id);
   }
   // Wait for threads to join
-  // - Warning: thread 2 wont be checked until thread 1 is done, etc
   for (auto &thread : threads) {
     thread.join();
   }
 
   std::cout << ">>> Computation Finished" << std::endl;
-
   // Convert pixel_buffer into data for the texture
 
-  // Texture -> Image -> Render
-  pixel_map.update(pixel_buffer.data());
-
-  auto image_of_texture = pixel_map.copyToImage();
-
-  return image_of_texture;
+  return pixel_buffer;
 }

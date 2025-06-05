@@ -8,7 +8,6 @@
 #include "screen.hh"
 
 using Window::Screen_SDL;
-using Window::Screen_SFML;
 
 auto Screen_SDL::init() -> bool {
   // Initialises the handler windows, surface and graphics handling
@@ -39,35 +38,6 @@ auto Screen_SDL::update(SDL_Event &ev) -> bool {
   while (SDL_PollEvent(&ev) != 0) {
     switch (ev.type) {
     case SDL_QUIT:
-      return false;
-    }
-  }
-
-  return true;
-}
-
-auto Screen_SFML::init_window() -> bool {
-  screen.setActive(true);
-  screen.display();
-
-  return true;
-}
-
-auto Screen_SFML::init_texture() -> bool {
-  pixel_map.create(window_data.d_x, window_data.d_y);
-
-  return true;
-}
-
-auto Screen_SFML::update(sf::Event &ev) -> bool {
-  auto scene = sf::Sprite(pixel_map);
-
-  screen.clear();
-  screen.draw(scene);
-  screen.display();
-
-  while (screen.pollEvent(ev)) {
-    if (ev.type == sf::Event::Closed) {
       return false;
     }
   }
