@@ -63,7 +63,8 @@ auto Window::PopulateIndexArrays(
       pixel_direcs_indexs[thread_id].first += accounted_for_rows;
 
       // If we need to account for another, increment
-      if (accounted_for_rows != t_mod_r)
+      if (static_cast<unsigned long>(accounted_for_rows) !=
+          static_cast<unsigned long>(t_mod_r))
         accounted_for_rows += ONE;
 
       // Offset the rest by the number accounted for
@@ -143,10 +144,14 @@ auto Window::render(std::size_t width, std::size_t height, SceneObjects objects,
         auto num_ray_iterator = std::views::iota(std::size_t{0}, num_rays);
         auto num_bounce_iterator =
             std::views::iota(std::size_t{0}, num_bounces);
+
+        auto initial_ray_hits_nothing = false;
         // Vector to contain all the ray colours
         auto colours_for_pixel = std::vector<BasicColour>();
         // -  -  - For each number of rays:
         for (auto ray_num [[maybe_unused]] : num_ray_iterator) {
+          if (initial_ray_hits_nothing)
+            break; // If the initial ray hits nothing, none of them will so skip
           // -  -  -  - Form an initial ray Line
           auto ray = Line<3, double>(camera_origin, pixel_ray_direction);
           // Normalise the direction
@@ -195,7 +200,9 @@ auto Window::render(std::size_t width, std::size_t height, SceneObjects objects,
                   closest_object.normal, closest_object.colour, rand_gen);
 
             } else {
-              // TODO: Handle this case of ray never hitting anything
+              if (bounce_num == 0)
+                initial_ray_hits_nothing = true;
+              break;
             }
             // -  -  -  -  - Update ray with new direction
             // -  -  -  -  - Store accumulated colour

@@ -74,7 +74,6 @@ auto RayLogic::calculate_new_ray_direction(const Line<3, double> &ray,
 
   auto spec_distribution = std::uniform_real_distribution<double>(
       -bounce_rand_range / 2, bounce_rand_range / 2);
-  auto test_distribution = std::uniform_real_distribution<double>(-1.0, 1.0);
 
   // This is the angle which a vector should be formed from which lies in the
   // same plane as the normal clone, incoming bounce and outgoing bounce

@@ -41,10 +41,6 @@ auto Camera::populate_pixel_directions() -> void {
   pinhole_pos =
       Vec<3, double>({0.0, 0.0, -1.0 * static_cast<double>(dist_from_screen)});
 
-  // Needed during the spherical coordinates
-  auto global_z_axis = Vec<3, double>({0.0, 0.0, 1.0});
-  auto global_y_axis = Vec<3, double>({0.0, 1.0, 0.0});
-
   // Temporarily store the positions of each pixel in the pixel_directions array
   auto x = std::views::iota(std::size_t{0}, width);
   auto y = std::views::iota(std::size_t{0}, height);
