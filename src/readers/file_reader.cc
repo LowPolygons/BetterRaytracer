@@ -38,8 +38,7 @@ auto FileReader::filter_desired_lines(const std::vector<std::string> &lines,
     -> std::vector<std::string> {
   auto filtered_lines = std::vector<std::string>{};
 
-  // Any lines starting with the invalid_line_start shall not be added to
-  // filtered_lines
+  // Any lines starting with the invalid_line_start omitted from filtered_lines
   std::copy_if(lines.begin(), lines.end(), std::back_inserter(filtered_lines),
                [&](const auto &line) {
                  if (!line.empty())
