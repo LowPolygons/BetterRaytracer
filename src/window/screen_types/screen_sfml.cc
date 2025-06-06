@@ -32,7 +32,18 @@ auto Screen_SFML::update(sf::Event &ev) -> bool {
   return true;
 }
 auto Screen_SFML::handle_pixel_data(std::vector<std::uint8_t> pixel_buffer)
-    -> void {}
+    -> void {
+  pixel_map.update(pixel_buffer.data());
+}
 
-auto Screen_SFML::save_image(std::vector<std::uint8_t> pixel_buffer,
-                             std::string file_name) -> bool {}
+auto Screen_SFML::save_image(const std::string &file_name) -> bool {
+  auto image_of_pixel_map = pixel_map.copyToImage();
+
+  if (image_of_pixel_map.saveToFile(file_name)) {
+    std::cout << "Successfully saved file to " << file_name << std::endl;
+
+    return true;
+  }
+
+  return false;
+}

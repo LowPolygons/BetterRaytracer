@@ -55,7 +55,7 @@ BasicColour constexpr RED_METAL = {0.76, 0.235, 0.235, 0.0,
                                    0.0,  0.0,   0.0,   0.35};
 Function SceneConfig::GetSceneSetup() {
   WindowTitle = "Example Scene";
-  RenderOption = RenderMode::NOGPU;
+  RenderOption = NOGPU;
   NumThreads = 16;
   NumRays = 50;
   NumBounces = 5;
@@ -71,7 +71,7 @@ Function SceneConfig::GetSceneSetup() {
 
   PrintPercentStatusEvery = 2;
 
-  StoreResultToFile = true;
+  StoreResultToFile = false;
   DisplayResultOnScreen = true;
 
   // --- Central Cluster of Spheres ---
@@ -143,6 +143,19 @@ Function SceneConfig::DisplaySceneSetup() {
   std::cout << "\n<======> Misc Config <======>" << std::endl;
   std::cout << "<-=| Print Percentage Progress Every => "
             << PrintPercentStatusEvery << "%" << std::endl;
+  switch (RenderOption) {
+  case NOGPU: {
+    std::cout << "<-=| Rendering Mode => No GPU" << std::endl;
+    if (!StoreResultToFile)
+      std::cout
+          << "\n<-WARN-> Without saving the file, you will have no way to "
+             "view your scene!\n"
+          << std::endl;
+    break;
+  }
+  case SFML:
+    std::cout << "<-=| Rendering Mode => SFML" << std::endl;
+  }
 
   if (StoreResultToFile) {
     std::cout << "<-=| Store Scene to PNG File => True" << std::endl;

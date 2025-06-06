@@ -85,19 +85,25 @@ auto main() -> int {
     break;
   }
   case RenderMode::SFML: {
-    /*
     //==// Create the Scene object and call its Init //==//
     auto sfml_screen = Screen_SFML(scene_setup.WindowTitle, scene_setup.Width,
                                    scene_setup.Height, scene_setup.SceneSetup);
+
+    sfml_screen.init_window();
+    sfml_screen.init_texture();
+    sfml_screen.handle_pixel_data(pixel_buffer);
 
     //==// Prepare a File Name for the created image and save it
     if (scene_setup.StoreResultToFile) {
       auto file_id = std::uniform_int_distribution<int>(ONE, MAX);
       auto output_name = std::string(
           "scenes/OutputScene_" + std::to_string(file_id(rand_gen)) + ".png");
-      if (sfml_screen.save_image(pixel_buffer, output_name)) {
-        std::cout << "Saved Scene to file: " << output_name << std::endl;
-      }
+
+      auto file_saving_success = sfml_screen.save_image(output_name);
+
+      if (!file_saving_success)
+        std::cout << "There was a problem saving the file through SFML"
+                  << std::endl;
     }
     //==// Code to Allow Runtime viewing of the Simulation //==//
     if (scene_setup.DisplayResultOnScreen) {
@@ -111,7 +117,6 @@ auto main() -> int {
         isRunning = sfml_screen.update(event);
       }
     }
-    */
     break;
   }
   }

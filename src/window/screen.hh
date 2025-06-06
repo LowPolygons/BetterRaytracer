@@ -80,8 +80,7 @@ public:
 
   auto handle_pixel_data(std::vector<std::uint8_t> pixel_buffer) -> void;
 
-  auto save_image(std::vector<std::uint8_t> pixel_buffer, std::string file_name)
-      -> bool;
+  auto save_image(const std::string &file_name) -> bool;
 
   auto update(sf::Event &ev) -> bool;
 
