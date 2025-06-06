@@ -8,7 +8,7 @@ Run the `get_dependencies.sh` script (for Debian/Ubuntu platforms) to automatica
 
 Nagivate to `src/SceneConfig.cc` and set the configuration you want.
 
-Run `run-scripts/release.md`
+Run `run-scripts/release.sh`
 
 ## Example Scenes
 ## 200 Rays, 5 Bounces
