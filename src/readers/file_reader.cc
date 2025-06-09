@@ -8,7 +8,7 @@
 #include <unordered_map>
 #include <vector>
 
-auto FileReader::read_file_lines(std::string filename)
+auto FileReader::read_file_lines(const std::string &filename)
     -> std::optional<std::vector<std::string>> {
   auto file_container = std::ifstream(filename);
 
@@ -34,10 +34,11 @@ auto FileReader::read_file_lines(std::string filename)
 
 // Removes any lines beginning with invalid_line_start parameter
 auto FileReader::filter_desired_lines(const std::vector<std::string> &lines,
-                                      char &invalid_line_start)
+                                      const char &invalid_line_start)
     -> std::vector<std::string> {
   auto filtered_lines = std::vector<std::string>{};
 
+  // TODO: Swap so it accepts a string of any invalid chars
   // Any lines starting with the invalid_line_start omitted from filtered_lines
   std::copy_if(lines.begin(), lines.end(), std::back_inserter(filtered_lines),
                [&](const auto &line) {
@@ -54,11 +55,31 @@ auto FileReader::split_lines_across_equals(std::vector<std::string> &lines)
     -> std::unordered_map<std::string, std::string> {
   auto line_pairs = std::unordered_map<std::string, std::string>{};
 
+  auto trim = [&](auto line) {
+    auto start = line.find_first_not_of(" \t\r\n");
+
+    // In case the whole line is invalid
+    if (start == std::string::npos)
+      return std::string{};
+
+    auto end = line.find_last_not_of(" \t\r\n");
+
+    return line.substr(start, end - start + 1);
+  };
+
   for (const auto &line : lines) {
     auto equals = line.find("=");
 
     if (equals != std::string::npos) {
       // TODO: If it contains an equals, split it and then trim whitespace
+      if (equals != line.length() - 1) {
+        auto key = trim(line.substr(0, equals));
+        auto value = trim(line.substr(equals + 1));
+
+        line_pairs[key] = value;
+      }
     }
   }
+
+  return line_pairs;
 }
