@@ -22,7 +22,8 @@ all_sources = files(
   './src/scene/SceneConfig.cc',
   './external/stb/stb_image_write.cc',
   './src/readers/file_reader.cc',
-  './src/readers/scene_config/ConfigReader.cc'
+  './src/readers/scene_config/ConfigReader.cc',
+  './src/readers/object_config/ColourReader.cc'
 )
 
 executable('raytracer', 

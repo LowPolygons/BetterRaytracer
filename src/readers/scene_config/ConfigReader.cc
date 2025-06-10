@@ -10,47 +10,7 @@
 #include <unordered_map>
 #include <vector>
 
-template <typename T>
-auto generalised_cast(const std::string &value) -> std::optional<T> {
-  auto try_catch_numeric_cast = //
-      [](const std::string &string_val, auto func) -> std::optional<T> {
-    try {
-      return std::optional<T>{func(string_val)};
-    } catch (const std::invalid_argument &e) {
-      return std::nullopt;
-    } catch (const std::out_of_range &e) {
-      return std::nullopt;
-    }
-  };
-
-  // String-like
-  if constexpr (std::is_same_v<T, std::string>)
-    return value;
-
-  // Bool-like
-  if constexpr (std::is_same_v<T, bool>) {
-    if (value == "true")
-      return bool{true};
-    if (value == "false")
-      return bool{false};
-
-    return std::nullopt;
-  }
-
-  // Numeric-like
-  if constexpr (std::is_arithmetic<T>::value) {
-    if (std::is_same_v<T, int>)
-      return try_catch_numeric_cast(value, [](auto s) { return std::stoi(s); });
-
-    if (std::is_same_v<T, double>)
-      return try_catch_numeric_cast(value, [](auto s) { return std::stod(s); });
-
-    if (std::is_same_v<T, float>)
-      return try_catch_numeric_cast(value, [](auto s) { return std::stof(s); });
-  }
-
-  return std::nullopt;
-}
+using FileReader::generalised_cast;
 
 auto ConfigReader::validate_config(const std::string &file_path)
     -> std::optional<std::vector<std::string>> {

@@ -19,7 +19,7 @@ BasicColour constexpr WASHED_GREEN = {0.25, 0.699, 0.25, 0.0,
 BasicColour constexpr WASHED_BLUE = {0.25, 0.25, 0.699, 0.0,
                                      0.0,  0.0,  0.0,   0.0};
 BasicColour constexpr LIGHT_GREY = {0.8, 0.8, 0.8, 0.0, 0.0, 0.0, 0.0, 0.0};
-
+BasicColour constexpr DARK_GREY = {0.2, 0.2, 0.2, 0.0, 0.0, 0.0, 0.0, 0.0};
 BasicColour constexpr WHITE_MIRROR = {1.0, 1.0, 1.0, 0.0, 0.0, 0.0, 0.0, 1.0};
 
 BasicColour constexpr DARK_MIRROR = {0.75, 0.75, 0.75, 0.0, 0.0, 0.0, 0.0, 1.0};
@@ -61,30 +61,14 @@ Function SceneConfig::GetSceneSetup() {
   SceneSetup.add_sphere(
       Sphere({0.0, -1000.0, 750.0}, 200.0, BRIGHT_WHITE_LIGHT));
 
-  // --- Cuboid 1: Dark pedestal ---
-  SceneSetup.add_cuboid({-300.0, -1000.0, -300.0}, {0.0, -1000.0, -300.0},
-                        {0.0, -1000.0, 0.0}, {-300.0, -1000.0, 0.0},
-                        {-300.0, -700.0, -300.0}, {0.0, -700.0, -300.0},
-                        {0.0, -700.0, 0.0}, {-300.0, -700.0, 0.0}, DARK_MIRROR,
-                        DARK_MIRROR,                // Down
-                        GENTLE_RED, GENTLE_GREEN,   // Left
-                        SILVER_METAL, SILVER_METAL, // Right
-                        PLAIN_WHITE, PLAIN_WHITE,   // Back
-                        GENTLE_BLUE, GENTLE_BLUE,   // Front
-                        PLAIN_WHITE, PLAIN_WHITE    // Up
-  );
-
   SceneSetup.add_cuboid({-1000.0, -1000.0, -1000.0}, {1000.0, -1000.0, -1000.0},
                         {1000.0, -1000.0, 1000.0}, {-1000.0, -1000.0, 1000.0},
                         {-1000.0, 1000.0, -1000.0}, {1000.0, 1000.0, -1000.0},
                         {1000.0, 1000.0, 1000.0}, {-1000.0, 1000.0, 1000.0},
-                        PLAIN_WHITE,
-                        PLAIN_WHITE,                //
-                        WASHED_RED, WASHED_RED,     //
-                        PLAIN_WHITE, PLAIN_WHITE,   //
-                        WASHED_GREEN, WASHED_GREEN, //
-                        WASHED_BLUE, WASHED_BLUE,   //
-                        LIGHT_GREY, LIGHT_GREY      //
+                        DARK_GREY, DARK_GREY, DARK_GREY, DARK_GREY, DARK_GREY,
+                        DARK_GREY, DARK_GREY, DARK_GREY, DARK_GREY, DARK_GREY,
+                        DARK_GREY, DARK_GREY
+
   );
 }
 

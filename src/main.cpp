@@ -19,7 +19,9 @@
 
 #include "scene/SceneConfig.hh"
 
+#include "readers/object_config/ColourReader.hh"
 #include "readers/scene_config/ConfigReader.hh"
+
 #include <GL/gl.h>
 
 using Window::render;
@@ -56,6 +58,24 @@ auto main() -> int {
     return 1;
   }
 
+  auto colour_file_lines = ColourReader::validate_config("colour_data.ini");
+
+  if (!colour_file_lines.has_value()) {
+    return 1;
+  }
+
+  auto colours_cleaned =
+      ColourReader::clean_up_lines(colour_file_lines.value());
+
+  auto colours = std::unordered_map<std::string, BasicColour>{};
+  if (!ColourReader::interpret_lines(colours, colours_cleaned)) {
+    std::cout << "Some values were invalid in colour.ini" << std::endl;
+    return 1;
+  }
+
+  for (auto pair : colours) {
+    std::cout << pair.first << " " << pair.second[0] << std::endl;
+  }
   std::mt19937 rand_gen;
 
   //==// Check the random seed was given //==//
