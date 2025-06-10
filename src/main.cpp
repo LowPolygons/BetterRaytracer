@@ -38,6 +38,7 @@ auto constexpr MAX = std::size_t{999999};
  * - Post processing effects
  * - Different camera type (rather than pinhole, have all initial vectors be
  * parallel)
+ * - Change Field of View to be an angle range rather than an arbitrary distance
  */
 
 auto main() -> int {
