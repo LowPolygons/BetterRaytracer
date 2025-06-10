@@ -1,6 +1,7 @@
 #include "SceneConfig.hh"
 #include "vectors/vector_definitions.hh"
 #include "window/scene_objects/scene_objects.hh"
+#include <iostream>
 
 #include "colour/colour.hh"
 
@@ -53,27 +54,8 @@ BasicColour constexpr GLASSY_GREEN = {0.6, 0.9, 0.6, 0.0, 0.0, 0.0, 0.0, 0.6};
 BasicColour constexpr SKY_BLUE = {0.4, 0.6, 1.0, 0.0, 0.0, 0.0, 0.0, 0.2};
 BasicColour constexpr RED_METAL = {0.76, 0.235, 0.235, 0.0,
                                    0.0,  0.0,   0.0,   0.35};
+
 Function SceneConfig::GetSceneSetup() {
-  WindowTitle = "Example Scene";
-  RenderOption = NOGPU;
-  NumThreads = 16;
-  NumRays = 50;
-  NumBounces = 5;
-  ContributionPerBounce = 0.999;
-
-  Width = 1000;
-  Height = 1000;
-  FieldOfView = 300;
-  HorizontalRotation = 0.0;
-  VerticalRotation = 0.0;
-  CameraRotation = 0.0;
-  CameraPosition = {0.0, 0.0, -100.0};
-
-  PrintPercentStatusEvery = 2;
-
-  StoreResultToFile = false;
-  DisplayResultOnScreen = true;
-
   // --- Central Cluster of Spheres ---
   SceneSetup.add_sphere(Sphere({0.0, 100.0, 750.0}, 325.0, RED_METAL));
   SceneSetup.add_sphere(

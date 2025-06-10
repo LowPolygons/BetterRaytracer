@@ -1,11 +1,56 @@
-#include <optional>
-#include <string>
-#include <unordered_map>
-#include <vector>
-
 #include "ConfigReader.hh"
 #include "readers/file_reader.hh"
 #include "scene/SceneConfig.hh"
+#include <functional>
+#include <iostream>
+#include <optional>
+#include <stdexcept>
+#include <string>
+#include <type_traits>
+#include <unordered_map>
+#include <vector>
+
+template <typename T>
+auto generalised_cast(const std::string &value) -> std::optional<T> {
+  auto try_catch_numeric_cast = //
+      [](const std::string &string_val, auto func) -> std::optional<T> {
+    try {
+      return std::optional<T>{func(string_val)};
+    } catch (const std::invalid_argument &e) {
+      return std::nullopt;
+    } catch (const std::out_of_range &e) {
+      return std::nullopt;
+    }
+  };
+
+  // String-like
+  if constexpr (std::is_same_v<T, std::string>)
+    return value;
+
+  // Bool-like
+  if constexpr (std::is_same_v<T, bool>) {
+    if (value == "true")
+      return bool{true};
+    if (value == "false")
+      return bool{false};
+
+    return std::nullopt;
+  }
+
+  // Numeric-like
+  if constexpr (std::is_arithmetic<T>::value) {
+    if (std::is_same_v<T, int>)
+      return try_catch_numeric_cast(value, [](auto s) { return std::stoi(s); });
+
+    if (std::is_same_v<T, double>)
+      return try_catch_numeric_cast(value, [](auto s) { return std::stod(s); });
+
+    if (std::is_same_v<T, float>)
+      return try_catch_numeric_cast(value, [](auto s) { return std::stof(s); });
+  }
+
+  return std::nullopt;
+}
 
 auto ConfigReader::validate_config(const std::string &file_path)
     -> std::optional<std::vector<std::string>> {
@@ -28,4 +73,144 @@ auto ConfigReader::clean_up_lines(std::vector<std::string> &lines)
 
 auto ConfigReader::interpret_lines(
     SceneConfig &scene_config,
-    std::unordered_map<std::string, std::string> lines) -> bool;
+    std::unordered_map<std::string, std::string> lines) -> bool {
+  // Checks if an item exists in a map
+  auto confirm_entity_exists = [&](const auto key) {
+    if (lines.find(key) == lines.end())
+      return false;
+
+    return true;
+  };
+
+  // Screen
+  auto exists_WindowTitle = confirm_entity_exists("WindowTitle");
+  auto exists_Width = confirm_entity_exists("Width");
+  auto exists_Height = confirm_entity_exists("Height");
+
+  // Simulation
+  auto exists_RenderOption = confirm_entity_exists("RenderOption");
+  auto exists_NumThreads = confirm_entity_exists("NumThreads");
+  auto exists_NumRays = confirm_entity_exists("NumRays");
+  auto exists_NumBounces = confirm_entity_exists("NumBounces");
+  auto exists_Contribution = confirm_entity_exists("ContributionPerBounce");
+
+  // Camera
+  auto exists_CameraDist = confirm_entity_exists("CameraDistance");
+  auto exists_HorizRot = confirm_entity_exists("HorizontalRotation");
+  auto exists_VertRot = confirm_entity_exists("VerticalRotation");
+  auto exists_CamRot = confirm_entity_exists("CameraRotation");
+  auto exists_CameraX = confirm_entity_exists("CameraOffset_X");
+  auto exists_CameraY = confirm_entity_exists("CameraOffset_Y");
+  auto exists_CameraZ = confirm_entity_exists("CameraOffset_Z");
+
+  // Logging
+  auto exists_PrintPerc = confirm_entity_exists("PrintPercentStatusEvery");
+  auto exists_RandSeed = confirm_entity_exists("RandomSeed");
+  // Misc
+  auto exists_StoreResult = confirm_entity_exists("StoreResultToFile");
+  auto exists_DisplayResult = confirm_entity_exists("DisplayResultOnScreen");
+
+  // They must all exist
+  if (exists_WindowTitle &&  //
+      exists_Width &&        //
+      exists_Height &&       //
+      exists_RenderOption && //
+      exists_NumThreads &&   //
+      exists_NumRays &&      //
+      exists_NumBounces &&   //
+      exists_Contribution && //
+      exists_CameraDist &&   //
+      exists_HorizRot &&     //
+      exists_VertRot &&      //
+      exists_CamRot &&       //
+      exists_CameraX &&      //
+      exists_CameraY &&      //
+      exists_CameraZ &&      //
+      exists_PrintPerc &&    //
+      exists_StoreResult &&  //
+      exists_DisplayResult) {
+    // Attempt the casting
+    auto maybe_win = generalised_cast<std::string>(lines["WindowTitle"]);
+    auto maybe_width = generalised_cast<int>(lines["Width"]);
+    auto maybe_height = generalised_cast<int>(lines["Height"]);
+    auto maybe_render = generalised_cast<std::string>(lines["RenderOption"]);
+    auto maybe_threads = generalised_cast<int>(lines["NumThreads"]);
+    auto maybe_rays = generalised_cast<int>(lines["NumRays"]);
+    auto maybe_bounces = generalised_cast<int>(lines["NumBounces"]);
+    auto maybe_contrib =
+        generalised_cast<float>(lines["ContributionPerBounce"]);
+    auto maybe_camdist = generalised_cast<int>(lines["CameraDistance"]);
+    auto maybe_horiz = generalised_cast<int>(lines["HorizontalRotation"]);
+    auto maybe_vert = generalised_cast<int>(lines["VerticalRotation"]);
+    auto maybe_camrot = generalised_cast<int>(lines["CameraRotation"]);
+    auto maybe_camx = generalised_cast<double>(lines["CameraOffset_X"]);
+    auto maybe_camy = generalised_cast<double>(lines["CameraOffset_Y"]);
+    auto maybe_camz = generalised_cast<double>(lines["CameraOffset_Z"]);
+    auto maybe_print = generalised_cast<int>(lines["PrintPercentStatusEvery"]);
+    auto maybe_store = generalised_cast<bool>(lines["StoreResultToFile"]);
+    auto maybe_display = generalised_cast<bool>(lines["DisplayResultOnScreen"]);
+
+    // If they all have correctly castable values
+    if (maybe_win.has_value() &&     //
+        maybe_width.has_value() &&   //
+        maybe_height.has_value() &&  //
+        maybe_render.has_value() &&  //
+        maybe_threads.has_value() && //
+        maybe_rays.has_value() &&    //
+        maybe_bounces.has_value() && //
+        maybe_contrib.has_value() && //
+        maybe_camdist.has_value() && //
+        maybe_horiz.has_value() &&   //
+        maybe_vert.has_value() &&    //
+        maybe_camrot.has_value() &&  //
+        maybe_camx.has_value() &&    //
+        maybe_camy.has_value() &&    //
+        maybe_camz.has_value() &&    //
+        maybe_print.has_value() &&   //
+        maybe_store.has_value() &&   //
+        maybe_display.has_value()) {
+      scene_config.WindowTitle = maybe_win.value();
+      scene_config.Width = maybe_width.value();
+      scene_config.Height = maybe_height.value();
+      scene_config.NumThreads = maybe_threads.value();
+      scene_config.NumRays = maybe_rays.value();
+      scene_config.NumBounces = maybe_bounces.value();
+      scene_config.ContributionPerBounce = maybe_contrib.value();
+      scene_config.FieldOfView = maybe_camdist.value();
+      scene_config.HorizontalRotation = maybe_horiz.value();
+      scene_config.VerticalRotation = maybe_vert.value();
+      scene_config.CameraRotation = maybe_camrot.value();
+      scene_config.CameraPosition = {
+          maybe_camx.value(), //
+          maybe_camy.value(), //
+          maybe_camz.value()  //
+      };
+      scene_config.PrintPercentStatusEvery = maybe_print.value();
+      scene_config.StoreResultToFile = maybe_store.value();
+      scene_config.DisplayResultOnScreen = maybe_display.value();
+
+      // Enum type
+      if (maybe_render.value() == "SFML") {
+        scene_config.RenderOption = SFML;
+      } else if (maybe_render.value() == "NOGPU") {
+        scene_config.RenderOption = NOGPU;
+      } else {
+        return false;
+      }
+
+      // Optional
+      if (exists_RandSeed) {
+        auto maybe_randseed = generalised_cast<int>(lines["RandomSeed"]);
+
+        if (maybe_randseed.has_value())
+          scene_config.SceneSeed = maybe_randseed.value();
+      }
+    } else {
+      return false;
+    }
+  } else {
+    return false;
+  }
+
+  return true;
+}

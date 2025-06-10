@@ -19,8 +19,10 @@ all_sources = files(
   './src/window/screen_types/screen_nogpu.cc',
   './src/window/screen_types/screen_sfml.cc',
   './src/colour/colour.cc',
-  './src/SceneConfig.cc',
-  './external/stb/stb_image_write.cc'
+  './src/scene/SceneConfig.cc',
+  './external/stb/stb_image_write.cc',
+  './src/readers/file_reader.cc',
+  './src/readers/scene_config/ConfigReader.cc'
 )
 
 executable('raytracer', 

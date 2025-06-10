@@ -17,8 +17,9 @@
 
 #include <random>
 
-#include "SceneConfig.hh"
+#include "scene/SceneConfig.hh"
 
+#include "readers/scene_config/ConfigReader.hh"
 #include <GL/gl.h>
 
 using Window::render;
@@ -34,12 +35,27 @@ auto constexpr MAX = std::size_t{999999};
  * - Post processing effects
  * - Different camera type (rather than pinhole, have all initial vectors be
  * parallel)
- * - Make an alternative option which does not use any rendering library
  */
 
 auto main() -> int {
-
   SceneConfig scene_setup;
+
+  auto config_file_lines = ConfigReader::validate_config("scene_config.ini");
+
+  if (!config_file_lines.has_value()) {
+    std::cout << "Could not find scene_config.ini" << std::endl;
+    return 1;
+  }
+
+  auto cleaned_up_lines =
+      ConfigReader::clean_up_lines(config_file_lines.value());
+
+  if (!ConfigReader::interpret_lines(scene_setup, cleaned_up_lines)) {
+    std::cout << "Some values were invalid or missing in scene_config.ini"
+              << std::endl;
+    return 1;
+  }
+
   std::mt19937 rand_gen;
 
   //==// Check the random seed was given //==//
