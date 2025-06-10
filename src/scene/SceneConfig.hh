@@ -22,7 +22,7 @@ enum RenderMode { SFML, NOGPU };
 // Used essentialy as a config file
 // Style is different to signify direct user interaction
 struct SceneConfig {
-  SceneConfig() { GetSceneSetup(); }
+  SceneConfig() {}
   // Window Configuration
   Title WindowTitle;
   RenderMode RenderOption;
@@ -52,7 +52,6 @@ struct SceneConfig {
   Confirmation StoreResultToFile;
   Confirmation DisplayResultOnScreen;
 
-  Function GetSceneSetup();
   Function DisplaySceneSetup();
 };
 #endif

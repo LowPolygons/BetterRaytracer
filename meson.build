@@ -23,7 +23,8 @@ all_sources = files(
   './external/stb/stb_image_write.cc',
   './src/readers/file_reader.cc',
   './src/readers/scene_config/ConfigReader.cc',
-  './src/readers/object_config/ColourReader.cc'
+  './src/readers/object_config/ColourReader.cc',
+  './src/readers/object_config/ObjectConfig.cc'
 )
 
 executable('raytracer', 

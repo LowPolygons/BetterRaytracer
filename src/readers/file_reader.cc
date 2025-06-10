@@ -27,7 +27,8 @@ auto FileReader::read_file_lines(const std::string &filename)
   file_container.seekg(std::size_t{0});
 
   while (std::getline(file_container, line)) {
-    lines.push_back(line);
+    if (line.size() != 0)
+      lines.push_back(line);
   }
   return lines;
 }

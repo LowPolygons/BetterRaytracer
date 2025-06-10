@@ -20,6 +20,7 @@
 #include "scene/SceneConfig.hh"
 
 #include "readers/object_config/ColourReader.hh"
+#include "readers/object_config/ObjectConfig.hh"
 #include "readers/scene_config/ConfigReader.hh"
 
 #include <GL/gl.h>
@@ -42,6 +43,7 @@ auto constexpr MAX = std::size_t{999999};
 auto main() -> int {
   SceneConfig scene_setup;
 
+  // TODO: cleanup, but this is COnfig Reader
   auto config_file_lines = ConfigReader::validate_config("scene_config.ini");
 
   if (!config_file_lines.has_value()) {
@@ -58,6 +60,7 @@ auto main() -> int {
     return 1;
   }
 
+  // TODO: cleanup but this is colour reader
   auto colour_file_lines = ColourReader::validate_config("colour_data.ini");
 
   if (!colour_file_lines.has_value()) {
@@ -73,9 +76,19 @@ auto main() -> int {
     return 1;
   }
 
-  for (auto pair : colours) {
-    std::cout << pair.first << " " << pair.second[0] << std::endl;
-  }
+  // TODO: clean up but this is objects
+  auto objects_file_lines =
+      ObjectConfigReader::validate_config("object_config.ini");
+
+  if (!objects_file_lines.has_value())
+    return 1;
+
+  auto cleaned_objects =
+      ObjectConfigReader::clean_up_lines(objects_file_lines.value());
+
+  if (!ObjectConfigReader::interpret_lines(scene_setup, cleaned_objects,
+                                           colours))
+    std::cout << "Something went wrong interpreting object config" << std::endl;
   std::mt19937 rand_gen;
 
   //==// Check the random seed was given //==//
