@@ -3,7 +3,7 @@
 #include "vectors/vector_definitions.hh"
 #include "vectors/vector_methods.hh"
 #include "vectors/vector_overloads.hh"
-
+#include <cmath>
 using Vectors::operator+;
 using Vectors::operator-;
 using Vectors::Vec;
@@ -21,7 +21,7 @@ auto Sphere::check_intersection(Line<3, double> ray) const
       Vectors::point_to_line_distance(ray_normalised, centre);
   auto dist_mag = Vectors::magnitude(lambda_dist_pair.second);
 
-  if (dist_mag <= radius and lambda_dist_pair.first >= 0) {
+  if (dist_mag - radius < 1e-07 and lambda_dist_pair.first >= 0.0) {
     // Using pythagoras, you can now get the point of intersection
     // Only possible if using a normalised direction vector
 

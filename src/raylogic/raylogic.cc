@@ -13,8 +13,57 @@ using Vectors::operator+;
 using Vectors::operator-;
 using Vectors::PI;
 
-auto constexpr BIAS = 1e-04;
+auto constexpr BIAS = 1e-09;
+auto constexpr EPSILON = 1e-07;
 
+auto RayLogic::calculate_new_ray_direction(const Line<3, double> &ray,
+                                           const Vec<3, double> &p_of_i,
+                                           const Vec<3, double> &normal,
+                                           const BasicColour &object_colour,
+                                           std::mt19937 &rand_gen)
+    -> Line<3, double> {
+  auto ray_dir = ray.second;
+
+  // Confirm normal is going the right way
+  auto normal_clone =
+      Vectors::dot(ray_dir, normal) > 0 ? Vectors::scale(normal, -1.0) : normal;
+  Vectors::normalise(normal_clone);
+
+  // Generate random direction and specular bounce then lerp between them
+  auto normal_distribution = std::uniform_real_distribution<double>(-1.0, 1.0);
+  auto diffuse_direction = Vec<3, double>{normal_distribution(rand_gen),
+                                          normal_distribution(rand_gen),
+                                          normal_distribution(rand_gen)};
+  // Flip its direction depending on whether it has an accute angle with the
+  // normal
+  diffuse_direction = Vectors::dot(diffuse_direction, normal_clone) >= 0
+                          ? diffuse_direction
+                          : Vectors::scale(diffuse_direction, -1);
+
+  Vectors::normalise(diffuse_direction);
+
+  auto specular_bounce =
+      ray_dir -
+      Vectors::scale(normal_clone, 2 * Vectors::dot(normal_clone, ray_dir));
+
+  specular_bounce = Vectors::dot(specular_bounce, normal_clone) > EPSILON
+                        ? specular_bounce
+                        : Vectors::scale(specular_bounce, -1);
+
+  Vectors::normalise(specular_bounce);
+
+  auto specular_diffuse_diff = specular_bounce - diffuse_direction;
+
+  auto interpolated_bounce =
+      diffuse_direction +
+      Vectors::scale(specular_diffuse_diff, object_colour[7]);
+  Vectors::normalise(interpolated_bounce);
+
+  return Line<3, double>{p_of_i + Vectors::scale(normal_clone, BIAS),
+                         interpolated_bounce};
+}
+
+/*
 auto RayLogic::calculate_new_ray_direction(const Line<3, double> &ray,
                                            const Vec<3, double> &p_of_i,
                                            const Vec<3, double> &normal,
@@ -100,3 +149,4 @@ auto RayLogic::calculate_new_ray_direction(const Line<3, double> &ray,
   return Line<3, double>{std::make_pair(
       p_of_i + Vectors::scale(normal_clone, BIAS), actual_bounce_dir)};
 }
+*/

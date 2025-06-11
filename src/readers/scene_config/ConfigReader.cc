@@ -100,9 +100,9 @@ auto ConfigReader::interpret_lines(
     auto maybe_contrib =
         generalised_cast<float>(lines["ContributionPerBounce"]);
     auto maybe_camdist = generalised_cast<int>(lines["CameraDistance"]);
-    auto maybe_horiz = generalised_cast<int>(lines["HorizontalRotation"]);
-    auto maybe_vert = generalised_cast<int>(lines["VerticalRotation"]);
-    auto maybe_camrot = generalised_cast<int>(lines["CameraRotation"]);
+    auto maybe_horiz = generalised_cast<double>(lines["HorizontalRotation"]);
+    auto maybe_vert = generalised_cast<double>(lines["VerticalRotation"]);
+    auto maybe_camrot = generalised_cast<double>(lines["CameraRotation"]);
     auto maybe_camx = generalised_cast<double>(lines["CameraOffset_X"]);
     auto maybe_camy = generalised_cast<double>(lines["CameraOffset_Y"]);
     auto maybe_camz = generalised_cast<double>(lines["CameraOffset_Z"]);
