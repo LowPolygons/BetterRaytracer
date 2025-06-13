@@ -92,7 +92,7 @@ auto ConfigReader::interpret_lines(
     // Attempt the casting
     auto maybe_win = generalised_cast<std::string>(lines["WindowTitle"]);
     auto maybe_width = generalised_cast<int>(lines["Width"]);
-    auto maybe_aspect = generalised_cast<int>(lines["AspectRatio"]);
+    auto maybe_aspect = generalised_cast<double>(lines["AspectRatio"]);
     auto maybe_render = generalised_cast<std::string>(lines["RenderOption"]);
     auto maybe_threads = generalised_cast<int>(lines["NumThreads"]);
     auto maybe_rays = generalised_cast<int>(lines["NumRays"]);
