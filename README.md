@@ -6,9 +6,11 @@ Clone the Repository
 
 Run the `get_dependencies.sh` script (for Debian/Ubuntu platforms) to automatically install all needed packages
 
-Nagivate to `src/SceneConfig.cc` and set the configuration you want.
+Run `run-scripts/release.sh` to compile the program
 
-Run `run-scripts/release.sh`
+Modify the Colour, Object and Scene `.ini` and set the configuration you want.
+
+Run `./build/raytracer`
 
 ## Example Scenes
 ## 200 Rays, 5 Bounces
