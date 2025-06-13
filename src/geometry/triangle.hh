@@ -13,12 +13,13 @@ using Vectors::Line;
 using Vectors::Plane;
 using Vectors::Vec;
 
-class Triangle {
+class Triangle : public Shape {
 public:
   // Picks which two vectors should be used for barycentrics
   auto get_valid_vectors() -> void;
 
-  auto check_intersection(Line<3, double> ray) const -> IntersectionReturnData;
+  auto check_intersection(Line<3, double> ray) const
+      -> IntersectionReturnData override;
 
   // Getters
   auto get_corners() -> std::array<Vec<3, double>, 3> { return corners; }

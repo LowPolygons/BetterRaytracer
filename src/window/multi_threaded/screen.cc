@@ -165,6 +165,8 @@ auto Window::render(std::size_t width, std::size_t height, SceneObjects objects,
             // -  -  -  -  - For each object:
             // -  -  -  -  -  - Check if ray intersects object
             // -  -  -  -  -  - If it does, store its impact data
+            //
+            /*
             // TODO: join spheres and triangles to be in the same list
             for (auto obj : objects.get_spheres()) {
               auto return_data = obj.check_intersection(ray);
@@ -180,6 +182,19 @@ auto Window::render(std::size_t width, std::size_t height, SceneObjects objects,
             }
             for (auto obj : objects.get_triangles()) {
               auto return_data = obj.check_intersection(ray);
+
+              if (return_data.intersects) {
+                // As rays travel forward, it will never be zero for an actual
+                // intersection
+                if (return_data.lambda < closest_object.lambda or
+                    closest_object.lambda < 0) {
+                  closest_object = return_data;
+                }
+              }
+            } */
+            for (auto obj : objects.get_shapes()) {
+              auto return_data =
+                  GeometryDirector::check_intersection(obj.shape(), ray);
 
               if (return_data.intersects) {
                 // As rays travel forward, it will never be zero for an actual

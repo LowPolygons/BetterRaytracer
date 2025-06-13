@@ -38,10 +38,8 @@ Function SceneConfig::DisplaySceneSetup() {
             << ", " << CameraPosition[2] << "]" << std::endl;
 
   std::cout << "\n<======> Objects Config <======>" << std::endl;
-  std::cout << "<-=| Number of Spheres   => " << SceneSetup.get_spheres().size()
+  std::cout << "<-=| Number of shapes   => " << SceneSetup.get_shapes().size()
             << std::endl;
-  std::cout << "<-=| Number of Triangles => "
-            << SceneSetup.get_triangles().size() << std::endl;
 
   std::cout << "\n<======> Misc Config <======>" << std::endl;
   std::cout << "<-=| Print Percentage Progress Every => "

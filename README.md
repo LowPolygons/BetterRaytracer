@@ -26,6 +26,10 @@ Run `run-scripts/release.sh`
 
 ![Example Scene 4](scenes/RedSphereDarkRoom.png)
 
+## 1000 Rays, 20 Bounces 
+
+![Example Scene 5](scenes/StunningPink.png)
+
 ## 1200 Rays, 20 Bounces
 
-![Example Scene 4](scenes/MirrorsAllAround.png)
+![Example Scene 6](scenes/MirrorsAllAround.png)
