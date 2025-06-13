@@ -1,20 +1,13 @@
 #include "SceneConfig.hh"
-#include "vectors/vector_definitions.hh"
 #include "window/scene_objects/scene_objects.hh"
 #include <iostream>
-
-#include "colour/colour.hh"
-
-#include <cstdint>
-#include <optional>
-#include <string>
 
 Function SceneConfig::DisplaySceneSetup() {
   std::cout << "//====| " << WindowTitle << " Setup |=====//" << std::endl;
 
   std::cout << "\n<======> Screen Config <======>" << std::endl;
   std::cout << "<-=| Screen Width  => " << Width << std::endl;
-  std::cout << "<-=| Screen Height => " << Height << std::endl;
+  std::cout << "<-=| Aspect Ratio  => " << AspectRatio << std::endl;
 
   std::cout << "\n<======> Simulation Config <======>" << std::endl;
   std::cout << "<-=| Number of Threads         => " << NumThreads << std::endl;

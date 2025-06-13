@@ -104,11 +104,13 @@ auto main() -> int {
   scene_setup.DisplaySceneSetup();
 
   //==// Set up the Camera //==//
-  auto camera =
-      Camera(scene_setup.Width, scene_setup.Height, scene_setup.FieldOfView,
-             scene_setup.HorizontalRotation, scene_setup.VerticalRotation,
-             scene_setup.CameraRotation, scene_setup.CameraPosition);
+  auto camera = Camera(scene_setup.Width, scene_setup.AspectRatio,
+                       scene_setup.FieldOfView, scene_setup.HorizontalRotation,
+                       scene_setup.VerticalRotation, scene_setup.CameraRotation,
+                       scene_setup.CameraPosition);
   camera.populate_pixel_directions();
+
+  scene_setup.Height = camera.get_calculated_height();
 
   //==// Call the [BLOCKING] Render function //==//
   auto pixel_buffer = Window::render(

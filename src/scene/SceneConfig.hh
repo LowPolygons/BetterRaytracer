@@ -36,6 +36,7 @@ struct SceneConfig {
   // Camera Configuration
   Constant Width;
   Constant Height;
+  Constant AspectRatio;
   Constant FieldOfView;
   Precise HorizontalRotation;
   Precise VerticalRotation;

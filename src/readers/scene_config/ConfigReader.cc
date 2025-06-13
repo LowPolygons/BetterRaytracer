@@ -45,7 +45,7 @@ auto ConfigReader::interpret_lines(
   // Screen
   auto exists_WindowTitle = confirm_entity_exists("WindowTitle");
   auto exists_Width = confirm_entity_exists("Width");
-  auto exists_Height = confirm_entity_exists("Height");
+  auto exists_AspectRatio = confirm_entity_exists("AspectRatio");
 
   // Simulation
   auto exists_RenderOption = confirm_entity_exists("RenderOption");
@@ -55,7 +55,7 @@ auto ConfigReader::interpret_lines(
   auto exists_Contribution = confirm_entity_exists("ContributionPerBounce");
 
   // Camera
-  auto exists_CameraDist = confirm_entity_exists("CameraDistance");
+  auto exists_CameraFOV = confirm_entity_exists("FieldOfView");
   auto exists_HorizRot = confirm_entity_exists("HorizontalRotation");
   auto exists_VertRot = confirm_entity_exists("VerticalRotation");
   auto exists_CamRot = confirm_entity_exists("CameraRotation");
@@ -73,13 +73,13 @@ auto ConfigReader::interpret_lines(
   // They must all exist
   if (exists_WindowTitle &&  //
       exists_Width &&        //
-      exists_Height &&       //
+      exists_AspectRatio &&  //
       exists_RenderOption && //
       exists_NumThreads &&   //
       exists_NumRays &&      //
       exists_NumBounces &&   //
       exists_Contribution && //
-      exists_CameraDist &&   //
+      exists_CameraFOV &&    //
       exists_HorizRot &&     //
       exists_VertRot &&      //
       exists_CamRot &&       //
@@ -92,14 +92,14 @@ auto ConfigReader::interpret_lines(
     // Attempt the casting
     auto maybe_win = generalised_cast<std::string>(lines["WindowTitle"]);
     auto maybe_width = generalised_cast<int>(lines["Width"]);
-    auto maybe_height = generalised_cast<int>(lines["Height"]);
+    auto maybe_aspect = generalised_cast<int>(lines["AspectRatio"]);
     auto maybe_render = generalised_cast<std::string>(lines["RenderOption"]);
     auto maybe_threads = generalised_cast<int>(lines["NumThreads"]);
     auto maybe_rays = generalised_cast<int>(lines["NumRays"]);
     auto maybe_bounces = generalised_cast<int>(lines["NumBounces"]);
     auto maybe_contrib =
         generalised_cast<float>(lines["ContributionPerBounce"]);
-    auto maybe_camdist = generalised_cast<int>(lines["CameraDistance"]);
+    auto maybe_camfov = generalised_cast<int>(lines["FieldOfView"]);
     auto maybe_horiz = generalised_cast<double>(lines["HorizontalRotation"]);
     auto maybe_vert = generalised_cast<double>(lines["VerticalRotation"]);
     auto maybe_camrot = generalised_cast<double>(lines["CameraRotation"]);
@@ -113,13 +113,13 @@ auto ConfigReader::interpret_lines(
     // If they all have correctly castable values
     if (maybe_win.has_value() &&     //
         maybe_width.has_value() &&   //
-        maybe_height.has_value() &&  //
+        maybe_aspect.has_value() &&  //
         maybe_render.has_value() &&  //
         maybe_threads.has_value() && //
         maybe_rays.has_value() &&    //
         maybe_bounces.has_value() && //
         maybe_contrib.has_value() && //
-        maybe_camdist.has_value() && //
+        maybe_camfov.has_value() &&  //
         maybe_horiz.has_value() &&   //
         maybe_vert.has_value() &&    //
         maybe_camrot.has_value() &&  //
@@ -131,12 +131,12 @@ auto ConfigReader::interpret_lines(
         maybe_display.has_value()) {
       scene_config.WindowTitle = maybe_win.value();
       scene_config.Width = maybe_width.value();
-      scene_config.Height = maybe_height.value();
+      scene_config.AspectRatio = maybe_aspect.value();
       scene_config.NumThreads = maybe_threads.value();
       scene_config.NumRays = maybe_rays.value();
       scene_config.NumBounces = maybe_bounces.value();
       scene_config.ContributionPerBounce = maybe_contrib.value();
-      scene_config.FieldOfView = maybe_camdist.value();
+      scene_config.FieldOfView = maybe_camfov.value();
       scene_config.HorizontalRotation = maybe_horiz.value();
       scene_config.VerticalRotation = maybe_vert.value();
       scene_config.CameraRotation = maybe_camrot.value();

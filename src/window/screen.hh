@@ -28,10 +28,11 @@ auto PopulateIndexArrays(
     std::vector<std::pair<std::size_t, std::size_t>> &pixel_buffer_indexs)
     -> void;
 
-auto render(std::size_t width, std::size_t height, SceneObjects objects,
-            std::size_t num_threads, Camera &camera, std::size_t num_rays,
-            std::size_t num_bounces, std::mt19937 &rand_gen,
-            std::size_t stat_log_every, float contribution)
+auto render(const std::size_t &width, const std::size_t &height,
+            SceneObjects &objects, const std::size_t &num_threads,
+            Camera &camera, const std::size_t &num_rays,
+            const std::size_t &num_bounces, std::mt19937 &rand_gen,
+            const std::size_t &stat_log_every, const float &contribution)
     -> std::vector<std::uint8_t>;
 
 class Screen_SDL {

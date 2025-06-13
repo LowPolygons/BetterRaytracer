@@ -33,27 +33,43 @@ auto Camera::get_row(std::size_t height)
   return std::nullopt;
 }
 
+auto Camera::get_calculated_height() -> std::size_t & { return height; }
+
+// TODO: fix comments
 auto Camera::populate_pixel_directions() -> void {
   // Use the dist from screen to calculate the initial vectors needed for each
   // pixel Then loop through the vectors and rotate them all by the given angles
   // Finally use the offset given to offset the entire thing
 
-  pinhole_pos =
-      Vec<3, double>({0.0, 0.0, -1.0 * static_cast<double>(dist_from_screen)});
+  // Gets offsetted after all of the vectors are rotated
+  pinhole_pos = Vec<3, double>({0.0, 0.0, -1.0});
 
   // Temporarily store the positions of each pixel in the pixel_directions array
+
+  // NEW: width and height are known in pixels but we need to know the width
+  // that needs dividing by pixel dimensions such that it fits in the fov
+
+  // First convert to radians
+  fov = fov * Vectors::PI / 180.0;
+
+  // camera z distance is 1
+  auto double_width = tan(fov / 2) * 2;
+  auto double_height = double_width / aspect_ratio;
+
   auto x = std::views::iota(std::size_t{0}, width);
   auto y = std::views::iota(std::size_t{0}, height);
 
-  auto x_offset = (static_cast<double>(width) - 1.0) / 2.0;
-  auto y_offset = (static_cast<double>(height) - 1.0) / 2.0;
+  auto x_offset = double_width / 2.0;
+  auto y_offset = double_height / 2.0;
 
+  auto const x_scale = double_width / static_cast<double>(width);
+  auto const y_scale = double_height / static_cast<double>(height);
   // Populate the array
   for (auto y_index : y) {
     for (auto x_index : x) {
       pixel_directions[y_index][x_index] =
-          Vec<3, double>({static_cast<double>(x_index) - x_offset,
-                          static_cast<double>(y_index) - y_offset, 0.0});
+          Vec<3, double>({(x_scale * x_index) - x_offset,
+                          (y_scale * y_index) - y_offset, 0.0});
     }
   }
 
@@ -87,12 +103,12 @@ auto Camera::populate_pixel_directions() -> void {
           vec[1] = pitched_vec[1];
           vec[2] = pitched_vec[2] * std::cos(xz_angle) -
                    pitched_vec[0] * std::sin(xz_angle);
-
           return vec;
         });
         return row;
       });
 
-  // Finally, add the offset to the pinhole camera
+  // Add the offset to the pinhole camera => as the above are direction
+  // vectors, this is the only one that needs the addition
   pinhole_pos = pinhole_pos + offset;
 };
