@@ -1,18 +1,15 @@
-#include "window/WindowData.hh"
-#include "window/screen.hh"
-#include <fstream>
-#include <ranges>
-
 // Credit to Sean Barrett - https://github.com/nothings/stb
+#include "image/image.hh"
 #include "external/stb/stb_image_write.h"
 
-using Window::Screen_NOGPU;
+#include <cstdint>
+#include <iostream>
+#include <string>
+#include <vector>
 
-auto Screen_NOGPU::save_image(const std::string &file_name,
-                              const std::size_t &width,
-                              const std::size_t &height,
-                              const std::vector<std::uint8_t> &pixel_buffer)
-    -> bool {
+auto Image::save_image(const std::string &file_name, const std::size_t &width,
+                       const std::size_t &height,
+                       const std::vector<std::uint8_t> &pixel_buffer) -> bool {
 
   auto constexpr channels = 4;
 

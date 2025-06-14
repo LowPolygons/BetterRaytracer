@@ -1,5 +1,5 @@
 #include "SceneConfig.hh"
-#include "window/scene_objects/scene_objects.hh"
+#include "image/scene_objects/scene_objects.hh"
 #include <iostream>
 
 void SceneConfig::DisplaySceneSetup() {
@@ -37,19 +37,6 @@ void SceneConfig::DisplaySceneSetup() {
   std::cout << "\n<======> Misc Config <======>" << std::endl;
   std::cout << "<-=| Print Percentage Progress Every => "
             << PrintPercentStatusEvery << "%" << std::endl;
-  switch (RenderOption) {
-  case NOGPU: {
-    std::cout << "<-=| Rendering Mode => No GPU" << std::endl;
-    if (!StoreResultToFile)
-      std::cout
-          << "\n<-WARN-> Without saving the file, you will have no way to "
-             "view your scene!\n"
-          << std::endl;
-    break;
-  }
-  case SFML:
-    std::cout << "<-=| Rendering Mode => SFML" << std::endl;
-  }
 
   if (StoreResultToFile) {
     std::cout << "<-=| Store Scene to PNG File => True" << std::endl;
