@@ -73,7 +73,6 @@ auto ConfigReader::interpret_lines(
   if (exists_WindowTitle &&  //
       exists_Width &&        //
       exists_AspectRatio &&  //
-      exists_NumThreads &&   //
       exists_NumRays &&      //
       exists_NumBounces &&   //
       exists_Contribution && //
@@ -91,7 +90,6 @@ auto ConfigReader::interpret_lines(
     auto maybe_win = generalised_cast<std::string>(lines["WindowTitle"]);
     auto maybe_width = generalised_cast<int>(lines["Width"]);
     auto maybe_aspect = generalised_cast<double>(lines["AspectRatio"]);
-    auto maybe_threads = generalised_cast<int>(lines["NumThreads"]);
     auto maybe_rays = generalised_cast<int>(lines["NumRays"]);
     auto maybe_bounces = generalised_cast<int>(lines["NumBounces"]);
     auto maybe_contrib =
@@ -111,7 +109,6 @@ auto ConfigReader::interpret_lines(
     if (maybe_win.has_value() &&     //
         maybe_width.has_value() &&   //
         maybe_aspect.has_value() &&  //
-        maybe_threads.has_value() && //
         maybe_rays.has_value() &&    //
         maybe_bounces.has_value() && //
         maybe_contrib.has_value() && //
@@ -128,7 +125,6 @@ auto ConfigReader::interpret_lines(
       scene_config.WindowTitle = maybe_win.value();
       scene_config.Width = maybe_width.value();
       scene_config.AspectRatio = maybe_aspect.value();
-      scene_config.NumThreads = maybe_threads.value();
       scene_config.NumRays = maybe_rays.value();
       scene_config.NumBounces = maybe_bounces.value();
       scene_config.ContributionPerBounce = maybe_contrib.value();
@@ -151,6 +147,12 @@ auto ConfigReader::interpret_lines(
 
         if (maybe_randseed.has_value())
           scene_config.SceneSeed = maybe_randseed.value();
+      }
+      if (exists_NumThreads) {
+        auto maybe_threads = generalised_cast<int>(lines["NumThreads"]);
+
+        if (maybe_threads.has_value())
+          scene_config.NumThreads = maybe_threads.value();
       }
     } else {
       return false;

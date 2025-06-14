@@ -16,6 +16,8 @@
 
 #include "main_routines.hh"
 
+#include <thread>
+
 auto constexpr ONE = std::size_t{1};
 auto constexpr MAX = std::size_t{999999};
 
@@ -35,6 +37,10 @@ auto main() -> int {
     std::random_device seed;
     rand_gen = std::mt19937(seed());
   }
+
+  //==// If no number of threads were specified, use the maximum able //==//
+  if (!scene_setup.NumThreads)
+    scene_setup.NumThreads = std::thread::hardware_concurrency();
 
   //==// Display the Scene Setup //==//
   scene_setup.DisplaySceneSetup();
