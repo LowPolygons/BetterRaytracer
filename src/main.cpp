@@ -26,7 +26,9 @@ auto main() -> int {
   SceneConfig scene_setup;
 
   //==// Read in the ini files //==//
-  MainMethods::set_scene_configuration(scene_setup);
+  auto config_read_success = MainMethods::set_scene_configuration(scene_setup);
+  if (!config_read_success)
+    return EXIT_FAILURE;
 
   //==// Check the random seed was given //==//
   std::mt19937 rand_gen;
@@ -38,7 +40,7 @@ auto main() -> int {
     rand_gen = std::mt19937(seed());
   }
 
-  //==// If no number of threads were specified, use the maximum able //==//
+  //==// If number of threads wasn't specified it uses the maximum //==//
   if (!scene_setup.NumThreads)
     scene_setup.NumThreads = std::thread::hardware_concurrency();
 
