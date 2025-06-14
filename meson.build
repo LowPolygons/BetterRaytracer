@@ -2,7 +2,7 @@ project('raytracer', 'cpp',
   default_options: ['cpp_std=c++23'] + ['cpp_args=-fms-extensions']
 )
 
-inc_dirs = include_directories('src', 'external')
+inc_dirs = include_directories('src')
 
 all_sources = files(
   './src/image/multi_threaded/image.cc',
@@ -15,12 +15,12 @@ all_sources = files(
   './src/image/image.cc',
   './src/colour/colour.cc',
   './src/scene/SceneConfig.cc',
-  './external/stb/stb_image_write.cc',
   './src/readers/file_reader.cc',
   './src/readers/scene_config/ConfigReader.cc',
   './src/readers/object_config/ColourReader.cc',
   './src/readers/object_config/ObjectConfig.cc',
-  './src/main_routines.cc'
+  './src/main_routines.cc',
+  './src/bmp_writer/bmp.cc'
 )
 
 executable('raytracer', 

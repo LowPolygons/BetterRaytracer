@@ -1,20 +1,16 @@
-// Credit to Sean Barrett - https://github.com/nothings/stb
 #include "image/image.hh"
-#include "external/stb/stb_image_write.h"
-
 #include <cstdint>
 #include <iostream>
 #include <string>
 #include <vector>
 
+#include "bmp_writer/bmp.hh"
+
 auto Image::save_image(const std::string &file_name, const std::size_t &width,
                        const std::size_t &height,
                        const std::vector<std::uint8_t> &pixel_buffer) -> bool {
 
-  auto constexpr channels = 4;
-
-  if (stbi_write_bmp(file_name.c_str(), static_cast<int>(width),
-                     static_cast<int>(height), channels, pixel_buffer.data())) {
+  if (Writer::write_bmp(file_name, pixel_buffer, width, height)) {
     std::cout << "File saved successfully to " << file_name << std::endl;
 
     return true;
