@@ -13,15 +13,12 @@
 #include "geometry/sphere.hh"
 
 #include "colour/colour.hh"
-#include "vectors/vector_definitions.hh"
 
 #include <random>
 
 #include "scene/SceneConfig.hh"
 
-#include "readers/object_config/ColourReader.hh"
-#include "readers/object_config/ObjectConfig.hh"
-#include "readers/scene_config/ConfigReader.hh"
+#include "main_routines.hh"
 
 #include <GL/gl.h>
 
@@ -32,67 +29,16 @@ using Window::Screen_SFML;
 auto constexpr ONE = std::size_t{1};
 auto constexpr MAX = std::size_t{999999};
 
-/* TODO:
- * - standardise I/O to be neater
- * - Rethink SceneConfig so that you don't have to recompile when changing scene
- * - Post processing effects
- * - Different camera type (rather than pinhole, have all initial vectors be
- * parallel)
- * - Change Field of View to be an angle range rather than an arbitrary distance
- */
-
+// TODO: in an attempt to clean up redundant code, modify readers classes
 auto main() -> int {
   SceneConfig scene_setup;
 
-  // TODO: cleanup, but this is COnfig Reader
-  auto config_file_lines = ConfigReader::validate_config("scene_config.ini");
-
-  if (!config_file_lines.has_value()) {
-    std::cout << "Could not find scene_config.ini" << std::endl;
-    return 1;
-  }
-
-  auto cleaned_up_lines =
-      ConfigReader::clean_up_lines(config_file_lines.value());
-
-  if (!ConfigReader::interpret_lines(scene_setup, cleaned_up_lines)) {
-    std::cout << "Some values were invalid or missing in scene_config.ini"
-              << std::endl;
-    return 1;
-  }
-
-  // TODO: cleanup but this is colour reader
-  auto colour_file_lines = ColourReader::validate_config("colour_data.ini");
-
-  if (!colour_file_lines.has_value()) {
-    return 1;
-  }
-
-  auto colours_cleaned =
-      ColourReader::clean_up_lines(colour_file_lines.value());
-
-  auto colours = std::unordered_map<std::string, BasicColour>{};
-  if (!ColourReader::interpret_lines(colours, colours_cleaned)) {
-    std::cout << "Some values were invalid in colour.ini" << std::endl;
-    return 1;
-  }
-
-  // TODO: clean up but this is objects
-  auto objects_file_lines =
-      ObjectConfigReader::validate_config("object_config.ini");
-
-  if (!objects_file_lines.has_value())
-    return 1;
-
-  auto cleaned_objects =
-      ObjectConfigReader::clean_up_lines(objects_file_lines.value());
-
-  if (!ObjectConfigReader::interpret_lines(scene_setup, cleaned_objects,
-                                           colours))
-    std::cout << "Something went wrong interpreting object config" << std::endl;
-  std::mt19937 rand_gen;
+  //==// Read in the ini files //==//
+  MainMethods::set_scene_configuration(scene_setup);
 
   //==// Check the random seed was given //==//
+  std::mt19937 rand_gen;
+
   if (scene_setup.SceneSeed) {
     rand_gen = std::mt19937(scene_setup.SceneSeed.value());
   } else {

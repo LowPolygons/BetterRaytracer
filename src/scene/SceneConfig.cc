@@ -2,7 +2,7 @@
 #include "window/scene_objects/scene_objects.hh"
 #include <iostream>
 
-Function SceneConfig::DisplaySceneSetup() {
+void SceneConfig::DisplaySceneSetup() {
   std::cout << "//====| " << WindowTitle << " Setup |=====//" << std::endl;
 
   std::cout << "\n<======> Screen Config <======>" << std::endl;
