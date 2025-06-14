@@ -7,52 +7,42 @@
 #include <optional>
 #include <string>
 
-// TODO: Get rid of these alias' now
-
-using Constant = std::size_t;
-using Offset = Vec<3, double>;
-using Title = std::string;
-using Precise = float;
-// If it isn't defined, it'll use the random_device
-using RandomSeed = std::optional<std::uint32_t>;
-using Function = void;
-using Confirmation = bool;
-
 enum RenderMode { SFML, NOGPU };
 // Used essentialy as a config file
 // Style is different to signify direct user interaction
 struct SceneConfig {
   SceneConfig() {}
   // Window Configuration
-  Title WindowTitle;
+  std::string WindowTitle;
   RenderMode RenderOption;
 
   // Ray Configuration
-  Constant NumThreads;
-  Constant NumRays;
-  Constant NumBounces;
-  Precise ContributionPerBounce;
+  std::size_t NumThreads;
+  std::size_t NumRays;
+  std::size_t NumBounces;
+  float ContributionPerBounce;
 
   // Camera Configuration
-  Constant Width;
-  Constant Height;
-  Constant AspectRatio;
-  Constant FieldOfView;
-  Precise HorizontalRotation;
-  Precise VerticalRotation;
-  Precise CameraRotation;
-  Offset CameraPosition;
+  std::size_t Width;
+  std::size_t Height;
+  std::size_t FieldOfView;
+
+  float AspectRatio;
+  float HorizontalRotation;
+  float VerticalRotation;
+  float CameraRotation;
+  Vec<3, double> CameraPosition;
 
   // Object Configuration
   SceneObjects SceneSetup;
-  RandomSeed SceneSeed;
+  std::optional<std::uint32_t> SceneSeed;
 
   // Stat Info
-  Constant PrintPercentStatusEvery;
+  std::size_t PrintPercentStatusEvery;
 
-  Confirmation StoreResultToFile;
-  Confirmation DisplayResultOnScreen;
+  bool StoreResultToFile;
+  bool DisplayResultOnScreen;
 
-  Function DisplaySceneSetup();
+  void DisplaySceneSetup();
 };
 #endif
