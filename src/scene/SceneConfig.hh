@@ -1,20 +1,18 @@
 #ifndef PROGRAM_SCENE_CONFIG_HH
 #define PROGRAM_SCENE_CONFIG_HH
 
+#include "image/scene_objects/scene_objects.hh"
 #include "vectors/vector_definitions.hh"
-#include "window/scene_objects/scene_objects.hh"
 #include <cstdint>
 #include <optional>
 #include <string>
 
-enum RenderMode { SFML, NOGPU };
 // Used essentialy as a config file
 // Style is different to signify direct user interaction
 struct SceneConfig {
   SceneConfig() {}
   // Window Configuration
   std::string WindowTitle;
-  RenderMode RenderOption;
 
   // Ray Configuration
   std::size_t NumThreads;

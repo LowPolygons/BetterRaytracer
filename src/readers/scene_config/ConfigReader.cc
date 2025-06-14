@@ -48,7 +48,6 @@ auto ConfigReader::interpret_lines(
   auto exists_AspectRatio = confirm_entity_exists("AspectRatio");
 
   // Simulation
-  auto exists_RenderOption = confirm_entity_exists("RenderOption");
   auto exists_NumThreads = confirm_entity_exists("NumThreads");
   auto exists_NumRays = confirm_entity_exists("NumRays");
   auto exists_NumBounces = confirm_entity_exists("NumBounces");
@@ -74,7 +73,6 @@ auto ConfigReader::interpret_lines(
   if (exists_WindowTitle &&  //
       exists_Width &&        //
       exists_AspectRatio &&  //
-      exists_RenderOption && //
       exists_NumThreads &&   //
       exists_NumRays &&      //
       exists_NumBounces &&   //
@@ -93,7 +91,6 @@ auto ConfigReader::interpret_lines(
     auto maybe_win = generalised_cast<std::string>(lines["WindowTitle"]);
     auto maybe_width = generalised_cast<int>(lines["Width"]);
     auto maybe_aspect = generalised_cast<double>(lines["AspectRatio"]);
-    auto maybe_render = generalised_cast<std::string>(lines["RenderOption"]);
     auto maybe_threads = generalised_cast<int>(lines["NumThreads"]);
     auto maybe_rays = generalised_cast<int>(lines["NumRays"]);
     auto maybe_bounces = generalised_cast<int>(lines["NumBounces"]);
@@ -114,7 +111,6 @@ auto ConfigReader::interpret_lines(
     if (maybe_win.has_value() &&     //
         maybe_width.has_value() &&   //
         maybe_aspect.has_value() &&  //
-        maybe_render.has_value() &&  //
         maybe_threads.has_value() && //
         maybe_rays.has_value() &&    //
         maybe_bounces.has_value() && //
@@ -148,15 +144,6 @@ auto ConfigReader::interpret_lines(
       scene_config.PrintPercentStatusEvery = maybe_print.value();
       scene_config.StoreResultToFile = maybe_store.value();
       scene_config.DisplayResultOnScreen = maybe_display.value();
-
-      // Enum type
-      if (maybe_render.value() == "SFML") {
-        scene_config.RenderOption = SFML;
-      } else if (maybe_render.value() == "NOGPU") {
-        scene_config.RenderOption = NOGPU;
-      } else {
-        return false;
-      }
 
       // Optional
       if (exists_RandSeed) {

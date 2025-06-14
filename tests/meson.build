@@ -29,7 +29,6 @@ foreach test_source : test_sources
     test_name,  # Use the filename without extension as the target name
     sources: [test_source] + global_implementations,
     include_directories: include_directories(included_directories),
-    dependencies: [dep_sdl2]  # Or others your tests depend on
   )
 
   test(test_name, test_exe)

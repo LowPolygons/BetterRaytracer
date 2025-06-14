@@ -2,39 +2,33 @@ project('raytracer', 'cpp',
   default_options: ['cpp_std=c++23'] + ['cpp_args=-fms-extensions']
 )
 
-dep_sdl2 = dependency('sdl2', required: true)
-dep_sfml = dependency('sfml-graphics', required: true)
-dep_opengl = dependency('opengl', required: true)
-
-inc_dirs = include_directories('src', 'external')
+inc_dirs = include_directories('src')
 
 all_sources = files(
-  './src/window/screen.cc',
-  './src/window/multi_threaded/screen.cc',
+  './src/image/multi_threaded/image.cc',
   './src/geometry/triangle.cc',
   './src/geometry/sphere.cc',
+  './src/geometry/geometry_menu.cc',
   './src/camera/camera.cc',
   './src/raylogic/raylogic.cc',
-  './src/window/scene_objects/scene_objects.cc',
-  './src/window/screen_types/screen_nogpu.cc',
-  './src/window/screen_types/screen_sfml.cc',
+  './src/image/scene_objects/scene_objects.cc',
+  './src/image/image.cc',
   './src/colour/colour.cc',
   './src/scene/SceneConfig.cc',
-  './external/stb/stb_image_write.cc',
   './src/readers/file_reader.cc',
   './src/readers/scene_config/ConfigReader.cc',
   './src/readers/object_config/ColourReader.cc',
   './src/readers/object_config/ObjectConfig.cc',
-  './src/main_routines.cc'
+  './src/main_routines.cc',
+  './src/bmp_writer/bmp.cc'
 )
 
 executable('raytracer', 
   sources: ['./src/main.cpp'] + all_sources,
   include_directories: [
-    include_directories('./src/window', './src/vectors', './src/geometry'),
+    include_directories('./src/image', './src/vectors', './src/geometry'),
     inc_dirs
-  ],
-  dependencies: [dep_sdl2] + [dep_sfml] + [dep_opengl]
+  ]
 )
 
 subdir('tests')

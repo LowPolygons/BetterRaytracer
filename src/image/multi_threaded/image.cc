@@ -1,5 +1,6 @@
 #include <algorithm>
 #include <cstdint>
+#include <iostream>
 #include <ranges>
 #include <thread>
 
@@ -8,19 +9,19 @@
 #include "camera/camera.hh"
 #include "colour/colour.hh"
 #include "raylogic/raylogic.hh"
-#include "screen.hh"
 #include "vectors/vector_definitions.hh"
-#include <SFML/Graphics.hpp>
+
+#include "image/image.hh"
 
 #include <random>
-
-using Window::Screen_SFML;
 
 using Vectors::Line;
 using Vectors::Vec;
 
 using Colours::BasicColour;
 using Colours::ColourData;
+
+using GeometryDirector::call_check_intersection;
 
 // Less ugly than an inline ints
 auto constexpr ONE = 1;
@@ -32,7 +33,7 @@ auto constexpr ZERO = 0;
 // Distribute the number of rows across the threads including indexes
 // - Need the indexes as if it is a 1D array for the pixel buffer
 // - Need the indexes as if it is a 2D array for accessing the ray dirs
-auto Window::PopulateIndexArrays(
+auto Image::PopulateIndexArrays(
     std::size_t &num_threads, std::size_t &row_width, std::size_t &num_rows,
     std::vector<std::pair<std::size_t, std::size_t>> &pixel_direcs_indexs,
     std::vector<std::pair<std::size_t, std::size_t>> &pixel_buffer_indexs)
@@ -80,12 +81,12 @@ auto Window::PopulateIndexArrays(
 
 // TODO: consider implementing std::promise and future to work along side
 // threads that they can finish in any order
-auto Window::render(const std::size_t &width, const std::size_t &height,
-                    SceneObjects &objects, const std::size_t &num_threads,
-                    Camera &camera, const std::size_t &num_rays,
-                    const std::size_t &num_bounces, std::mt19937 &rand_gen,
-                    const std::size_t &stat_log_every,
-                    const float &contribution) -> std::vector<std::uint8_t> {
+auto Image::render(const std::size_t &width, const std::size_t &height,
+                   SceneObjects &objects, const std::size_t &num_threads,
+                   Camera &camera, const std::size_t &num_rays,
+                   const std::size_t &num_bounces, std::mt19937 &rand_gen,
+                   const std::size_t &stat_log_every, const float &contribution)
+    -> std::vector<std::uint8_t> {
   // Every 4 indexes represets a pixels RGBA channels
   std::vector<std::uint8_t> pixel_buffer(width * height * FOUR);
   // Incase the scene window is tiny
@@ -108,15 +109,10 @@ auto Window::render(const std::size_t &width, const std::size_t &height,
 
   PopulateIndexArrays(num_threads_needed, row_width, num_rows,
                       pixel_direcs_indexs, pixel_buffer_indexs);
-  // Anonymous function for each thread to call
-  // TODO: Possibly Move this to a screen method possibly so this isnt super
-  // cluttered
 
   auto camera_origin = camera.get_pinhole_pos();
 
-  // Return value is just a bool
   auto render_call = [&](std::size_t thread_id) {
-    // Loop through the row indexes:
     auto row_range =
         std::views::iota(pixel_direcs_indexs[thread_id].first,
                          pixel_direcs_indexs[thread_id].second + ONE);
@@ -124,13 +120,11 @@ auto Window::render(const std::size_t &width, const std::size_t &height,
     auto lowest_passed = 0;
 
     for (auto row : row_range) {
-      // - Get the row from the camera
       auto directions_optional = camera.get_row(row);
 
       if (!directions_optional)
         return false;
 
-      // Some I/O
       auto perc_done = 100.0 * row / pixel_direcs_indexs[thread_id].second;
 
       if (thread_id == 0 and static_cast<int>(perc_done) > lowest_passed) {
@@ -140,77 +134,35 @@ auto Window::render(const std::size_t &width, const std::size_t &height,
       }
 
       auto directions = directions_optional.value();
-      // -  - For each Pixel:
       for (auto pixel_ray_direction : directions) {
         auto num_ray_iterator = std::views::iota(std::size_t{0}, num_rays);
         auto num_bounce_iterator =
             std::views::iota(std::size_t{0}, num_bounces);
 
         auto initial_ray_hits_nothing = false;
-        // Vector to contain all the ray colours
         auto colours_for_pixel = std::vector<BasicColour>();
-        // -  -  - For each number of rays:
         for (auto ray_num [[maybe_unused]] : num_ray_iterator) {
           if (initial_ray_hits_nothing)
             break; // If the initial ray hits nothing, none of them will so skip
-          // -  -  -  - Form an initial ray Line
           auto ray = Line<3, double>(camera_origin, pixel_ray_direction);
-          // Normalise the direction
           Vectors::normalise(ray.second);
 
           auto ray_colour = ColourData();
 
-          // -  -  -  - For each number of bounces:
           for (auto bounce_num [[maybe_unused]] : num_bounce_iterator) {
             auto closest_object = IntersectionReturnData();
-            // -  -  -  -  - For each object:
-            // -  -  -  -  -  - Check if ray intersects object
-            // -  -  -  -  -  - If it does, store its impact data
-            //
-            /*
-            // TODO: join spheres and triangles to be in the same list
-            for (auto obj : objects.get_spheres()) {
-              auto return_data = obj.check_intersection(ray);
 
-              if (return_data.intersects) {
-                // As rays travel forward, it will never be zero for an actual
-                // intersection
-                if (return_data.lambda < closest_object.lambda or
-                    closest_object.lambda < 0) {
-                  closest_object = return_data;
-                }
-              }
-            }
-            for (auto obj : objects.get_triangles()) {
-              auto return_data = obj.check_intersection(ray);
-
-              if (return_data.intersects) {
-                // As rays travel forward, it will never be zero for an actual
-                // intersection
-                if (return_data.lambda < closest_object.lambda or
-                    closest_object.lambda < 0) {
-                  closest_object = return_data;
-                }
-              }
-            } */
             for (auto obj : objects.get_shapes()) {
-              auto return_data =
-                  GeometryDirector::check_intersection(obj.shape(), ray);
+              auto return_data = call_check_intersection(obj.shape(), ray);
 
               if (return_data.intersects) {
-                // As rays travel forward, it will never be zero for an actual
-                // intersection
                 if (return_data.lambda < closest_object.lambda or
                     closest_object.lambda < 0) {
                   closest_object = return_data;
                 }
               }
             }
-            // -  -  -  -  - Get object closest to ray
             if (closest_object.intersects) {
-              //-- It never hits anything anyway, so dont continue doing the
-              // rest of
-              //-- the bounces
               ray = RayLogic::calculate_new_ray_direction(
                   ray, closest_object.point_of_intersection,
                   closest_object.normal, closest_object.colour, rand_gen);
@@ -220,15 +172,11 @@ auto Window::render(const std::size_t &width, const std::size_t &height,
                 initial_ray_hits_nothing = true;
               break;
             }
-            // -  -  -  -  - Update ray with new direction
-            // -  -  -  -  - Store accumulated colour
             ray_colour.combine_colour_as_average(closest_object.colour,
                                                  bounce_num, contribution);
           }
-          // -  -  -  - Add colour to pixel total
           colours_for_pixel.push_back(ray_colour.get_total_colour());
         }
-        // -  -  - Get the average pixel colour and store in pixel buffer
         auto pixel_colour = Colours::get_average_of_colours(colours_for_pixel);
         auto current_pixel_start_index =
             pixel_buffer_indexs[thread_id].first + (num_pixels_done * 4);
