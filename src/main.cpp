@@ -1,5 +1,6 @@
 #include "image/image.hh"
 
+#include <chrono>
 #include <optional>
 
 #include "geometry/triangle.hh"
@@ -16,13 +17,18 @@
 
 #include "main_routines.hh"
 
+#include "timer/timer.hh"
 #include <thread>
-
 auto constexpr ONE = std::size_t{1};
 auto constexpr MAX = std::size_t{999999};
+auto constexpr SECONDS_TO_MINUTES_CUTOFF = double{300};
 
 // TODO: in an attempt to clean up redundant code, modify readers classes
 auto main() -> int {
+  //===// Initialise a program wide timer //===//
+  auto program_timer_minutes = TimerData::Timer<double, std::chrono::minutes>();
+  auto program_timer_seconds = TimerData::Timer<double, std::chrono::seconds>();
+
   SceneConfig scene_setup;
 
   //==// Read in the ini files //==//
@@ -57,13 +63,18 @@ auto main() -> int {
   scene_setup.Height = camera.get_calculated_height();
 
   //==// Call the [BLOCKING] Render function //==//
+  auto render_timer = TimerData::Timer<double, std::chrono::minutes>();
+
   auto pixel_buffer = Image::render(
       scene_setup.Width, scene_setup.Height, scene_setup.SceneSetup,
       scene_setup.NumThreads, camera, scene_setup.NumRays,
       scene_setup.NumBounces, rand_gen, scene_setup.PrintPercentStatusEvery,
       scene_setup.ContributionPerBounce);
 
+  render_timer.stop_clock();
   //==// Attempt to save the scene //==//
+  auto saver_timer = TimerData::Timer<double, std::chrono::milliseconds>();
+
   if (scene_setup.StoreResultToFile) {
     auto file_id = std::uniform_int_distribution<int>(ONE, MAX);
 
@@ -75,5 +86,22 @@ auto main() -> int {
 
     Image::save_image(output_name, scene_setup.Width, scene_setup.Height,
                       pixel_buffer);
+  }
+  saver_timer.stop_clock();
+  program_timer_minutes.stop_clock();
+  program_timer_seconds.stop_clock();
+  //===// Log the Timer results //==//
+  std::cout << std::endl;
+  TimerData::log_context("Ray Simulations", "min",
+                         render_timer.get_time_difference());
+  TimerData::log_context("Writing BMP File", "ms",
+                         saver_timer.get_time_difference());
+  // If the program time more than SECONDS_TO_MINUTES_CUTOFF, print time in mins
+  if (program_timer_seconds.get_time_difference() < SECONDS_TO_MINUTES_CUTOFF) {
+    TimerData::log_context("Program Duration", "s",
+                           program_timer_seconds.get_time_difference());
+  } else {
+    TimerData::log_context("Program Duration", "min",
+                           program_timer_minutes.get_time_difference());
   }
 }

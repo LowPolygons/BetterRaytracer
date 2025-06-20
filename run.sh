@@ -2,4 +2,4 @@
 
 echo "//=====// Running Executable //=====//"
 
-time ./build/raytracer
+./build/raytracer
