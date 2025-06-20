@@ -90,7 +90,6 @@ auto ObjectConfigReader::interpret_lines(
       if (sphere_vals.size() != 6)
         return false;
 
-      // TODO: cast to correct types and then add to the scene config
       auto sphere_numeric_vals = std::vector<double>{};
 
       for (auto current_value : sphere_vals) {

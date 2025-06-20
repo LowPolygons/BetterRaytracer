@@ -29,9 +29,6 @@ private:
   std::vector<std::vector<Vec<3, double>>> pixel_directions;
 
 public:
-  // TODO: Redo this constructor properly
-  // -- Swap _dist_from_screen to be fov
-  // -- Swap height for aspect ratio
   Camera(std::size_t _width, double _aspect_ratio, double _fov_degrees,
          float horiz_rotation, float vert_rotation, float camera_rotation,
          Vec<3, double> _offset)

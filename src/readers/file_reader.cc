@@ -72,7 +72,6 @@ auto FileReader::split_lines_across_equals(std::vector<std::string> &lines)
     auto equals = line.find("=");
 
     if (equals != std::string::npos) {
-      // TODO: If it contains an equals, split it and then trim whitespace
       if (equals != line.length() - 1) {
         auto key = trim(line.substr(0, equals));
         auto value = trim(line.substr(equals + 1));

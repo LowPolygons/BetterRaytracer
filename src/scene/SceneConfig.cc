@@ -40,14 +40,9 @@ void SceneConfig::DisplaySceneSetup() {
 
   if (StoreResultToFile) {
     std::cout << "<-=| Store Scene to PNG File => True" << std::endl;
+    std::cout << "<-=| File Name => " << FileName << ".bmp" << std::endl;
   } else {
     std::cout << "<-=| Store Scene to PNG File => False" << std::endl;
-  }
-
-  if (DisplayResultOnScreen) {
-    std::cout << "<-=| Display Scene to Screen => True" << std::endl;
-  } else {
-    std::cout << "<-=| Display Scene to Screen => False" << std::endl;
   }
 
   std::cout << "\n" << std::endl;

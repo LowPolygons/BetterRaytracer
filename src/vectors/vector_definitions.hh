@@ -8,6 +8,8 @@
 // In this definition of Namespace, I define the Vec type as an alias
 namespace Vectors {
 
+// TODO: add 'requires std::is_arithmetic_v' to templates
+
 template <typename V1, typename V2>
 using JointType = decltype(std::declval<V1>() + std::declval<V2>());
 template <std::size_t vector_size, typename Tp> //

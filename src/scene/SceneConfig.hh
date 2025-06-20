@@ -7,6 +7,8 @@
 #include <optional>
 #include <string>
 
+auto constexpr FILE_NAME_DEFAULT = "SCENECONFIG_INDICATES_FILENAME_RANDOMISED";
+
 // Used essentialy as a config file
 // Style is different to signify direct user interaction
 struct SceneConfig {
@@ -39,6 +41,8 @@ struct SceneConfig {
   std::size_t PrintPercentStatusEvery;
 
   bool StoreResultToFile;
+  std::string FileName = FILE_NAME_DEFAULT;
+
   bool DisplayResultOnScreen;
 
   void DisplaySceneSetup();

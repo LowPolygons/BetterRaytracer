@@ -67,7 +67,7 @@ auto ConfigReader::interpret_lines(
   auto exists_RandSeed = confirm_entity_exists("RandomSeed");
   // Misc
   auto exists_StoreResult = confirm_entity_exists("StoreResultToFile");
-  auto exists_DisplayResult = confirm_entity_exists("DisplayResultOnScreen");
+  auto exists_FileName = confirm_entity_exists("FileName");
 
   // They must all exist
   if (exists_WindowTitle &&  //
@@ -84,8 +84,7 @@ auto ConfigReader::interpret_lines(
       exists_CameraY &&      //
       exists_CameraZ &&      //
       exists_PrintPerc &&    //
-      exists_StoreResult &&  //
-      exists_DisplayResult) {
+      exists_StoreResult) {
     // Attempt the casting
     auto maybe_win = generalised_cast<std::string>(lines["WindowTitle"]);
     auto maybe_width = generalised_cast<int>(lines["Width"]);
@@ -103,7 +102,6 @@ auto ConfigReader::interpret_lines(
     auto maybe_camz = generalised_cast<double>(lines["CameraOffset_Z"]);
     auto maybe_print = generalised_cast<int>(lines["PrintPercentStatusEvery"]);
     auto maybe_store = generalised_cast<bool>(lines["StoreResultToFile"]);
-    auto maybe_display = generalised_cast<bool>(lines["DisplayResultOnScreen"]);
 
     // If they all have correctly castable values
     if (maybe_win.has_value() &&     //
@@ -120,8 +118,7 @@ auto ConfigReader::interpret_lines(
         maybe_camy.has_value() &&    //
         maybe_camz.has_value() &&    //
         maybe_print.has_value() &&   //
-        maybe_store.has_value() &&   //
-        maybe_display.has_value()) {
+        maybe_store.has_value()) {
       scene_config.WindowTitle = maybe_win.value();
       scene_config.Width = maybe_width.value();
       scene_config.AspectRatio = maybe_aspect.value();
@@ -139,7 +136,6 @@ auto ConfigReader::interpret_lines(
       };
       scene_config.PrintPercentStatusEvery = maybe_print.value();
       scene_config.StoreResultToFile = maybe_store.value();
-      scene_config.DisplayResultOnScreen = maybe_display.value();
 
       // Optional
       if (exists_RandSeed) {
@@ -153,6 +149,9 @@ auto ConfigReader::interpret_lines(
 
         if (maybe_threads.has_value())
           scene_config.NumThreads = maybe_threads.value();
+      }
+      if (exists_FileName) {
+        scene_config.FileName = lines["FileName"];
       }
     } else {
       return false;
