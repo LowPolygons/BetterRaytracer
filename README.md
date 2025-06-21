@@ -10,7 +10,7 @@ Run `compile-scripts/release.sh` to compile the program
 
 Modify the Colour, Object and Scene `.ini` and set the configuration you want.
 
-* [IniInstructions](./instructions/ini_values.md)
+* [Input Values](./instructions/ini_values.md)
 
 Run `./build/raytracer`
 

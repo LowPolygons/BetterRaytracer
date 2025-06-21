@@ -20,7 +20,7 @@ Wall order:
 - Front1 Front2
 - Up1 Up1
 
-Note: colour_name should be a colour listed in the *[colour_config](./colour_config.md)
+Note: colour_name should be a colour listed in the [colour_config](./colour_config.md)
 
 #### TODO: Triangles!
 
