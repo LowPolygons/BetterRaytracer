@@ -9,7 +9,9 @@ A Sphere is defined on one line with the following format:
 
 A Cuboid is defined on multiple lines with the following format:
 `cuboid`
+
 `{x} {y} {z}` x8 (corners)
+
 `{colour_name} {colour_name}` x6 (2 colours per wall)
 
 Wall order:
