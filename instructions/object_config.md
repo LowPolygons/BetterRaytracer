@@ -5,9 +5,11 @@ The most important thing in the object config is that for multi line objects tha
 ### Parameters 
 
 A Sphere is defined on one line with the following format:
+
 `sphere {x} {y} {z} {radius} {colour_name}`
 
 A Cuboid is defined on multiple lines with the following format:
+
 `cuboid`
 
 `{x} {y} {z}` x8 (corners)
