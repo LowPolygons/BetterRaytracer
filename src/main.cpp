@@ -63,7 +63,8 @@ auto main() -> int {
   scene_setup.Height = camera.get_calculated_height();
 
   //==// Call the [BLOCKING] Render function //==//
-  auto render_timer = TimerData::Timer<double, std::chrono::minutes>();
+  auto render_timer_minutes = TimerData::Timer<double, std::chrono::minutes>();
+  auto render_timer_seconds = TimerData::Timer<double, std::chrono::seconds>();
 
   auto pixel_buffer = Image::render(
       scene_setup.Width, scene_setup.Height, scene_setup.SceneSetup,
@@ -71,7 +72,8 @@ auto main() -> int {
       scene_setup.NumBounces, rand_gen, scene_setup.PrintPercentStatusEvery,
       scene_setup.ContributionPerBounce);
 
-  render_timer.stop_clock();
+  render_timer_minutes.stop_clock();
+  render_timer_seconds.stop_clock();
   //==// Attempt to save the scene //==//
   auto saver_timer = TimerData::Timer<double, std::chrono::milliseconds>();
 
@@ -92,8 +94,14 @@ auto main() -> int {
   program_timer_seconds.stop_clock();
   //===// Log the Timer results //==//
   std::cout << std::endl;
-  TimerData::log_context("Ray Simulations", "min",
-                         render_timer.get_time_difference());
+  // If the program time more than SECONDS_TO_MINUTES_CUTOFF, print time in mins
+  if (render_timer_seconds.get_time_difference() < SECONDS_TO_MINUTES_CUTOFF) {
+    TimerData::log_context("Ray Simulations", "s",
+                           render_timer_seconds.get_time_difference());
+  } else {
+    TimerData::log_context("Ray Simulations", "min",
+                           render_timer_minutes.get_time_difference());
+  }
   TimerData::log_context("Writing BMP File", "ms",
                          saver_timer.get_time_difference());
   // If the program time more than SECONDS_TO_MINUTES_CUTOFF, print time in mins
