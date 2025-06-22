@@ -8,10 +8,13 @@ All values are between 0 and 1 excluding `strength` which can go above
 
 #### For a non light emitting surface:
 `l_r, l_g, l_b, strength` = 0
+
 `r, g, b` = 0 -> 1
 #### For a light emitting surface:
 `l_r, l_g, l_b` = 0 -> 1 
+
 `strength` = 1 -> ... 
+
 `r, g, b` = 0
 
 If there are few lights in the scene, consider a larger strength brightness such as 10
