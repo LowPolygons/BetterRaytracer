@@ -82,7 +82,7 @@ auto main() -> int {
 
     auto output_name = scene_setup.FileName != FILE_NAME_DEFAULT
                            ? scene_setup.FileName
-                           : std::string("scenes/OutputScene_" +
+                           : std::string("OutputScene_" +
                                          std::to_string(file_id(rand_gen)));
     output_name = std::string(output_name + ".bmp");
 
