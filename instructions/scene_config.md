@@ -10,7 +10,7 @@ AspectRatio - Float
 NumRays - Int 
 NumBounces - Int 
 ContributionPerBounce - Float 
-FieldOfView - Degrees 
+FieldOfView - Float (Degrees)
 HorizontalRotation - Float (Radians)
 VerticalRotation - Float (Radians)
 CameraRotation - Float (Radians)
@@ -27,6 +27,12 @@ NumThreads - Int
 RandomSeed - Int
 FileName - String
 ```
+
+If you do not specify each of these, they default to:
+
+- Max Available threads
+- The result of `random_device` 
+- "OutputScene_[Random(1,999999)]"
 
 ### Example `scene_config.ini`
 
