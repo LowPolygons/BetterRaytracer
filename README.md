@@ -1,4 +1,4 @@
-# SOLID-Tracer
+# Raytracer
 This is a total remaster of an old Raytracer I made, only now I aim for pleasant code
 
 ## How To Use 
