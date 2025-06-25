@@ -158,7 +158,35 @@ auto ObjectConfigReader::interpret_lines(
           maybe_colours5.value().first, maybe_colours5.value().second,
           maybe_colours6.value().first, maybe_colours6.value().second);
     }
-    // TODO: add triangle
+    if (line.find("triangle") != std::string::npos) {
+      // Check if the current index + 14 exists
+      try {
+        auto test_line = lines.at(current_line_index + 4);
+      } catch (std::out_of_range &e) {
+        return false;
+      }
+      // The 3 coordinates
+      auto maybe_coord1 = vector_grab(lines[current_line_index + 1]);
+      auto maybe_coord2 = vector_grab(lines[current_line_index + 2]);
+      auto maybe_coord3 = vector_grab(lines[current_line_index + 3]);
+      // Must all be valid
+      if (!maybe_coord1.has_value() or !maybe_coord2.has_value() or
+          !maybe_coord3.has_value()) {
+        return false;
+      }
+
+      auto colour_name = sanitise_line(lines[current_line_index + 4]);
+      if (colour_name.size() != 1)
+        return false;
+
+      if (!confirm_entity_exists(colour_name[0]))
+        return false;
+
+      // All data valid so construct cuboid
+      scene_config.SceneSetup.add_triangle(
+          Geometry(Triangle(maybe_coord1.value(), maybe_coord2.value(),
+                            maybe_coord3.value(), colours[colour_name[0]])));
+    }
     current_line_index++;
   }
 
