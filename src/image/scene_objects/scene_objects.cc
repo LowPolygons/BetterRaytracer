@@ -51,8 +51,3 @@ auto SceneObjects::add_cuboid(Vec<3, double> LDB, Vec<3, double> RDB,
 }
 
 auto SceneObjects::get_shapes() -> std::vector<Geometry> & { return shapes; }
-
-/*auto SceneObjects::get_spheres() -> std::vector<Sphere> { return spheres; }
-auto SceneObjects::get_triangles() -> std::vector<Triangle> {
-  return triangles;
-}*/

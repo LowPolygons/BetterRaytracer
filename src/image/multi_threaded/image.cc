@@ -28,8 +28,6 @@ auto constexpr ONE = 1;
 auto constexpr FOUR = 4;
 auto constexpr ZERO = 0;
 
-// TODO: possibly move to a screen function
-
 // Distribute the number of rows across the threads including indexes
 // - Need the indexes as if it is a 1D array for the pixel buffer
 // - Need the indexes as if it is a 2D array for accessing the ray dirs
@@ -101,7 +99,6 @@ auto Image::render(const std::size_t &width, const std::size_t &height,
   auto pixel_buffer_indexs = std::vector<std::pair<std::size_t, std::size_t>>();
   // Start and end index for each row from camera for a given thread
   auto pixel_direcs_indexs = std::vector<std::pair<std::size_t, std::size_t>>();
-
   auto indexs_paired = std::make_pair(pixel_direcs_indexs, pixel_buffer_indexs);
 
   auto row_width = static_cast<std::size_t>(width);
@@ -112,49 +109,53 @@ auto Image::render(const std::size_t &width, const std::size_t &height,
 
   auto camera_origin = camera.get_pinhole_pos();
 
+  // Lambda called by eadh thread
   auto render_call = [&](std::size_t thread_id) {
+    // Get the rows the current thread controls
     auto row_range =
         std::views::iota(pixel_direcs_indexs[thread_id].first,
                          pixel_direcs_indexs[thread_id].second + ONE);
     auto num_pixels_done = 0;
     auto lowest_passed = 0;
+    // Iterators used on a per-pixel basis
+    auto num_ray_iterator = std::views::iota(std::size_t{0}, num_rays);
+    auto num_bounce_iterator = std::views::iota(std::size_t{0}, num_bounces);
 
+    // For each row the thread it was assigned
     for (auto row : row_range) {
-      auto directions_optional = camera.get_row(row);
-
-      if (!directions_optional)
-        return false;
-
+      // Logging information - based off thread zero not an average
       auto perc_done = 100.0 * row / pixel_direcs_indexs[thread_id].second;
-
       if (thread_id == 0 and static_cast<int>(perc_done) > lowest_passed) {
         lowest_passed = lowest_passed + stat_log_every;
         std::cout << ">>> Approximate Completion: " << perc_done << "%"
                   << std::endl;
       }
-
+      // Get the direction vectors for the rows threads
+      auto directions_optional = camera.get_row(row);
+      if (!directions_optional)
+        return false;
       auto directions = directions_optional.value();
-      for (auto pixel_ray_direction : directions) {
-        auto num_ray_iterator = std::views::iota(std::size_t{0}, num_rays);
-        auto num_bounce_iterator =
-            std::views::iota(std::size_t{0}, num_bounces);
 
+      // Loop over the directions (pixels) on the row
+      for (auto pixel_ray_direction : directions) {
         auto initial_ray_hits_nothing = false;
         auto colours_for_pixel = std::vector<BasicColour>();
         for (auto ray_num [[maybe_unused]] : num_ray_iterator) {
           if (initial_ray_hits_nothing)
             break; // If the initial ray hits nothing, none of them will so skip
-          auto ray = Line<3, double>(camera_origin, pixel_ray_direction);
-          Vectors::normalise(ray.second);
 
+          auto ray = Line<3, double>(camera_origin, pixel_ray_direction);
           auto ray_colour = ColourData();
 
+          Vectors::normalise(ray.second);
+
           for (auto bounce_num [[maybe_unused]] : num_bounce_iterator) {
+            // Container for the hit data
             auto closest_object = IntersectionReturnData();
 
-            for (auto obj : objects.get_shapes()) {
+            for (auto &obj : objects.get_shapes()) {
               auto return_data = call_check_intersection(obj.shape(), ray);
-
+              // If intersects, make sure it is closer than any stored object
               if (return_data.intersects) {
                 if (return_data.lambda < closest_object.lambda or
                     closest_object.lambda < 0) {
@@ -162,21 +163,23 @@ auto Image::render(const std::size_t &width, const std::size_t &height,
                 }
               }
             }
+            // If it hit nothing then you can skip this entire pixel
             if (closest_object.intersects) {
               ray = RayLogic::calculate_new_ray_direction(
                   ray, closest_object.point_of_intersection,
                   closest_object.normal, closest_object.colour, rand_gen);
-
             } else {
               if (bounce_num == 0)
                 initial_ray_hits_nothing = true;
               break;
             }
+            // Add the colour from the curren rays journey to the pixels data
             ray_colour.combine_colour_as_average(closest_object.colour,
                                                  bounce_num, contribution);
           }
           colours_for_pixel.push_back(ray_colour.get_total_colour());
         }
+        // Get the averaged colour and add the elements to the pixel buffer
         auto pixel_colour = Colours::get_average_of_colours(colours_for_pixel);
         auto current_pixel_start_index =
             pixel_buffer_indexs[thread_id].first + (num_pixels_done * 4);
@@ -206,9 +209,7 @@ auto Image::render(const std::size_t &width, const std::size_t &height,
   for (auto &thread : threads) {
     thread.join();
   }
-
   std::cout << ">>> Computation Finished" << std::endl;
-  // Convert pixel_buffer into data for the texture
 
   return pixel_buffer;
 }

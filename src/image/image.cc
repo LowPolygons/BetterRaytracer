@@ -1,10 +1,10 @@
-#include "image/image.hh"
 #include <cstdint>
 #include <iostream>
 #include <string>
 #include <vector>
 
 #include "bmp_writer/bmp.hh"
+#include "image/image.hh"
 
 auto Image::save_image(const std::string &file_name, const std::size_t &width,
                        const std::size_t &height,

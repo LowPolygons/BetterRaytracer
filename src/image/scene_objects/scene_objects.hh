@@ -11,12 +11,9 @@
 using Colours::BasicColour;
 using Vectors::Vec;
 
-// Raytracer only needs one thing from the screen and it can be copied by value
-// therefore worthwhile storing as a separate object
+// Container of geometry used by the raytracer
 class SceneObjects {
 private:
-  // std::vector<Sphere> spheres;
-  // std::vector<Triangle> triangles;
   std::vector<Geometry> shapes;
 
 public:
@@ -35,8 +32,6 @@ public:
                   BasicColour F2, BasicColour U1, BasicColour U2) -> void;
 
   auto get_shapes() -> std::vector<Geometry> &;
-  auto get_spheres() -> std::vector<Sphere>;
-  auto get_triangles() -> std::vector<Triangle>;
 };
 
 #endif

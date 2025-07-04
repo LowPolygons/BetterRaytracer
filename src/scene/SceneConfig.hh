@@ -2,7 +2,6 @@
 #define PROGRAM_SCENE_CONFIG_HH
 
 #include "image/scene_objects/scene_objects.hh"
-#include "vectors/vector_definitions.hh"
 #include <cstdint>
 #include <optional>
 #include <string>

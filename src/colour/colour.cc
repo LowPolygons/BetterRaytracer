@@ -1,5 +1,4 @@
 #include "colour.hh"
-#include "vectors/vector_definitions.hh"
 #include <algorithm>
 #include <cmath>
 #include <vector>
@@ -9,21 +8,16 @@ auto Colours::get_average_of_colours(std::vector<BasicColour> colours)
     -> BasicColour {
   auto summed = BasicColour({0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0});
 
+  // Sum the colours for a pixel
   for (auto colour : colours) {
     std::transform(colour.begin(), colour.end(), summed.begin(), summed.begin(),
                    [&](auto c, auto s) { return c + s; });
   }
 
-  // Perform averaging, tone mapping and gamma correction:
-  // -> For extremely bright objects  where brightness is like 10, tone mapping
-  // allegedly preserves detail while neatly clamping values down
-  // ===========
-  // -> Doubling a channel != double the brightness, but this raytracer assumes
-  // it does
-  // -> Gamma correction is an standard method of correcting this
-
+  // TODO: Make controllable by user
   auto constexpr gamma = 1.0 / 2.2f;
 
+  // Average and colour-correct
   std::transform(summed.begin(), summed.end(), summed.begin(), [&](auto sum) {
     auto avg = sum / colours.size();
     return std::pow((avg / (1.0f + avg)), gamma);
@@ -32,7 +26,7 @@ auto Colours::get_average_of_colours(std::vector<BasicColour> colours)
   return summed;
 }
 
-auto Colours::ColourData::get_total_colour() -> BasicColour {
+auto Colours::ColourData::get_total_colour() -> const BasicColour & {
   return total_colour;
 }
 
@@ -42,10 +36,14 @@ auto Colours::ColourData::combine_colour_as_average(BasicColour new_colour,
     -> void {
   previous_colours.push_back(new_colour);
 
+  // First tint the previously accumulated light by the total colour received
+  // based on the new light
   total_colour[3] += total_colour[0] * (new_colour[3] * new_colour[6]);
   total_colour[4] += total_colour[1] * (new_colour[4] * new_colour[6]);
   total_colour[5] += total_colour[2] * (new_colour[5] * new_colour[6]);
 
+  // Then add the colour of the object scaled by the user-defined constribution
+  // factor
   total_colour[0] *= new_colour[0] * contribution;
   total_colour[1] *= new_colour[1] * contribution;
   total_colour[2] *= new_colour[2] * contribution;

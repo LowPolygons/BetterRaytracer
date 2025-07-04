@@ -9,14 +9,17 @@ using Vectors::Vec;
 
 namespace Colours {
 
-// Colour: R, G, B, Emission: R, G, B, Strength, Specular: %
-// Index:  0, 1, 2,           3, 4, 5         6,           7
+// For potentially large scenes with more objects, having the colour container
+// be an alias and the colour methods be stored in a separate class could be
+// more wise
+// Indexes:
+// Colour: R(0), G(1), B(2) Emission: R(3), G(4), B(5) Strength(6) Gloss: %(7)
 using BasicColour = Vec<8, float>;
 
 // A function used to do the final average of multiple arrays
 auto get_average_of_colours(std::vector<BasicColour> colours) -> BasicColour;
 
-// Each Ray has its own corresponding Colour Data
+// Each ray will have a ColourData object associated with it
 class ColourData {
 private:
   BasicColour total_colour;
@@ -36,7 +39,7 @@ public:
                                  std::size_t bounce_info, float contribution)
       -> void;
 
-  auto get_total_colour() -> BasicColour;
+  auto get_total_colour() -> const BasicColour &;
 };
 
 } // namespace Colours

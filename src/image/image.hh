@@ -1,5 +1,4 @@
 #ifndef SDL_SCREEN_OBJECT_CONTAINER
-
 #define SDL_SCREEN_OBJECT_CONTAINER
 
 #include <cstdint>
@@ -8,7 +7,6 @@
 #include "scene_objects/scene_objects.hh"
 #include <random>
 
-// TODO: quite a bit of redundant data here, clean up
 namespace Image {
 
 auto PopulateIndexArrays(

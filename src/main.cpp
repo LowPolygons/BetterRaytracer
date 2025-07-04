@@ -1,29 +1,25 @@
+#include "camera/camera.hh"
+#include "colour/colour.hh"
+#include "geometry/sphere.hh"
+#include "geometry/triangle.hh"
 #include "image/image.hh"
+#include "image/scene_objects/scene_objects.hh"
+#include "main_routines.hh"
+#include "scene/SceneConfig.hh"
+#include "timer/timer.hh"
 
 #include <chrono>
 #include <optional>
-
-#include "geometry/triangle.hh"
-#include "image/scene_objects/scene_objects.hh"
-
-#include "camera/camera.hh"
-#include "geometry/sphere.hh"
-
-#include "colour/colour.hh"
-
 #include <random>
-
-#include "scene/SceneConfig.hh"
-
-#include "main_routines.hh"
-
-#include "timer/timer.hh"
 #include <thread>
+
+// Makes the code a little more pleasant to look at
 auto constexpr ONE = std::size_t{1};
 auto constexpr MAX = std::size_t{999999};
+
+// Used by the timers to determine if it should display in seconds or minutes
 auto constexpr SECONDS_TO_MINUTES_CUTOFF = double{300};
 
-// TODO: in an attempt to clean up redundant code, modify readers classes
 auto main() -> int {
   //===// Initialise a program wide timer //===//
   auto program_timer_minutes = TimerData::Timer<double, std::chrono::minutes>();
@@ -89,27 +85,26 @@ auto main() -> int {
     Image::save_image(output_name, scene_setup.Width, scene_setup.Height,
                       pixel_buffer);
   }
+
   saver_timer.stop_clock();
   program_timer_minutes.stop_clock();
   program_timer_seconds.stop_clock();
+
   //===// Log the Timer results //==//
+  // clang-format off
   std::cout << std::endl;
   // If the program time more than SECONDS_TO_MINUTES_CUTOFF, print time in mins
   if (render_timer_seconds.get_time_difference() < SECONDS_TO_MINUTES_CUTOFF) {
-    TimerData::log_context("Ray Simulations", "s",
-                           render_timer_seconds.get_time_difference());
+    TimerData::log_context("Ray Simulations", "s", render_timer_seconds.get_time_difference());
   } else {
-    TimerData::log_context("Ray Simulations", "min",
-                           render_timer_minutes.get_time_difference());
+    TimerData::log_context("Ray Simulations", "min", render_timer_minutes.get_time_difference());
   }
-  TimerData::log_context("Writing BMP File", "ms",
-                         saver_timer.get_time_difference());
+  TimerData::log_context("Writing BMP File", "ms", saver_timer.get_time_difference());
   // If the program time more than SECONDS_TO_MINUTES_CUTOFF, print time in mins
   if (program_timer_seconds.get_time_difference() < SECONDS_TO_MINUTES_CUTOFF) {
-    TimerData::log_context("Program Duration", "s",
-                           program_timer_seconds.get_time_difference());
+    TimerData::log_context("Program Duration", "s", program_timer_seconds.get_time_difference());
   } else {
-    TimerData::log_context("Program Duration", "min",
-                           program_timer_minutes.get_time_difference());
+    TimerData::log_context("Program Duration", "min", program_timer_minutes.get_time_difference());
   }
+  // clang-format on
 }

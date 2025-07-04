@@ -16,16 +16,16 @@ using GeometryMenu = std::variant<Sphere, Triangle>;
 namespace GeometryDirector {
 auto call_check_intersection(const GeometryMenu &menu, Line<3, double> ray)
     -> IntersectionReturnData;
-}; // namespace GeometryDirector
+};
 
 class Geometry {
 public:
-  Geometry(GeometryMenu geometry) : m_geometry(geometry) {}
+  Geometry(GeometryMenu geometry) : geometry(geometry) {}
 
-  auto shape() -> GeometryMenu & { return m_geometry; }
+  auto shape() -> GeometryMenu & { return geometry; }
 
 private:
-  GeometryMenu m_geometry;
+  GeometryMenu geometry;
 };
 
 #endif

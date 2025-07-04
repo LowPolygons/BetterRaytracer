@@ -31,7 +31,6 @@ auto Sphere::check_intersection(Line<3, double> ray) const
     auto p_of_i =
         ray.first + Vectors::scale(ray_normalised.second,
                                    lambda_dist_pair.first - lambda_offset);
-
     // Normal at the point of intersection
     auto normal_at_poi = p_of_i - centre;
     Vectors::normalise(normal_at_poi);
