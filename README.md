@@ -1,6 +1,10 @@
 # Raytracer
 This is a total remaster of an old Raytracer I made, only now I aim for pleasant code
 
+All maths used was derived by me - that is not to say it is brand new!
+
+This was done to learn better programming practises in C++, as such I chose to use no external libraries. Why not reinvent the wheel! 
+
 ## How To Use 
 Clone the Repository
 
