@@ -12,7 +12,7 @@ Run the `get_dependencies.sh` script (for Debian/Ubuntu platforms) to automatica
 Alternatively, requirements are:
 - Meson
 - Ninja
-- 
+  
 (both can be pip installed)
 - C++23 compilter
 
