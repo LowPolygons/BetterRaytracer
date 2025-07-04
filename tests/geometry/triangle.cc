@@ -15,12 +15,12 @@ using Colours::BasicColour;
 
 auto main() -> int {
   // Two tests, one possibly problematic and one regular for each method
-  auto problematic_corners = Vec<3, Vec<3, double>>({{
+  auto problematic_corners = std::vector<Vec<3, double>>({{
       {0.0, 0.0, -100.0}, //
       {0.0, 0.0, 100.0},  //
       {0.0, 90.0, 100.0}  //
   }});                    //
-  auto okay_corners = Vec<3, Vec<3, double>>({{
+  auto okay_corners = std::vector<Vec<3, double>>({{
       {-100.0, -100.0, -100.0}, //
       {100.0, 100.0, 100.0},    //
       {90.0, -100.0, 90.0}      //

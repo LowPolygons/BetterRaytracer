@@ -13,6 +13,7 @@
 namespace Vectors {
 // Returns the point of intersection and the lambda value, or nothing
 template <typename V, typename P>
+  requires(std::is_arithmetic_v<V>, std::is_arithmetic_v<P>)
 auto constexpr line_intersects_plane(const Line<3, V> &line,
                                      const Plane<P> &plane)
     -> std::optional<std::pair<JointType<V, P>, Vec<3, JointType<V, P>>>> {
@@ -32,6 +33,7 @@ auto constexpr line_intersects_plane(const Line<3, V> &line,
 }
 // Does a given point lie on a plane of any type
 template <typename V, typename P>
+  requires(std::is_arithmetic_v<V>, std::is_arithmetic_v<P>)
 auto is_point_on_plane(Vec<3, V> &point, Plane<P> &plane) -> bool {
   // Form a new line with point (inp) and direction (plane normal) and solve for
   // lambda on line intersects plane. If lambda < a certain value then consider
@@ -52,6 +54,7 @@ auto is_point_on_plane(Vec<3, V> &point, Plane<P> &plane) -> bool {
 }
 
 template <bool WANTS_ACUTE, typename V1, typename V2>
+  requires(std::is_arithmetic_v<V1>, std::is_arithmetic_v<V2>)
 auto constexpr angle_between_lines(const Vec<3, V1> &v1, const Vec<3, V2> &v2)
     -> JointType<V1, V2> {
   // a dot b = mod(a) mod(b) cos(theta)
@@ -74,6 +77,7 @@ auto constexpr angle_between_lines(const Vec<3, V1> &v1, const Vec<3, V2> &v2)
 
 // Returns the shortest distance between a line and a point
 template <std::size_t Vs, typename V1, typename V2>
+  requires(std::is_arithmetic_v<V1>, std::is_arithmetic_v<V2>)
 auto constexpr point_to_line_distance(const Line<Vs, V1> &line,
                                       const Vec<Vs, V2> &point)
     -> std::pair<JointType<V1, V2>, Vec<Vs, JointType<V1, V2>>> {
@@ -98,6 +102,7 @@ auto constexpr point_to_line_distance(const Line<Vs, V1> &line,
 
 // Returns the acute or obstuse angle between a line and a plane, or nothing
 template <typename V, typename P>
+  requires(std::is_arithmetic_v<V>, std::is_arithmetic_v<P>)
 auto constexpr angle_between_line_and_plane(Line<3, V> &line, Plane<P> &plane)
     -> std::optional<JointType<V, P>> {
   // Dot the lines direction vector with the normal of the plane, then get angle
@@ -126,6 +131,7 @@ auto constexpr angle_between_line_and_plane(Line<3, V> &line, Plane<P> &plane)
 
 // Reflects a point across a plane
 template <typename V, typename P>
+  requires(std::is_arithmetic_v<V>, std::is_arithmetic_v<P>)
 auto constexpr reflect_point_across_plane(Vec<3, V> &point, Plane<P> &plane)
     -> Vec<3, JointType<V, P>> {
   // Dervation comes from creating a line from the point to the plane, finding

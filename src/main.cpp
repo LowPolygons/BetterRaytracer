@@ -80,10 +80,10 @@ auto main() -> int {
   if (scene_setup.StoreResultToFile) {
     auto file_id = std::uniform_int_distribution<int>(ONE, MAX);
 
-    auto output_name = scene_setup.FileName != FILE_NAME_DEFAULT
-                           ? scene_setup.FileName
-                           : std::string("OutputScene_" +
-                                         std::to_string(file_id(rand_gen)));
+    auto output_name =
+        scene_setup.FileName != FILE_NAME_DEFAULT
+            ? scene_setup.FileName
+            : std::string("OutputScene_" + std::to_string(file_id(rand_gen)));
     output_name = std::string(output_name + ".bmp");
 
     Image::save_image(output_name, scene_setup.Width, scene_setup.Height,

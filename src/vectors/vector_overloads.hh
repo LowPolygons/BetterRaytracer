@@ -7,13 +7,23 @@
 
 #include "vector_definitions.hh"
 
-// A function used to neaten the overloading functions visually
+// Function that drastically improves readability of this file
 template <typename Rt, typename A, typename B, typename Anon>
 auto perform_overloaded_op(A a, B b, Rt &rt, Anon fnc) -> void {
   std::copy_n(a.begin(), a.size(), rt.begin());
   std::transform(b.begin(), b.end(), a.begin(), rt.begin(), fnc);
 }
 
+// These overloads allow you to do some quirky little things like:
+// auto vec2 = Vec<2, int>{1, 2};
+// auto vec3 = Vec<3, double>{-3.0, 12.3, 91.2}
+//
+// auto result = vec3 + vec2;
+// >>> {-2.0, 14.3, 91.2}
+//
+// Of course, this may not be 'useful' per-se, but it was a good intro to
+// templating!
+//
 namespace Vectors {
 
 // An alias for the return types of all the overloaded operators
@@ -27,6 +37,7 @@ using OverloadReturnType =
 
 // The + Overloaded Operator
 template <std::size_t v1s, std::size_t v2s, typename V1, typename V2>
+  requires(std::is_arithmetic_v<V1>, std::is_arithmetic_v<V2>)
 auto operator+(const Vec<v1s, V1> &a, const Vec<v2s, V2> &b)
     -> OverloadReturnType<v1s, v2s, V1, V2> {
 
@@ -44,6 +55,7 @@ auto operator+(const Vec<v1s, V1> &a, const Vec<v2s, V2> &b)
 
 // The - Overloaded Operator
 template <std::size_t v1s, std::size_t v2s, typename V1, typename V2>
+  requires(std::is_arithmetic_v<V1>, std::is_arithmetic_v<V2>)
 auto operator-(const Vec<v1s, V1> &a, const Vec<v2s, V2> &b)
     -> OverloadReturnType<v1s, v2s, V1, V2> {
 
@@ -61,6 +73,7 @@ auto operator-(const Vec<v1s, V1> &a, const Vec<v2s, V2> &b)
 
 // The * Overloaded Operator
 template <std::size_t v1s, std::size_t v2s, typename V1, typename V2>
+  requires(std::is_arithmetic_v<V1>, std::is_arithmetic_v<V2>)
 auto operator*(const Vec<v1s, V1> &a, const Vec<v2s, V2> &b)
     -> OverloadReturnType<v1s, v2s, V1, V2> {
 
@@ -76,8 +89,9 @@ auto operator*(const Vec<v1s, V1> &a, const Vec<v2s, V2> &b)
   return _ret;
 }
 
-// The * Overloaded Operator
+// The / Overloaded Operator
 template <std::size_t v1s, std::size_t v2s, typename V1, typename V2>
+  requires(std::is_arithmetic_v<V1>, std::is_arithmetic_v<V2>)
 auto operator/(const Vec<v1s, V1> &a, const Vec<v2s, V2> &b)
     -> OverloadReturnType<v1s, v2s, V1, V2> {
 
