@@ -9,6 +9,11 @@ This was done to learn better programming practises in C++, as such I chose to u
 Clone the Repository
 
 Run the `get_dependencies.sh` script (for Debian/Ubuntu platforms) to automatically install all needed packages
+Alternatively, requirements are:
+- Meson
+- Ninja
+(both can be pip installed)
+- C++23 compilter
 
 Run `compile-scripts/release.sh` to compile the program
 
