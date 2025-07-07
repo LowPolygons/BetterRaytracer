@@ -1,11 +1,13 @@
 #ifndef READERS_OBJECT_CONFIG_HH
 #define READERS_OBJECT_CONFIG_HH
 
-#include "colour/colour.hh"
-using Colours::BasicColour;
+#include <unordered_map>
 
-#include "readers/file_reader.hh"
+#include "colour/colour.hh"
 #include "scene/SceneConfig.hh"
+
+using Colours::BasicColour;
+using Scene::SceneConfig;
 
 namespace ObjectConfigReader {
 // Confirm if the config file exists, and if it does reads the lines

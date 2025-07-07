@@ -7,6 +7,7 @@
 #include <vector>
 
 #include "scene/SceneConfig.hh"
+using Scene::SceneConfig;
 
 namespace ConfigReader {
 // Confirm if the config file exists, and if it does reads the lines

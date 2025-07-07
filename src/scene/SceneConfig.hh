@@ -8,6 +8,8 @@
 
 auto constexpr FILE_NAME_DEFAULT = "SCENECONFIG_INDICATES_FILENAME_RANDOMISED";
 
+namespace Scene {
+
 // Used essentialy as a config file
 // Style is different to signify direct user interaction
 struct SceneConfig {
@@ -46,4 +48,8 @@ struct SceneConfig {
 
   void DisplaySceneSetup();
 };
+
+auto set_scene_config(SceneConfig &scene_config) -> bool;
+
+}; // namespace Scene
 #endif

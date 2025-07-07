@@ -2,8 +2,9 @@
 #define READERS_OBJECT_COLOUR_READER_HH
 
 #include "colour/colour.hh"
-#include "readers/file_reader.hh"
-#include "scene/SceneConfig.hh"
+#include <optional>
+#include <string>
+#include <unordered_map>
 
 using Colours::BasicColour;
 
