@@ -16,7 +16,7 @@ struct SceneConfig {
   std::string WindowTitle;
 
   // Ray Configuration
-  std::size_t NumThreads;
+  std::size_t NumThreads = 0;
   std::size_t NumRays;
   std::size_t NumBounces;
   float ContributionPerBounce;

@@ -19,7 +19,7 @@ all_sources = files(
   './src/readers/scene_config/ConfigReader.cc',
   './src/readers/object_config/ColourReader.cc',
   './src/readers/object_config/ObjectConfig.cc',
-  './src/main_routines.cc',
+  './src/raytracer.cc',
   './src/bmp_writer/bmp.cc'
 )
 
