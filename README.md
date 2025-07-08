@@ -16,7 +16,7 @@ Alternatively, requirements are:
 (both can be pip installed)
 - C++23 compilter
 
-Run `compile-scripts/release.sh` to compile the program
+Run `compile-scripts/release.sh` in the root of the project directory to compile the program
 
 Modify the Colour, Object and Scene `.ini` and set the configuration you want.
 
