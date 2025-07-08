@@ -4,8 +4,8 @@
 #include <vector>
 using Colours::BasicColour;
 
-auto Colours::get_average_of_colours(std::vector<BasicColour> colours)
-    -> BasicColour {
+auto Colours::get_average_of_colours(const std::vector<BasicColour> &colours,
+                                     const float &gamma) -> BasicColour {
   auto summed = BasicColour({0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0});
 
   // Sum the colours for a pixel
@@ -13,9 +13,6 @@ auto Colours::get_average_of_colours(std::vector<BasicColour> colours)
     std::transform(colour.begin(), colour.end(), summed.begin(), summed.begin(),
                    [&](auto c, auto s) { return c + s; });
   }
-
-  // TODO: Make controllable by user
-  auto constexpr gamma = 1.0 / 2.2f;
 
   // Average and colour-correct
   std::transform(summed.begin(), summed.end(), summed.begin(), [&](auto sum) {
@@ -30,10 +27,9 @@ auto Colours::ColourData::get_total_colour() -> const BasicColour & {
   return total_colour;
 }
 
-auto Colours::ColourData::combine_colour_as_average(BasicColour new_colour,
-                                                    std::size_t bounce_info,
-                                                    float contribution)
-    -> void {
+auto Colours::ColourData::combine_colour_as_average(
+    const BasicColour &new_colour, const std::size_t &bounce_info,
+    const float &contribution) -> void {
   previous_colours.push_back(new_colour);
 
   // First tint the previously accumulated light by the total colour received

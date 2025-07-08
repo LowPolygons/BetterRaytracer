@@ -66,7 +66,7 @@ auto Raytracer::run_raytracer_app() -> bool {
       scene_config.Width, scene_config.Height, scene_config.SceneSetup,
       scene_config.NumThreads, camera, scene_config.NumRays,
       scene_config.NumBounces, rand_gen, scene_config.PrintPercentStatusEvery,
-      scene_config.ContributionPerBounce);
+      scene_config.ContributionPerBounce, scene_config.ColourGamma);
 
   render_timer_minutes.stop_clock();
   render_timer_seconds.stop_clock();

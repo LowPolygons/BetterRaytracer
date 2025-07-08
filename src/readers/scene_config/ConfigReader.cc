@@ -1,12 +1,7 @@
 #include "ConfigReader.hh"
 #include "readers/file_reader.hh"
-#include "scene/SceneConfig.hh"
-#include <functional>
-#include <iostream>
 #include <optional>
-#include <stdexcept>
 #include <string>
-#include <type_traits>
 #include <unordered_map>
 #include <vector>
 
@@ -43,7 +38,6 @@ auto ConfigReader::interpret_lines(
   };
 
   // Screen
-  auto exists_WindowTitle = confirm_entity_exists("WindowTitle");
   auto exists_Width = confirm_entity_exists("Width");
   auto exists_AspectRatio = confirm_entity_exists("AspectRatio");
 
@@ -61,6 +55,7 @@ auto ConfigReader::interpret_lines(
   auto exists_CameraX = confirm_entity_exists("CameraOffset_X");
   auto exists_CameraY = confirm_entity_exists("CameraOffset_Y");
   auto exists_CameraZ = confirm_entity_exists("CameraOffset_Z");
+  auto exists_ColourGamma = confirm_entity_exists("ColourGamma");
 
   // Logging
   auto exists_PrintPerc = confirm_entity_exists("PrintPercentStatusEvery");
@@ -70,8 +65,7 @@ auto ConfigReader::interpret_lines(
   auto exists_FileName = confirm_entity_exists("FileName");
 
   // They must all exist
-  if (exists_WindowTitle &&  //
-      exists_Width &&        //
+  if (exists_Width &&        //
       exists_AspectRatio &&  //
       exists_NumRays &&      //
       exists_NumBounces &&   //
@@ -86,7 +80,6 @@ auto ConfigReader::interpret_lines(
       exists_PrintPerc &&    //
       exists_StoreResult) {
     // Attempt the casting
-    auto maybe_win = generalised_cast<std::string>(lines["WindowTitle"]);
     auto maybe_width = generalised_cast<int>(lines["Width"]);
     auto maybe_aspect = generalised_cast<double>(lines["AspectRatio"]);
     auto maybe_rays = generalised_cast<int>(lines["NumRays"]);
@@ -104,7 +97,7 @@ auto ConfigReader::interpret_lines(
     auto maybe_store = generalised_cast<bool>(lines["StoreResultToFile"]);
 
     // If they all have correctly castable values
-    if (maybe_win.has_value() &&     //
+    if (                             //
         maybe_width.has_value() &&   //
         maybe_aspect.has_value() &&  //
         maybe_rays.has_value() &&    //
@@ -119,7 +112,6 @@ auto ConfigReader::interpret_lines(
         maybe_camz.has_value() &&    //
         maybe_print.has_value() &&   //
         maybe_store.has_value()) {
-      scene_config.WindowTitle = maybe_win.value();
       scene_config.Width = maybe_width.value();
       scene_config.AspectRatio = maybe_aspect.value();
       scene_config.NumRays = maybe_rays.value();
@@ -153,6 +145,12 @@ auto ConfigReader::interpret_lines(
       if (exists_FileName) {
         scene_config.FileName = lines["FileName"];
       }
+      if (exists_ColourGamma) {
+        auto maybe_colourgamma = generalised_cast<float>(lines["ColourGamma"]);
+        if (maybe_colourgamma.has_value())
+          scene_config.ColourGamma = maybe_colourgamma.value();
+      }
+
     } else {
       return false;
     }

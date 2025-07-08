@@ -19,8 +19,8 @@ auto render(const std::size_t &width, const std::size_t &height,
             SceneObjects &objects, const std::size_t &num_threads,
             Camera &camera, const std::size_t &num_rays,
             const std::size_t &num_bounces, std::mt19937 &rand_gen,
-            const std::size_t &stat_log_every, const float &contribution)
-    -> std::vector<std::uint8_t>;
+            const std::size_t &stat_log_every, const float &contribution,
+            const float &colour_gamma) -> std::vector<std::uint8_t>;
 
 auto save_image(const std::string &file_name, const std::size_t &width,
                 const std::size_t &height,

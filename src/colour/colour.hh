@@ -17,7 +17,8 @@ namespace Colours {
 using BasicColour = Vec<8, float>;
 
 // A function used to do the final average of multiple arrays
-auto get_average_of_colours(std::vector<BasicColour> colours) -> BasicColour;
+auto get_average_of_colours(const std::vector<BasicColour> &colours,
+                            const float &gamma) -> BasicColour;
 
 // Each ray will have a ColourData object associated with it
 class ColourData {
@@ -35,9 +36,9 @@ public:
 
   // Given a new colour, adds it to the list of previous_colours
   // and then joins it to the total colour
-  auto combine_colour_as_average(BasicColour new_colour,
-                                 std::size_t bounce_info, float contribution)
-      -> void;
+  auto combine_colour_as_average(const BasicColour &new_colour,
+                                 const std::size_t &bounce_info,
+                                 const float &contribution) -> void;
 
   auto get_total_colour() -> const BasicColour &;
 };

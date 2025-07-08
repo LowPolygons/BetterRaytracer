@@ -14,8 +14,6 @@ namespace Scene {
 // Style is different to signify direct user interaction
 struct SceneConfig {
   SceneConfig() {}
-  // Window Configuration
-  std::string WindowTitle;
 
   // Ray Configuration
   std::size_t NumThreads = 0;
@@ -27,6 +25,8 @@ struct SceneConfig {
   std::size_t Width;
   std::size_t Height;
   std::size_t FieldOfView;
+  // 1 / 2.2
+  float ColourGamma = 0.4545;
 
   float AspectRatio;
   float HorizontalRotation;

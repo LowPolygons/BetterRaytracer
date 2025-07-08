@@ -77,14 +77,12 @@ auto Image::PopulateIndexArrays(
   }
 }
 
-// TODO: consider implementing std::promise and future to work along side
-// threads that they can finish in any order
 auto Image::render(const std::size_t &width, const std::size_t &height,
                    SceneObjects &objects, const std::size_t &num_threads,
                    Camera &camera, const std::size_t &num_rays,
                    const std::size_t &num_bounces, std::mt19937 &rand_gen,
-                   const std::size_t &stat_log_every, const float &contribution)
-    -> std::vector<std::uint8_t> {
+                   const std::size_t &stat_log_every, const float &contribution,
+                   const float &colour_gamma) -> std::vector<std::uint8_t> {
   // Every 4 indexes represets a pixels RGBA channels
   std::vector<std::uint8_t> pixel_buffer(width * height * FOUR);
   // Incase the scene window is tiny
@@ -180,7 +178,8 @@ auto Image::render(const std::size_t &width, const std::size_t &height,
           colours_for_pixel.push_back(ray_colour.get_total_colour());
         }
         // Get the averaged colour and add the elements to the pixel buffer
-        auto pixel_colour = Colours::get_average_of_colours(colours_for_pixel);
+        auto pixel_colour =
+            Colours::get_average_of_colours(colours_for_pixel, colour_gamma);
         auto current_pixel_start_index =
             pixel_buffer_indexs[thread_id].first + (num_pixels_done * 4);
 

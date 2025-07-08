@@ -65,7 +65,7 @@ auto Scene::set_scene_config(SceneConfig &scene_config) -> bool {
 
 // clang-format off
 void Scene::SceneConfig::DisplaySceneSetup() {
-  std::cout << "//====| " << WindowTitle << " Setup |=====//" << std::endl;
+  std::cout << "//====| Scene Setup |=====//" << std::endl;
 
   std::cout << "\n<======> Screen Config <======>" << std::endl;
   std::cout << "<-=| Screen Width  => " << Width << std::endl;
