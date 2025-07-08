@@ -1,6 +1,7 @@
 ## Scene Configuration
 
 Most of the values in the scene config are mandatory, with few exceptions
+Any lines beginning with a square bracket are ignored
 
 ### Mandatory Parameters 
 ```
@@ -26,6 +27,7 @@ StoreResultToFile - true/false
 NumThreads - Int
 RandomSeed - Int
 FileName - String
+ColourGamma - Float
 ```
 
 If you do not specify each of these, they default to:
@@ -33,6 +35,7 @@ If you do not specify each of these, they default to:
 - Max Available threads
 - The result of `random_device` 
 - "OutputScene_[Random(1,999999)]"
+- 1 / 2.2
 
 ### Example `scene_config.ini`
 
