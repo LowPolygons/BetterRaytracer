@@ -27,6 +27,8 @@ auto Colours::ColourData::get_total_colour() -> const BasicColour & {
   return total_colour;
 }
 
+// INFO: Couldn't figure it out for myself; taken from sebastian Lague's
+// raytracer!
 auto Colours::ColourData::combine_colour_as_average(
     const BasicColour &new_colour, const std::size_t &bounce_info,
     const float &contribution) -> void {
