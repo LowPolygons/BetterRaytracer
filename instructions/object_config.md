@@ -26,7 +26,14 @@ Wall order:
 
 Note: colour_name should be a colour listed in the [colour_config](./colour_config.md)
 
-#### TODO: Triangles!
+A triangle is defined on multiple lines with the following format:
+
+`triangle`
+
+`{x} {y} {z}` x3
+
+`{colour_name}`
+
 
 ### Example `object_config.ini`
 
@@ -54,4 +61,10 @@ GREEN_H PINK_Z
 WHITE BLUE_L
 PINK_L GREEN_L
 BLUE_H WHITE
+
+triangle
+-2.4 -0.25 4
+-2.4 -3.35 4
+-2.05 -3.35 4
+BRIGHT_WHITE_LIGHT
 ```
