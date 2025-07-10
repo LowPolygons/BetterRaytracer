@@ -1,6 +1,7 @@
 ## Scene Configuration
 
 Most of the values in the scene config are mandatory, with few exceptions
+
 Any lines beginning with a square bracket are ignored
 
 ### Mandatory Parameters 
