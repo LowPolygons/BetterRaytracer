@@ -41,3 +41,5 @@ Run `./build/raytracer`
 ## 1200 Rays, 20 Bounces
 
 ![Example Scene 5](scenes/MirrorsAllAround.png)
+
+![Example Scene 6]](scenes/UkriInfinite.png)
