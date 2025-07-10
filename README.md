@@ -42,4 +42,4 @@ Run `./build/raytracer`
 
 ![Example Scene 5](scenes/MirrorsAllAround.png)
 
-![Example Scene 6]](scenes/UkriInfinite.png)
+![Example Scene 6](scenes/UkriInfinite.png)
