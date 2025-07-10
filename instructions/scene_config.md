@@ -42,7 +42,6 @@ If you do not specify each of these, they default to:
 
 ```
 [Screen]
-WindowTitle = Example Scene
 Width = 2560
 AspectRatio = 1.777
 
