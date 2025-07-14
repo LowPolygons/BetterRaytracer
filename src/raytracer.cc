@@ -22,7 +22,7 @@ auto constexpr MAX = std::size_t{999999};
 // Used by the timers to determine if it should display in seconds or minutes
 auto constexpr SECONDS_TO_MINUTES_CUTOFF = double{300};
 
-auto Raytracer::run_raytracer_app() -> bool {
+auto Raytracer::run_raytracer_app() -> RaytracerAppStatus {
   //===// Initialise a program wide timer //===//
   auto program_timer_minutes = TimerData::Timer<double, std::chrono::minutes>();
   auto program_timer_seconds = TimerData::Timer<double, std::chrono::seconds>();
@@ -30,7 +30,7 @@ auto Raytracer::run_raytracer_app() -> bool {
   //==// Read in the ini files //==//
   auto config_read_success = Scene::set_scene_config(scene_config);
   if (!config_read_success)
-    return false;
+    return RaytracerAppStatus::CONFIG_READER_ERROR;
 
   //==// Check the random seed was given //==//
   std::mt19937 rand_gen;
@@ -82,8 +82,11 @@ auto Raytracer::run_raytracer_app() -> bool {
             : std::string("OutputScene_" + std::to_string(file_id(rand_gen)));
     output_name = std::string(output_name + ".bmp");
 
-    Image::save_image(output_name, scene_config.Width, scene_config.Height,
-                      pixel_buffer);
+    auto image_save_success = Image::save_image(
+        output_name, scene_config.Width, scene_config.Height, pixel_buffer);
+
+    if (!image_save_success)
+      return RaytracerAppStatus::IMAGE_SAVE_ERROR;
   }
 
   saver_timer.stop_clock();
@@ -107,5 +110,5 @@ auto Raytracer::run_raytracer_app() -> bool {
     TimerData::log_context("Program Duration", "min", program_timer_minutes.get_time_difference());
   }
   // clang-format on
-  return true;
+  return RaytracerAppStatus::SUCCESS;
 }
