@@ -1,7 +1,7 @@
 #ifndef PROGRAM_SCENE_CONFIG_HH
 #define PROGRAM_SCENE_CONFIG_HH
 
-#include "image/scene_objects/scene_objects.hh"
+#include "scene/scene_objects/scene_objects.hh"
 #include <cstdint>
 #include <optional>
 #include <string>

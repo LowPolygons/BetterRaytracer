@@ -6,7 +6,7 @@
 #include "geometry/sphere.hh"
 #include "geometry/triangle.hh"
 #include "image/image.hh"
-#include "image/scene_objects/scene_objects.hh"
+#include "scene/scene_objects/scene_objects.hh"
 
 #include "scene/SceneConfig.hh"
 #include "timer/timer.hh"

@@ -11,7 +11,7 @@ all_sources = files(
   './src/geometry/geometry_menu.cc',
   './src/camera/camera.cc',
   './src/raylogic/raylogic.cc',
-  './src/image/scene_objects/scene_objects.cc',
+  './src/scene/scene_objects/scene_objects.cc',
   './src/image/image.cc',
   './src/colour/colour.cc',
   './src/scene/SceneConfig.cc',

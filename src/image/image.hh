@@ -4,7 +4,7 @@
 #include <cstdint>
 
 #include "../camera/camera.hh"
-#include "scene_objects/scene_objects.hh"
+#include "../scene/scene_objects/scene_objects.hh"
 #include <random>
 
 namespace Image {

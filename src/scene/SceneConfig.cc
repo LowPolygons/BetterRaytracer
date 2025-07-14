@@ -1,8 +1,8 @@
 #include "SceneConfig.hh"
-#include "image/scene_objects/scene_objects.hh"
 #include "readers/object_config/ColourReader.hh"
 #include "readers/object_config/ObjectConfig.hh"
 #include "readers/scene_config/ConfigReader.hh"
+#include "scene/scene_objects/scene_objects.hh"
 #include <iostream>
 // All implementations in here belong to this namespace
 
