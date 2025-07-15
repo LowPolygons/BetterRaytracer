@@ -21,6 +21,7 @@ CameraOffset_Y - Float
 CameraOffset_Z - Float 
 PrintPercentStatusEvery - Int
 StoreResultToFile - true/false 
+PreviewEnabled - true/false
 ```
 
 ### Optional Parameters
@@ -31,7 +32,7 @@ FileName - String
 ColourGamma - Float
 ```
 
-If you do not specify each of these, they default to:
+If you do not specify each of these, they default to (in order):
 
 - Max Available threads
 - The result of `random_device` 
@@ -66,4 +67,5 @@ PrintPercentStatusEvery = 2
 [Misc]
 StoreResultToFile = true
 FileName = FileNameTest
+PreviewEnabled = true
 ```
