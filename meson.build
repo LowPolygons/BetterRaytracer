@@ -20,15 +20,19 @@ all_sources = files(
   './src/readers/object_config/ColourReader.cc',
   './src/readers/object_config/ObjectConfig.cc',
   './src/raytracer.cc',
-  './src/bmp_writer/bmp.cc'
+  './src/bmp_writer/bmp.cc',
+  './src/rasteriser.cc'
 )
+
+sdl_dependency = dependency('sdl2')
 
 executable('raytracer', 
   sources: ['./src/main.cpp'] + all_sources,
   include_directories: [
     include_directories('./src/image', './src/vectors', './src/geometry'),
     inc_dirs
-  ]
+  ],
+  dependencies: sdl_dependency
 )
 
 subdir('tests')

@@ -6,15 +6,13 @@
 #include "geometry/sphere.hh"
 #include "geometry/triangle.hh"
 #include "image/image.hh"
-#include "scene/scene_objects/scene_objects.hh"
-
 #include "scene/SceneConfig.hh"
+#include "scene/scene_objects/scene_objects.hh"
 #include "timer/timer.hh"
 
 #include <chrono>
 #include <optional>
 #include <random>
-#include <thread>
 
 // Makes the code a little more pleasant to look at
 auto constexpr ONE = std::size_t{1};
@@ -27,11 +25,6 @@ auto Raytracer::run_raytracer_app() -> RaytracerAppStatus {
   auto program_timer_minutes = TimerData::Timer<double, std::chrono::minutes>();
   auto program_timer_seconds = TimerData::Timer<double, std::chrono::seconds>();
 
-  //==// Read in the ini files //==//
-  auto config_read_success = Scene::set_scene_config(scene_config);
-  if (!config_read_success)
-    return RaytracerAppStatus::CONFIG_READER_ERROR;
-
   //==// Check the random seed was given //==//
   std::mt19937 rand_gen;
 
@@ -41,10 +34,6 @@ auto Raytracer::run_raytracer_app() -> RaytracerAppStatus {
     std::random_device seed;
     rand_gen = std::mt19937(seed());
   }
-
-  //==// If number of threads wasn't specified it uses the maximum //==//
-  if (scene_config.NumThreads == 0)
-    scene_config.NumThreads = std::thread::hardware_concurrency();
 
   //==// Display the Scene Setup //==//
   scene_config.DisplaySceneSetup();
@@ -66,7 +55,7 @@ auto Raytracer::run_raytracer_app() -> RaytracerAppStatus {
       scene_config.Width, scene_config.Height, scene_config.SceneSetup,
       scene_config.NumThreads, camera, scene_config.NumRays,
       scene_config.NumBounces, rand_gen, scene_config.PrintPercentStatusEvery,
-      scene_config.ContributionPerBounce, scene_config.ColourGamma);
+      scene_config.ContributionPerBounce, scene_config.ColourGamma, false);
 
   render_timer_minutes.stop_clock();
   render_timer_seconds.stop_clock();

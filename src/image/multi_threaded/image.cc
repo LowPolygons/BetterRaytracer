@@ -82,7 +82,9 @@ auto Image::render(const std::size_t &width, const std::size_t &height,
                    Camera &camera, const std::size_t &num_rays,
                    const std::size_t &num_bounces, std::mt19937 &rand_gen,
                    const std::size_t &stat_log_every, const float &contribution,
-                   const float &colour_gamma) -> std::vector<std::uint8_t> {
+                   const float &colour_gamma,
+                   const bool &colours_instead_of_light)
+    -> std::vector<std::uint8_t> {
   // Every 4 indexes represets a pixels RGBA channels
   std::vector<std::uint8_t> pixel_buffer(width * height * FOUR);
   // Incase the scene window is tiny
@@ -183,18 +185,20 @@ auto Image::render(const std::size_t &width, const std::size_t &height,
         auto current_pixel_start_index =
             pixel_buffer_indexs[thread_id].first + (num_pixels_done * 4);
 
+        auto r_index = colours_instead_of_light ? 0 : 3;
+        auto g_index = colours_instead_of_light ? 1 : 4;
+        auto b_index = colours_instead_of_light ? 2 : 5;
         pixel_buffer[current_pixel_start_index] =
-            static_cast<std::uint8_t>(255.0 * pixel_colour[3]);
+            static_cast<std::uint8_t>(255.0 * pixel_colour[r_index]);
         pixel_buffer[current_pixel_start_index + 1] =
-            static_cast<std::uint8_t>(255.0 * pixel_colour[4]);
+            static_cast<std::uint8_t>(255.0 * pixel_colour[g_index]);
         pixel_buffer[current_pixel_start_index + 2] =
-            static_cast<std::uint8_t>(255.0 * pixel_colour[5]);
+            static_cast<std::uint8_t>(255.0 * pixel_colour[b_index]);
         pixel_buffer[current_pixel_start_index + 3] = 255;
 
         num_pixels_done++;
       }
     }
-
     return true;
   };
 

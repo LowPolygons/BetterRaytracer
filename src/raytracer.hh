@@ -3,12 +3,12 @@
 
 #include "scene/SceneConfig.hh"
 
-enum RaytracerAppStatus { SUCCESS, CONFIG_READER_ERROR, IMAGE_SAVE_ERROR };
+enum RaytracerAppStatus { SUCCESS, IMAGE_SAVE_ERROR };
 
 using Scene::SceneConfig;
 class Raytracer {
 public:
-  Raytracer() : scene_config(SceneConfig()) {}
+  Raytracer(SceneConfig scene_config) : scene_config(scene_config) {}
   auto run_raytracer_app() -> RaytracerAppStatus;
 
 private:

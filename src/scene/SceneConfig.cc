@@ -4,7 +4,7 @@
 #include "readers/scene_config/ConfigReader.hh"
 #include "scene/scene_objects/scene_objects.hh"
 #include <iostream>
-// All implementations in here belong to this namespace
+#include <thread>
 
 auto Scene::set_scene_config(SceneConfig &scene_config) -> bool {
   //==// Read the ini files to set the configuration //==//
@@ -59,6 +59,10 @@ auto Scene::set_scene_config(SceneConfig &scene_config) -> bool {
 
   if (!files_read_successfully)
     return false;
+
+  // If number of threads wasn't specified it uses the maximum
+  if (scene_config.NumThreads == 0)
+    scene_config.NumThreads = std::thread::hardware_concurrency();
 
   return true;
 }
