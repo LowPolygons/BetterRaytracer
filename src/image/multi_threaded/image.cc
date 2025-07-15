@@ -82,8 +82,7 @@ auto Image::render(const std::size_t &width, const std::size_t &height,
                    Camera &camera, const std::size_t &num_rays,
                    const std::size_t &num_bounces, std::mt19937 &rand_gen,
                    const std::size_t &stat_log_every, const float &contribution,
-                   const float &colour_gamma,
-                   const bool &colours_instead_of_light)
+                   const float &colour_gamma, const bool &rasterised_mode_on)
     -> std::vector<std::uint8_t> {
   // Every 4 indexes represets a pixels RGBA channels
   std::vector<std::uint8_t> pixel_buffer(width * height * FOUR);
@@ -124,12 +123,14 @@ auto Image::render(const std::size_t &width, const std::size_t &height,
     // For each row the thread it was assigned
     for (auto row : row_range) {
       // Logging information - based off thread zero not an average
-      auto perc_done = 100.0 * row / pixel_direcs_indexs[thread_id].second;
-      if (thread_id == 0 and static_cast<int>(perc_done) > lowest_passed) {
-        lowest_passed = lowest_passed + stat_log_every;
-        std::cout << ">>> Approximate Completion: " << perc_done << "%"
-                  << std::endl;
-      }
+      if (!rasterised_mode_on) {
+        auto perc_done = 100.0 * row / pixel_direcs_indexs[thread_id].second;
+        if (thread_id == 0 and static_cast<int>(perc_done) > lowest_passed) {
+          lowest_passed = lowest_passed + stat_log_every;
+          std::cout << ">>> Approximate Completion: " << perc_done << "%"
+                    << std::endl;
+        }
+      };
       // Get the direction vectors for the rows threads
       auto directions_optional = camera.get_row(row);
       if (!directions_optional)
@@ -185,9 +186,9 @@ auto Image::render(const std::size_t &width, const std::size_t &height,
         auto current_pixel_start_index =
             pixel_buffer_indexs[thread_id].first + (num_pixels_done * 4);
 
-        auto r_index = colours_instead_of_light ? 0 : 3;
-        auto g_index = colours_instead_of_light ? 1 : 4;
-        auto b_index = colours_instead_of_light ? 2 : 5;
+        auto r_index = rasterised_mode_on ? 0 : 3;
+        auto g_index = rasterised_mode_on ? 1 : 4;
+        auto b_index = rasterised_mode_on ? 2 : 5;
         pixel_buffer[current_pixel_start_index] =
             static_cast<std::uint8_t>(255.0 * pixel_colour[r_index]);
         pixel_buffer[current_pixel_start_index + 1] =
@@ -202,7 +203,8 @@ auto Image::render(const std::size_t &width, const std::size_t &height,
     return true;
   };
 
-  std::cout << ">>> Beginning Computation" << std::endl;
+  if (!rasterised_mode_on)
+    std::cout << ">>> Beginning Computation" << std::endl;
 
   // Create the threads
   for (auto thread_id : thread_iterator) {
@@ -212,7 +214,8 @@ auto Image::render(const std::size_t &width, const std::size_t &height,
   for (auto &thread : threads) {
     thread.join();
   }
-  std::cout << ">>> Computation Finished" << std::endl;
+  if (!rasterised_mode_on)
+    std::cout << ">>> Computation Finished" << std::endl;
 
   return pixel_buffer;
 }

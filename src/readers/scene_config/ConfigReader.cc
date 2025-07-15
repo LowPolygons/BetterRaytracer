@@ -63,6 +63,7 @@ auto ConfigReader::interpret_lines(
   // Misc
   auto exists_StoreResult = confirm_entity_exists("StoreResultToFile");
   auto exists_FileName = confirm_entity_exists("FileName");
+  auto exists_PreviewEnabled = confirm_entity_exists("PreviewEnabled");
 
   // They must all exist
   if (exists_Width &&        //
@@ -78,7 +79,8 @@ auto ConfigReader::interpret_lines(
       exists_CameraY &&      //
       exists_CameraZ &&      //
       exists_PrintPerc &&    //
-      exists_StoreResult) {
+      exists_StoreResult &&  //
+      exists_PreviewEnabled) {
     // Attempt the casting
     auto maybe_width = generalised_cast<int>(lines["Width"]);
     auto maybe_aspect = generalised_cast<double>(lines["AspectRatio"]);
@@ -95,6 +97,7 @@ auto ConfigReader::interpret_lines(
     auto maybe_camz = generalised_cast<double>(lines["CameraOffset_Z"]);
     auto maybe_print = generalised_cast<int>(lines["PrintPercentStatusEvery"]);
     auto maybe_store = generalised_cast<bool>(lines["StoreResultToFile"]);
+    auto maybe_preview = generalised_cast<bool>(lines["PreviewEnabled"]);
 
     // If they all have correctly castable values
     if (                             //
@@ -111,7 +114,8 @@ auto ConfigReader::interpret_lines(
         maybe_camy.has_value() &&    //
         maybe_camz.has_value() &&    //
         maybe_print.has_value() &&   //
-        maybe_store.has_value()) {
+        maybe_store.has_value() &&   //
+        maybe_preview.has_value()) {
       scene_config.Width = maybe_width.value();
       scene_config.AspectRatio = maybe_aspect.value();
       scene_config.NumRays = maybe_rays.value();
@@ -128,6 +132,7 @@ auto ConfigReader::interpret_lines(
       };
       scene_config.PrintPercentStatusEvery = maybe_print.value();
       scene_config.StoreResultToFile = maybe_store.value();
+      scene_config.PreviewEnabled = maybe_preview.value();
 
       // Optional
       if (exists_RandSeed) {

@@ -17,10 +17,9 @@ auto Rasteriser::initialise_sdl_window()
     return std::unexpected<std::string>(
         std::format("Error initialising SDL: {}", SDL_GetError()));
 
-  auto window =
-      SDL_CreateWindow(std::format("{} Preview", window_data.title).c_str(),
-                       window_data.posx, window_data.posy, window_data.width,
-                       window_data.height, window_data.flags);
+  auto window = SDL_CreateWindow(window_data.title.c_str(), window_data.posx,
+                                 window_data.posy, window_data.width,
+                                 window_data.height, window_data.flags);
   if (!window)
     return std::unexpected<std::string>(
         std::format("Error creating window object: {}", SDL_GetError()));
@@ -55,26 +54,24 @@ auto Rasteriser::pixel_buffer_onto_surface(
   SDL_UnlockSurface(sdl_surface);
 }
 
-auto Rasteriser::run_rasteriser_app() -> bool {
+auto Rasteriser::run_rasteriser_app()
+    -> std::expected<const SceneConfig, std::string> {
   //==// If number of threads wasn't specified it uses the maximum //==//
   std::mt19937 rand_gen;
 
   // For a preview, it has a fixed width
-  scene_config.Width = PREVIEW_WIDTH;
-  scene_config.Height = scene_config.Width / scene_config.AspectRatio;
+  auto preview_height = PREVIEW_WIDTH / scene_config.AspectRatio;
 
   // Update window data with newly read data
-  window_data.width = scene_config.Width;
-  window_data.height = scene_config.Height;
-  window_data.title = scene_config.FileName;
+  window_data.width = PREVIEW_WIDTH;
+  window_data.height = preview_height;
+  window_data.title = "Scene Preview";
 
   // Do all the initialising SDL Jargon
   auto maybe_sdl_window = initialise_sdl_window();
 
-  if (!maybe_sdl_window) {
-    std::cerr << maybe_sdl_window.error() << std::endl;
-    return false;
-  }
+  if (!maybe_sdl_window)
+    return std::unexpected<std::string>(maybe_sdl_window.error());
 
   auto sdl_window = maybe_sdl_window.value();
   auto sdl_surface = SDL_GetWindowSurface(sdl_window);
@@ -136,14 +133,14 @@ auto Rasteriser::run_rasteriser_app() -> bool {
       }
     }
     auto camera = Camera(
-        scene_config.Width, scene_config.AspectRatio, scene_config.FieldOfView,
+        PREVIEW_WIDTH, scene_config.AspectRatio, scene_config.FieldOfView,
         scene_config.HorizontalRotation, scene_config.VerticalRotation,
         scene_config.CameraRotation, scene_config.CameraPosition);
     camera.populate_pixel_directions();
 
     auto pixel_buffer = Image::render(
-        scene_config.Width, scene_config.Height, scene_config.SceneSetup,
-        scene_config.NumThreads, camera, 1, 1, rand_gen, 101,
+        PREVIEW_WIDTH, preview_height, scene_config.SceneSetup,
+        scene_config.NumThreads, camera, 1, 1, rand_gen, 0,
         scene_config.ContributionPerBounce, scene_config.ColourGamma, true);
     pixel_buffer_onto_surface(sdl_surface, pixel_buffer);
 
@@ -153,5 +150,5 @@ auto Rasteriser::run_rasteriser_app() -> bool {
   SDL_DestroyWindow(sdl_window);
   SDL_Quit();
 
-  return true;
+  return scene_config;
 }

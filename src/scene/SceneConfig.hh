@@ -44,7 +44,7 @@ struct SceneConfig {
   bool StoreResultToFile;
   std::string FileName = FILE_NAME_DEFAULT;
 
-  bool DisplayResultOnScreen;
+  bool PreviewEnabled;
 
   void DisplaySceneSetup();
 };

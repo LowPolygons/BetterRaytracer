@@ -20,7 +20,7 @@ auto render(const std::size_t &width, const std::size_t &height,
             Camera &camera, const std::size_t &num_rays,
             const std::size_t &num_bounces, std::mt19937 &rand_gen,
             const std::size_t &stat_log_every, const float &contribution,
-            const float &colour_gamma, const bool &colours_instead_of_light)
+            const float &colour_gamma, const bool &rasterised_mode_on)
     -> std::vector<std::uint8_t>;
 
 auto save_image(const std::string &file_name, const std::size_t &width,
