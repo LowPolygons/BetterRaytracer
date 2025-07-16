@@ -1,6 +1,8 @@
 #ifndef RASTERISER_HH
 #define RASTERISER_HH
 
+#ifdef SDL2_DEPENDENCY_FOUND
+
 #include "raytracer.hh"
 #include <SDL2/SDL.h>
 #include <expected>
@@ -33,5 +35,7 @@ private:
   SceneConfig scene_config;
   WindowData window_data;
 };
+
+#endif
 
 #endif

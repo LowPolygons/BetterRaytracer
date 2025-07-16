@@ -1,3 +1,5 @@
+#ifdef SDL2_DEPENDENCY_FOUND
+
 #include "rasteriser.hh"
 #include "SDL_error.h"
 #include "SDL_pixels.h"
@@ -160,3 +162,5 @@ auto Rasteriser::run_rasteriser_app()
 
   return std::make_pair(pressed_enter, scene_config);
 }
+
+#endif

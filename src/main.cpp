@@ -1,7 +1,11 @@
-#include "rasteriser.hh"
 #include "raytracer.hh"
 #include "scene/SceneConfig.hh"
 #include <iostream>
+
+#ifdef SDL2_DEPENDENCY_FOUND
+#include "rasteriser.hh"
+#include <SDL2/SDL.h>
+#endif
 
 auto main() -> int {
   /*
@@ -19,9 +23,11 @@ auto main() -> int {
 
   /*
    *
-   * Run the rasterised version of the program if they chose to preview
+   * Run the rasterised version of the program if they chose to preview and if
+   * SDL2 was found
    *
    */
+#ifdef SDL2_DEPENDENCY_FOUND
   if (program_scene_config.PreviewEnabled) {
     auto rasteriser = Rasteriser(program_scene_config);
     const auto maybe_updated_scene_config = rasteriser.run_rasteriser_app();
@@ -37,6 +43,7 @@ auto main() -> int {
     if (maybe_updated_scene_config.value().first)
       program_scene_config = maybe_updated_scene_config.value().second;
   }
+#endif
   /*
    *
    * Run the actual raytracer

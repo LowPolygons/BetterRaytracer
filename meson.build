@@ -24,7 +24,13 @@ all_sources = files(
   './src/rasteriser.cc'
 )
 
-sdl_dependency = dependency('sdl2')
+sdl_dependency = dependency('sdl2', required: false)
+
+if sdl_dependency.found()
+  add_project_arguments('-DSDL2_DEPENDENCY_FOUND', language: 'cpp')
+else 
+  message('WARNING: SDL2 Not found. Install SDl2 if possible, meanwhile program will run without a Preview Option')
+endif 
 
 executable('raytracer', 
   sources: ['./src/main.cpp'] + all_sources,
