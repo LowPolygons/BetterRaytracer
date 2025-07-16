@@ -23,7 +23,11 @@ Run `compile-scripts/release.sh` in the root of the project directory to compile
 
 Modify the Colour, Object and Scene `.ini` and set the configuration you want.
 
+### Modifying the input values 
 * [Input Values](./instructions/ini_values.md)
+
+### How to use the preview tool
+* [Preview Tool](./instructions/preview_tool.md)
 
 Run `./build/raytracer`
 
