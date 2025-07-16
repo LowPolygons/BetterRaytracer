@@ -20,7 +20,8 @@ class Rasteriser {
 public:
   Rasteriser(SceneConfig scene_config)
       : scene_config(scene_config), window_data(WindowData()) {}
-  auto run_rasteriser_app() -> std::expected<const SceneConfig, std::string>;
+  auto run_rasteriser_app()
+      -> std::expected<const std::pair<bool, SceneConfig>, std::string>;
 
 private:
   auto initialise_sdl_window() -> std::expected<SDL_Window *, std::string>;

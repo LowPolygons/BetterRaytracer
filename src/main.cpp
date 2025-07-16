@@ -9,7 +9,7 @@ auto main() -> int {
    * Read the scene config in for the program
    *
    */
-  SceneConfig program_scene_config;
+  auto program_scene_config = SceneConfig();
   auto config_reading_success = Scene::set_scene_config(program_scene_config);
 
   if (!config_reading_success) {
@@ -32,7 +32,10 @@ auto main() -> int {
       return EXIT_FAILURE;
     }
 
-    program_scene_config = maybe_updated_scene_config.value();
+    // If the user pressed enter on their preview scene, update the scene config
+    // to be the one they returned
+    if (maybe_updated_scene_config.value().first)
+      program_scene_config = maybe_updated_scene_config.value().second;
   }
   /*
    *

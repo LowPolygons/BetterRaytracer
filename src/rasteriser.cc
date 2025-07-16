@@ -6,8 +6,8 @@
 #include <SDL2/SDL.h>
 #include <expected>
 #include <format>
-#include <iostream>
 #include <ranges>
+#include <utility>
 
 auto constexpr PREVIEW_WIDTH = 800;
 
@@ -55,7 +55,7 @@ auto Rasteriser::pixel_buffer_onto_surface(
 }
 
 auto Rasteriser::run_rasteriser_app()
-    -> std::expected<const SceneConfig, std::string> {
+    -> std::expected<const std::pair<bool, SceneConfig>, std::string> {
   //==// If number of threads wasn't specified it uses the maximum //==//
   std::mt19937 rand_gen;
 
@@ -77,6 +77,7 @@ auto Rasteriser::run_rasteriser_app()
   auto sdl_surface = SDL_GetWindowSurface(sdl_window);
 
   auto running = true;
+  auto pressed_enter = false;
   auto event = SDL_Event{};
 
   while (running) {
@@ -128,6 +129,13 @@ auto Rasteriser::run_rasteriser_app()
         case SDLK_RIGHTBRACKET:
           scene_config.CameraRotation += 0.1;
           break;
+        case SDLK_RETURN:
+          pressed_enter = true;
+          running = false;
+          break;
+        case SDLK_BACKSPACE:
+          running = false;
+          break;
         }
       };
       }
@@ -150,5 +158,5 @@ auto Rasteriser::run_rasteriser_app()
   SDL_DestroyWindow(sdl_window);
   SDL_Quit();
 
-  return scene_config;
+  return std::make_pair(pressed_enter, scene_config);
 }
