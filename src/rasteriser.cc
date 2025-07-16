@@ -91,8 +91,6 @@ auto Rasteriser::run_rasteriser_app()
       };
       // TODO: Maybe move this elsewhere, a bit messy. also change it so that
       // WASD moves in the dir of the camera
-      // MAKE IT SO THAT IF THEY PRESS ENTER, IT UPDATES THE SCENE CONFIG THAT
-      // THE RAYTRACER USES
       case SDL_KEYDOWN: {
         switch (event.key.keysym.sym) {
         case SDLK_w:

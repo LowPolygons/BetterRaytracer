@@ -14,12 +14,15 @@ Clone the Repository
 
 Run the `get_dependencies.sh` script (for Debian/Ubuntu platforms) to automatically install all needed packages
 
-Alternatively, requirements are:
+Alternatively, mandatory requirements are:
 - Meson
 - Ninja
   
 (both can be pip installed)
 - C++23 compilter
+
+And for the full extent of features available:
+- SDL2
 
 Run `compile-scripts/release.sh` in the root of the project directory to compile the program
 
