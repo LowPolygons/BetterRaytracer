@@ -7,6 +7,8 @@ This was done to learn better programming practises in C++, as such I chose to u
 
 #### *Update: A preview mode was added - this was done in SDL2*
 
+#### *Note: SDL2 is an optional dependency - if you do not have it installed the Previewer will be disabled but nothing else*
+
 ## How To Use 
 Clone the Repository
 
