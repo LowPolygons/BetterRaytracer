@@ -31,9 +31,9 @@ Pitch the camera camera up/down, yaw the camera left/right
 Rotate the camera anti-clockwise/clockwise 
 
 ### Enter 
-Pressing enter means the Raytracer will copy the configuration you set in side the preview 
+Pressing enter means the Raytracer will copy the configuration you set inside the preview 
 
-#### Note: these changes are not saved to the ini files, so make sure to look at the info dump before rendering if you want to copy them 
+#### Note: these changes are not saved to the ini files, so make sure to look at the info dump before rendering if you want to save the changes
 
 ### Backspace 
 Backspace will cancel any of the changes made and will run the raytracer with the original config 
