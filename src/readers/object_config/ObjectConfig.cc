@@ -1,11 +1,9 @@
 #include "ObjectConfig.hh"
 #include "colour/colour.hh"
-#include "geometry/geometry_variant.hh"
 #include "geometry/shape.hh"
 #include "geometry/sphere.hh"
 #include "geometry/triangle.hh"
 #include "readers/file_reader.hh"
-#include "scene/SceneConfig.hh"
 #include <optional>
 #include <sstream>
 #include <stdexcept>
@@ -109,9 +107,9 @@ auto ObjectConfigReader::interpret_lines(
         return false;
       // Create sphere with newly confirmed sphere
       scene_config.SceneSetup.add_sphere(
-          Geometry(Sphere({sphere_numeric_vals[0], sphere_numeric_vals[1],
-                           sphere_numeric_vals[2]},
-                          sphere_numeric_vals[3], colours[sphere_vals[5]])));
+          Sphere({sphere_numeric_vals[0], sphere_numeric_vals[1],
+                  sphere_numeric_vals[2]},
+                 sphere_numeric_vals[3], colours[sphere_vals[5]]));
     }
     if (line.find("cuboid") != std::string::npos) {
       // Check if the current index + 14 exists
@@ -184,8 +182,8 @@ auto ObjectConfigReader::interpret_lines(
 
       // All data valid so construct cuboid
       scene_config.SceneSetup.add_triangle(
-          Geometry(Triangle(maybe_coord1.value(), maybe_coord2.value(),
-                            maybe_coord3.value(), colours[colour_name[0]])));
+          Triangle(maybe_coord1.value(), maybe_coord2.value(),
+                   maybe_coord3.value(), colours[colour_name[0]]));
     }
     current_line_index++;
   }

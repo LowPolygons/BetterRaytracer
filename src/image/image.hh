@@ -16,7 +16,7 @@ auto PopulateIndexArrays(
     -> void;
 
 auto render(const std::size_t &width, const std::size_t &height,
-            SceneObjects &objects, const std::size_t &num_threads,
+            const SceneObjects &objects, const std::size_t &num_threads,
             Camera &camera, const std::size_t &num_rays,
             const std::size_t &num_bounces, std::mt19937 &rand_gen,
             const std::size_t &stat_log_every, const float &contribution,

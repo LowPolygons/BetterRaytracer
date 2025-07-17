@@ -21,8 +21,6 @@ using Vectors::Vec;
 using Colours::BasicColour;
 using Colours::ColourData;
 
-using GeometryVisitor::call_check_intersection;
-
 // Less ugly than an inline ints
 auto constexpr ONE = 1;
 auto constexpr FOUR = 4;
@@ -78,7 +76,7 @@ auto Image::PopulateIndexArrays(
 }
 
 auto Image::render(const std::size_t &width, const std::size_t &height,
-                   SceneObjects &objects, const std::size_t &num_threads,
+                   const SceneObjects &objects, const std::size_t &num_threads,
                    Camera &camera, const std::size_t &num_rays,
                    const std::size_t &num_bounces, std::mt19937 &rand_gen,
                    const std::size_t &stat_log_every, const float &contribution,
@@ -155,7 +153,7 @@ auto Image::render(const std::size_t &width, const std::size_t &height,
             auto closest_object = IntersectionReturnData();
 
             for (auto &obj : objects.get_shapes()) {
-              auto return_data = call_check_intersection(obj.shape(), ray);
+              auto return_data = obj->check_intersection(ray);
               // If intersects, make sure it is closer than any stored object
               if (return_data.intersects) {
                 if (return_data.lambda < closest_object.lambda or

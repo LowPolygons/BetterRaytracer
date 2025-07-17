@@ -7,11 +7,11 @@
 using Colours::BasicColour;
 using Vectors::Vec;
 
-auto SceneObjects::add_triangle(const Geometry &triangle) -> void {
-  shapes.push_back(std::move(triangle));
+auto SceneObjects::add_triangle(const Triangle &triangle) -> void {
+  shapes.push_back(std::make_shared<Triangle>(triangle));
 }
-auto SceneObjects::add_sphere(const Geometry &sphere) -> void {
-  shapes.push_back(std::move(sphere));
+auto SceneObjects::add_sphere(const Sphere &sphere) -> void {
+  shapes.push_back(std::make_shared<Sphere>(sphere));
 }
 
 auto SceneObjects::add_cuboid(Vec<3, double> LDB, Vec<3, double> RDB,
@@ -26,28 +26,31 @@ auto SceneObjects::add_cuboid(Vec<3, double> LDB, Vec<3, double> RDB,
   // Form the 12 triangles
 
   // Down
-  add_triangle(Geometry(Triangle(LDB, RDB, RDF, B1)));
-  add_triangle(Geometry(Triangle(LDB, LDF, RDF, B2)));
+  add_triangle(Triangle(LDB, RDB, RDF, B1));
+  add_triangle(Triangle(LDB, LDF, RDF, B2));
 
   // Up
-  add_triangle(Geometry(Triangle(LUB, RUB, RUF, U1)));
-  add_triangle(Geometry(Triangle(LUB, LUF, RUF, U2)));
+  add_triangle(Triangle(LUB, RUB, RUF, U1));
+  add_triangle(Triangle(LUB, LUF, RUF, U2));
 
   // Left
-  add_triangle(Geometry(Triangle(LDB, LUB, LUF, L1)));
-  add_triangle(Geometry(Triangle(LDB, LDF, LUF, L2)));
+  add_triangle(Triangle(LDB, LUB, LUF, L1));
+  add_triangle(Triangle(LDB, LDF, LUF, L2));
 
   // Right
-  add_triangle(Geometry(Triangle(RDB, RUB, RUF, R1)));
-  add_triangle(Geometry(Triangle(RDB, RDF, RUF, R2)));
+  add_triangle(Triangle(RDB, RUB, RUF, R1));
+  add_triangle(Triangle(RDB, RDF, RUF, R2));
 
   // Back
-  add_triangle(Geometry(Triangle(LDB, RDB, RUB, B1)));
-  add_triangle(Geometry(Triangle(LDB, LUB, RUB, B2)));
+  add_triangle(Triangle(LDB, RDB, RUB, B1));
+  add_triangle(Triangle(LDB, LUB, RUB, B2));
 
   // Forward
-  add_triangle(Geometry(Triangle(LDF, RDF, RUF, F1)));
-  add_triangle(Geometry(Triangle(LDF, LUF, RUF, F2)));
+  add_triangle(Triangle(LDF, RDF, RUF, F1));
+  add_triangle(Triangle(LDF, LUF, RUF, F2));
 }
 
-auto SceneObjects::get_shapes() -> std::vector<Geometry> & { return shapes; }
+auto SceneObjects::get_shapes() const
+    -> const std::vector<std::shared_ptr<Shape>> & {
+  return shapes;
+}
