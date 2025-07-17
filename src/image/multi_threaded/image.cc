@@ -105,6 +105,7 @@ auto Image::render(const std::size_t &width, const std::size_t &height,
                       pixel_direcs_indexs, pixel_buffer_indexs);
 
   auto camera_origin = camera.get_pinhole_pos();
+  auto shapes = objects.get_shapes();
 
   // Lambda called by eadh thread
   auto render_call = [&](std::size_t thread_id) {
@@ -152,7 +153,7 @@ auto Image::render(const std::size_t &width, const std::size_t &height,
             // Container for the hit data
             auto closest_object = IntersectionReturnData();
 
-            for (auto &obj : objects.get_shapes()) {
+            for (auto &obj : shapes) {
               auto return_data = obj->check_intersection(ray);
               // If intersects, make sure it is closer than any stored object
               if (return_data.intersects) {
