@@ -2,7 +2,7 @@
 #define WINDOW_SCENEOBJECTS_SCENEOBJECTS_HH
 
 #include "colour/colour.hh"
-#include "geometry/geometry_menu.hh"
+#include "geometry/geometry_variant.hh"
 #include "geometry/shape.hh"
 #include "geometry/sphere.hh"
 #include "geometry/triangle.hh"

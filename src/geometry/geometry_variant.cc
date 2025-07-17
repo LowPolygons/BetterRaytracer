@@ -5,12 +5,12 @@
 
 #include <variant>
 
-#include "geometry_menu.hh"
+#include "geometry_variant.hh"
 
 using Vectors::Line;
 
-auto GeometryDirector::call_check_intersection(const GeometryMenu &menu,
-                                               Line<3, double> ray)
+auto GeometryVisitor::call_check_intersection(const GeometryVariant &menu,
+                                              Line<3, double> ray)
     -> IntersectionReturnData {
   return std::visit(
       [&](const auto &visited_geometry) {

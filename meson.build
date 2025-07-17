@@ -8,7 +8,7 @@ all_sources = files(
   './src/image/multi_threaded/image.cc',
   './src/geometry/triangle.cc',
   './src/geometry/sphere.cc',
-  './src/geometry/geometry_menu.cc',
+  './src/geometry/geometry_variant.cc',
   './src/camera/camera.cc',
   './src/raylogic/raylogic.cc',
   './src/scene/scene_objects/scene_objects.cc',

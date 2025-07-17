@@ -21,7 +21,7 @@ using Vectors::Vec;
 using Colours::BasicColour;
 using Colours::ColourData;
 
-using GeometryDirector::call_check_intersection;
+using GeometryVisitor::call_check_intersection;
 
 // Less ugly than an inline ints
 auto constexpr ONE = 1;

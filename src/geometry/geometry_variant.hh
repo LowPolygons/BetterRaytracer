@@ -11,21 +11,21 @@
 
 using Vectors::Line;
 
-using GeometryMenu = std::variant<Sphere, Triangle>;
+using GeometryVariant = std::variant<Sphere, Triangle>;
 
-namespace GeometryDirector {
-auto call_check_intersection(const GeometryMenu &menu, Line<3, double> ray)
+namespace GeometryVisitor {
+auto call_check_intersection(const GeometryVariant &menu, Line<3, double> ray)
     -> IntersectionReturnData;
 };
 
 class Geometry {
 public:
-  Geometry(GeometryMenu geometry) : geometry(geometry) {}
+  Geometry(GeometryVariant geometry) : geometry(geometry) {}
 
-  auto shape() -> GeometryMenu & { return geometry; }
+  auto shape() -> GeometryVariant & { return geometry; }
 
 private:
-  GeometryMenu geometry;
+  GeometryVariant geometry;
 };
 
 #endif
