@@ -1,6 +1,7 @@
 #ifndef RASTERISER_HH
 #define RASTERISER_HH
 
+#include "vectors/vector_definitions.hh"
 #ifdef SDL2_DEPENDENCY_FOUND
 
 #include "raytracer.hh"
@@ -30,6 +31,10 @@ private:
   auto pixel_buffer_onto_surface(SDL_Surface *sdl_surface,
                                  const std::vector<std::uint8_t> &pixel_buffer)
       -> void;
+  auto get_direction_considering_rotation(const float &yaw, const float &pitch,
+                                          const float &tilt,
+                                          const SDL_Keycode &key_press)
+      -> std::optional<Vec<3, double>>;
 
 private:
   SceneConfig scene_config;

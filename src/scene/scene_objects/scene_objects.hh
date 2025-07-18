@@ -20,9 +20,6 @@ private:
 public:
   SceneObjects() {};
 
-  // auto add_triangle(const Geometry &triangle) -> void;
-  // auto add_sphere(const Geometry &sphere) -> void;
-
   auto add_triangle(const Triangle &triangle) -> void;
   auto add_sphere(const Sphere &sphere) -> void;
   // Naming convention for each coordinate is: X, Y, Z

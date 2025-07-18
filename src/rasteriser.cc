@@ -13,6 +13,8 @@
 
 auto constexpr PREVIEW_WIDTH = 800;
 
+using Vectors::operator+;
+
 auto Rasteriser::initialise_sdl_window()
     -> std::expected<SDL_Window *, std::string> {
   if (SDL_Init(SDL_INIT_VIDEO) != 0)
@@ -56,6 +58,51 @@ auto Rasteriser::pixel_buffer_onto_surface(
   SDL_UnlockSurface(sdl_surface);
 }
 
+auto Rasteriser::get_direction_considering_rotation(
+    const float &yaw, const float &pitch, const float &roll,
+    const SDL_Keycode &key_press) -> std::optional<Vec<3, double>> {
+
+  // Lambda to rotate a vector - assumes the vec is a unit vector
+  auto rotate_vector = [&](auto &vec) -> Vec<3, double> {
+    // Rotating the directions
+    auto rolled_vec = Vec<3, double>{
+        vec[0] * std::cos(roll) - vec[1] * std::sin(roll),
+        vec[0] * std::sin(roll) + vec[1] * std::cos(roll), vec[2]};
+    auto pitched_vec = Vec<3, double>{
+        rolled_vec[0],
+        rolled_vec[1] * std::cos(pitch) - rolled_vec[2] * std::sin(pitch),
+        rolled_vec[1] * std::sin(pitch) + rolled_vec[2] * std::cos(pitch)};
+    auto yawed_vec = Vec<3, double>{
+        pitched_vec[0] * std::cos(yaw) + pitched_vec[2] * std::sin(yaw),
+        pitched_vec[1],
+        pitched_vec[2] * std::cos(yaw) - pitched_vec[0] * std::sin(yaw),
+    };
+    return yawed_vec;
+  };
+
+  auto vec_to_rotate = Vec<3, double>{};
+
+  switch (key_press) {
+  case SDLK_w:
+    vec_to_rotate = {0.0, 0.0, 0.5};
+    break;
+  case SDLK_s:
+    vec_to_rotate = {0.0, 0.0, -0.5};
+    break;
+  case SDLK_a:
+    vec_to_rotate = {-0.5, 0.0, 0.0};
+    break;
+  case SDLK_d:
+    vec_to_rotate = {0.5, 0.0, 0.0};
+    break;
+  default:
+    return std::nullopt;
+  }
+
+  auto rotated_vec = rotate_vector(vec_to_rotate);
+  return rotated_vec;
+}
+
 auto Rasteriser::run_rasteriser_app()
     -> std::expected<const std::pair<bool, SceneConfig>, std::string> {
   //==// If number of threads wasn't specified it uses the maximum //==//
@@ -89,21 +136,39 @@ auto Rasteriser::run_rasteriser_app()
         running = false;
         break;
       };
-      // TODO: Maybe move this elsewhere, a bit messy. also change it so that
-      // WASD moves in the dir of the camera
       case SDL_KEYDOWN: {
         switch (event.key.keysym.sym) {
         case SDLK_w:
-          scene_config.CameraPosition[2] += 0.1;
+          scene_config.CameraPosition = scene_config.CameraPosition +
+                                        get_direction_considering_rotation(
+                                            scene_config.HorizontalRotation,
+                                            scene_config.VerticalRotation,
+                                            scene_config.CameraRotation, SDLK_w)
+                                            .value();
           break;
         case SDLK_s:
-          scene_config.CameraPosition[2] -= 0.1;
+          scene_config.CameraPosition = scene_config.CameraPosition +
+                                        get_direction_considering_rotation(
+                                            scene_config.HorizontalRotation,
+                                            scene_config.VerticalRotation,
+                                            scene_config.CameraRotation, SDLK_s)
+                                            .value();
           break;
         case SDLK_a:
-          scene_config.CameraPosition[0] -= 0.1;
+          scene_config.CameraPosition = scene_config.CameraPosition +
+                                        get_direction_considering_rotation(
+                                            scene_config.HorizontalRotation,
+                                            scene_config.VerticalRotation,
+                                            scene_config.CameraRotation, SDLK_a)
+                                            .value();
           break;
         case SDLK_d:
-          scene_config.CameraPosition[0] += 0.1;
+          scene_config.CameraPosition = scene_config.CameraPosition +
+                                        get_direction_considering_rotation(
+                                            scene_config.HorizontalRotation,
+                                            scene_config.VerticalRotation,
+                                            scene_config.CameraRotation, SDLK_d)
+                                            .value();
           break;
         case SDLK_PAGEUP:
           scene_config.CameraPosition[1] -= 0.1;

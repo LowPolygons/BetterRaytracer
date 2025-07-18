@@ -76,15 +76,15 @@ auto Camera::populate_pixel_directions() -> void {
           // Direction from origin
           vec = vec - pinhole_pos;
           // Rotating the directions
-          auto rotated_vec = Vec<3, double>{
+          auto rolled_vec = Vec<3, double>{
             vec[0] * std::cos(roll) - vec[1] * std::sin(roll),
             vec[0] * std::sin(roll) + vec[1] * std::cos(roll),
             vec[2]
           };
           auto pitched_vec = Vec<3, double>{
-            rotated_vec[0],
-            rotated_vec[1] * std::cos(pitch) - rotated_vec[2] * std::sin(pitch),
-            rotated_vec[1] * std::sin(pitch) + rotated_vec[2] * std::cos(pitch)
+            rolled_vec[0],
+            rolled_vec[1] * std::cos(pitch) - rolled_vec[2] * std::sin(pitch),
+            rolled_vec[1] * std::sin(pitch) + rolled_vec[2] * std::cos(pitch)
           };
           auto yawed_vec = Vec<3, double>{
             pitched_vec[0] * std::cos(yaw) + pitched_vec[2] * std::sin(yaw),
