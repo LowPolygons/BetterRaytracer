@@ -50,8 +50,12 @@ Run `./build/raytracer`
 
 ![Example Scene 4](scenes/DarkPinkRoom.png)
 
+![Example Scene 7](scenes/BluePinkReflectiveSpheres.png)
+
 ## 1200 Rays, 20 Bounces
 
 ![Example Scene 5](scenes/MirrorsAllAround.png)
 
 ![Example Scene 6](scenes/UkriInfinite.png)
+
+
