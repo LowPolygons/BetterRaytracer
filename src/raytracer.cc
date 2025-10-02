@@ -51,11 +51,17 @@ auto Raytracer::run_raytracer_app() -> RaytracerAppStatus {
   auto render_timer_minutes = TimerData::Timer<double, std::chrono::minutes>();
   auto render_timer_seconds = TimerData::Timer<double, std::chrono::seconds>();
 
-  auto pixel_buffer = Image::render(
+  // NOTE: This handles whether it uses a sycl or software implementation
+  auto maybe_pixel_buffer = Image::render(
       scene_config.Width, scene_config.Height, scene_config.SceneSetup,
       scene_config.NumThreads, camera, scene_config.NumRays,
       scene_config.NumBounces, rand_gen, scene_config.PrintPercentStatusEvery,
       scene_config.ContributionPerBounce, scene_config.ColourGamma, false);
+
+  if (!maybe_pixel_buffer)
+    return RaytracerAppStatus::SYCL_ERROR;
+
+  auto pixel_buffer = maybe_pixel_buffer.value();
 
   render_timer_minutes.stop_clock();
   render_timer_seconds.stop_clock();

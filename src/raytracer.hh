@@ -3,7 +3,7 @@
 
 #include "scene/SceneConfig.hh"
 
-enum RaytracerAppStatus { SUCCESS, IMAGE_SAVE_ERROR };
+enum RaytracerAppStatus { SUCCESS, IMAGE_SAVE_ERROR, SYCL_ERROR };
 
 using Scene::SceneConfig;
 class Raytracer {

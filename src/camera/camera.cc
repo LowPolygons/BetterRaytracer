@@ -4,6 +4,7 @@
 #include "vectors/vector_overloads.hh"
 
 #include <algorithm>
+#include <iterator>
 #include <optional>
 #include <ranges>
 #include <vector>
@@ -29,6 +30,17 @@ auto Camera::get_row(std::size_t height)
     return pixel_directions[height];
   }
   return std::nullopt;
+}
+
+auto Camera::get_pixel_directions_flattened() const
+    -> const std::vector<Vec<3, double>> {
+  auto flattened = std::vector<Vec<3, double>>{};
+
+  for (auto row : pixel_directions) {
+    std::copy(row.begin(), row.end(), std::back_inserter(flattened));
+  }
+
+  return flattened;
 }
 
 auto Camera::get_calculated_height() -> std::size_t & { return height; }

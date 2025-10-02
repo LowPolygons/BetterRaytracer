@@ -15,7 +15,10 @@ using Vectors::Vec;
 class SceneObjects {
 private:
   // std::vector<Geometry> shapes;
-  std::vector<std::shared_ptr<Shape>> shapes;
+  // std::vector<std::shared_ptr<Shape>> shapes;
+
+  std::vector<Triangle> triangles;
+  std::vector<Sphere> spheres;
 
 public:
   SceneObjects() {};
@@ -33,7 +36,10 @@ public:
                   BasicColour F2, BasicColour U1, BasicColour U2) -> void;
 
   // auto get_shapes() -> std::vector<Geometry> &;
-  auto get_shapes() const -> const std::vector<std::shared_ptr<Shape>> &;
+  // auto get_shapes() const -> const std::vector<std::shared_ptr<Shape>> &;
+
+  auto get_spheres() const -> const std::vector<Sphere> &;
+  auto get_triangles() const -> const std::vector<Triangle> &;
 };
 
 #endif

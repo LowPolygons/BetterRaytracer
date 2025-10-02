@@ -211,10 +211,16 @@ auto Rasteriser::run_rasteriser_app()
         scene_config.CameraRotation, scene_config.CameraPosition);
     camera.populate_pixel_directions();
 
-    auto pixel_buffer = Image::render(
+    auto maybe_pixel_buffer = Image::render(
         PREVIEW_WIDTH, preview_height, scene_config.SceneSetup,
         scene_config.NumThreads, camera, 1, 1, rand_gen, 0,
         scene_config.ContributionPerBounce, scene_config.ColourGamma, true);
+
+    if (!maybe_pixel_buffer)
+      return std::unexpected<std::string>{maybe_pixel_buffer.error()};
+
+    auto pixel_buffer = maybe_pixel_buffer.value();
+
     pixel_buffer_onto_surface(sdl_surface, pixel_buffer);
 
     SDL_UpdateWindowSurface(sdl_window);

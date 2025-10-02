@@ -2,17 +2,9 @@
 
 #define VECTORS_VECTOR_OVERLOADS_HPP
 
-#include <algorithm>
 #include <cstddef>
 
 #include "vector_definitions.hh"
-
-// Function that drastically improves readability of this file
-template <typename Rt, typename A, typename B, typename Anon>
-auto perform_overloaded_op(A a, B b, Rt &rt, Anon fnc) -> void {
-  std::copy_n(a.begin(), a.size(), rt.begin());
-  std::transform(b.begin(), b.end(), a.begin(), rt.begin(), fnc);
-}
 
 // These overloads allow you to do some quirky little things like:
 // auto vec2 = Vec<2, int>{1, 2};
@@ -38,72 +30,56 @@ using OverloadReturnType =
 // The + Overloaded Operator
 template <std::size_t v1s, std::size_t v2s, typename V1, typename V2>
   requires(std::is_arithmetic_v<V1>, std::is_arithmetic_v<V2>)
-auto operator+(const Vec<v1s, V1> &a, const Vec<v2s, V2> &b)
+constexpr auto operator+(const Vec<v1s, V1> &a, const Vec<v2s, V2> &b)
     -> OverloadReturnType<v1s, v2s, V1, V2> {
+  auto _ret = OverloadReturnType<v1s, v2s, V1, V2>{a};
 
-  auto sum = [&](auto v1, auto v2) { return v1 + v2; };
+  auto min_size = v1s <= v2s ? v1s : v2s;
+  for (auto i = 0; i < min_size; i++)
+    _ret[i] = a[i] + b[i];
 
-  auto _ret = OverloadReturnType<v1s, v2s, V1, V2>();
-
-  if (v1s > v2s) {
-    perform_overloaded_op(a, b, _ret, sum);
-  } else {
-    perform_overloaded_op(b, a, _ret, sum);
-  }
   return _ret;
 }
 
 // The - Overloaded Operator
 template <std::size_t v1s, std::size_t v2s, typename V1, typename V2>
   requires(std::is_arithmetic_v<V1>, std::is_arithmetic_v<V2>)
-auto operator-(const Vec<v1s, V1> &a, const Vec<v2s, V2> &b)
+constexpr auto operator-(const Vec<v1s, V1> &a, const Vec<v2s, V2> &b)
     -> OverloadReturnType<v1s, v2s, V1, V2> {
+  auto _ret = OverloadReturnType<v1s, v2s, V1, V2>{a};
 
-  auto _ret = OverloadReturnType<v1s, v2s, V1, V2>();
+  auto min_size = v1s <= v2s ? v1s : v2s;
+  for (auto i = 0; i < min_size; i++)
+    _ret[i] = a[i] - b[i];
 
-  if (v1s > v2s) {
-    perform_overloaded_op(a, b, _ret,
-                          [&](auto v2, auto v1) { return v1 - v2; });
-  } else {
-    perform_overloaded_op(b, a, _ret,
-                          [&](auto v1, auto v2) { return v1 - v2; });
-  }
   return _ret;
 }
 
 // The * Overloaded Operator
 template <std::size_t v1s, std::size_t v2s, typename V1, typename V2>
   requires(std::is_arithmetic_v<V1>, std::is_arithmetic_v<V2>)
-auto operator*(const Vec<v1s, V1> &a, const Vec<v2s, V2> &b)
+constexpr auto operator*(const Vec<v1s, V1> &a, const Vec<v2s, V2> &b)
     -> OverloadReturnType<v1s, v2s, V1, V2> {
+  auto _ret = OverloadReturnType<v1s, v2s, V1, V2>{a};
 
-  auto mul = [&](auto v1, auto v2) { return v1 * v2; };
+  auto min_size = v1s <= v2s ? v1s : v2s;
+  for (auto i = 0; i < min_size; i++)
+    _ret[i] = a[i] * b[i];
 
-  auto _ret = OverloadReturnType<v1s, v2s, V1, V2>();
-
-  if (v1s > v2s) {
-    perform_overloaded_op(a, b, _ret, mul);
-  } else {
-    perform_overloaded_op(b, a, _ret, mul);
-  }
   return _ret;
 }
 
 // The / Overloaded Operator
 template <std::size_t v1s, std::size_t v2s, typename V1, typename V2>
   requires(std::is_arithmetic_v<V1>, std::is_arithmetic_v<V2>)
-auto operator/(const Vec<v1s, V1> &a, const Vec<v2s, V2> &b)
+constexpr auto operator/(const Vec<v1s, V1> &a, const Vec<v2s, V2> &b)
     -> OverloadReturnType<v1s, v2s, V1, V2> {
+  auto _ret = OverloadReturnType<v1s, v2s, V1, V2>{a};
 
-  auto _ret = OverloadReturnType<v1s, v2s, V1, V2>();
+  auto min_size = v1s <= v2s ? v1s : v2s;
+  for (auto i = 0; i < min_size; i++)
+    _ret[i] = a[i] / b[i];
 
-  if (v1s > v2s) {
-    perform_overloaded_op(a, b, _ret,
-                          [&](auto v2, auto v1) { return v1 / v2; });
-  } else {
-    perform_overloaded_op(b, a, _ret,
-                          [&](auto v1, auto v2) { return v1 / v2; });
-  }
   return _ret;
 }
 } // namespace Vectors

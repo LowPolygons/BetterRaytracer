@@ -16,11 +16,11 @@ struct IntersectionReturnData {
   BasicColour colour = {0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0};
 };
 
-class Shape {
-public:
-  virtual auto check_intersection(Line<3, double> ray) const
-      -> IntersectionReturnData = 0;
-  virtual ~Shape() = default;
-};
-
+// class Shape {
+// public:
+//   virtual auto check_intersection(Line<3, double> ray) const
+//       -> IntersectionReturnData = 0;
+//   virtual ~Shape() = default;
+// };
+//
 #endif

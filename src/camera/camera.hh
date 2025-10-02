@@ -31,6 +31,9 @@ public:
   auto get_pinhole_pos() -> Vec<3, double>;
   auto get_calculated_height() -> std::size_t &;
 
+  auto get_pixel_directions_flattened() const
+      -> const std::vector<Vec<3, double>>;
+
 private:
   std::size_t width;
   std::size_t height;

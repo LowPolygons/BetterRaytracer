@@ -6,8 +6,8 @@ inc_dirs = include_directories('src')
 
 all_sources = files(
   './src/image/multi_threaded/image.cc',
-  './src/geometry/triangle.cc',
-  './src/geometry/sphere.cc',
+  # './src/geometry/triangle.cc',
+  # './src/geometry/sphere.cc',
   './src/camera/camera.cc',
   './src/raylogic/raylogic.cc',
   './src/scene/scene_objects/scene_objects.cc',
@@ -20,10 +20,18 @@ all_sources = files(
   './src/readers/object_config/ObjectConfig.cc',
   './src/raytracer.cc',
   './src/bmp_writer/bmp.cc',
-  './src/rasteriser.cc'
+  './src/rasteriser.cc',
+  './src/image/sycl_implementation/sycl_impl.cc'
 )
 
 sdl_dependency = dependency('sdl2', required: false)
+sycl_dependency = dependency('hipSYCL', modules: ['hipSYCL::acpp-common'], required: false)
+
+if sycl_dependency.found()
+  add_project_arguments('-DSYCL_DEPENDENCY_FOUND', language: 'cpp')
+else
+  message('SYCL not found: Defaulting to software')
+endif 
 
 if sdl_dependency.found()
   add_project_arguments('-DSDL2_DEPENDENCY_FOUND', language: 'cpp')
@@ -37,7 +45,7 @@ executable('raytracer',
     include_directories('./src/image', './src/vectors', './src/geometry'),
     inc_dirs
   ],
-  dependencies: sdl_dependency
+  dependencies: [sdl_dependency] + [sycl_dependency]
 )
 
 subdir('tests')

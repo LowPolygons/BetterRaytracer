@@ -16,6 +16,6 @@ auto calculate_new_ray_direction(const Line<3, double> &ray,
                                  const Vec<3, double> &normal,
                                  const BasicColour &object_colour,
                                  std::mt19937 &rand_gen) -> Line<3, double>;
-}
+} // namespace RayLogic
 
 #endif

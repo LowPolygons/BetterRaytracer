@@ -8,10 +8,12 @@ using Colours::BasicColour;
 using Vectors::Vec;
 
 auto SceneObjects::add_triangle(const Triangle &triangle) -> void {
-  shapes.push_back(std::make_shared<Triangle>(triangle));
+  triangles.push_back(triangle);
+  // shapes.push_back(std::make_shared<Triangle>(triangle));
 }
 auto SceneObjects::add_sphere(const Sphere &sphere) -> void {
-  shapes.push_back(std::make_shared<Sphere>(sphere));
+  spheres.push_back(sphere);
+  // shapes.push_back(std::make_shared<Sphere>(sphere));
 }
 
 auto SceneObjects::add_cuboid(Vec<3, double> LDB, Vec<3, double> RDB,
@@ -50,7 +52,15 @@ auto SceneObjects::add_cuboid(Vec<3, double> LDB, Vec<3, double> RDB,
   add_triangle(Triangle(LDF, LUF, RUF, F2));
 }
 
-auto SceneObjects::get_shapes() const
-    -> const std::vector<std::shared_ptr<Shape>> & {
-  return shapes;
+// auto SceneObjects::get_shapes() const
+//     -> const std::vector<std::shared_ptr<Shape>> & {
+//   return shapes;
+// }
+
+auto SceneObjects::get_spheres() const -> const std::vector<Sphere> & {
+  return spheres;
+}
+
+auto SceneObjects::get_triangles() const -> const std::vector<Triangle> & {
+  return triangles;
 }

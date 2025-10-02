@@ -1,6 +1,8 @@
 #include <algorithm>
 #include <cstdint>
+#include <expected>
 #include <iostream>
+#include <print>
 #include <ranges>
 #include <thread>
 
@@ -9,6 +11,7 @@
 #include "camera/camera.hh"
 #include "colour/colour.hh"
 #include "raylogic/raylogic.hh"
+#include "sycl_implementation/sycl_impl.hh"
 #include "vectors/vector_definitions.hh"
 
 #include "image/image.hh"
@@ -81,7 +84,13 @@ auto Image::render(const std::size_t &width, const std::size_t &height,
                    const std::size_t &num_bounces, std::mt19937 &rand_gen,
                    const std::size_t &stat_log_every, const float &contribution,
                    const float &colour_gamma, const bool &rasterised_mode_on)
-    -> std::vector<std::uint8_t> {
+    -> std::expected<std::vector<std::uint8_t>, std::string> {
+#ifdef SYCL_DEPENDENCY_FOUND
+  std::println("RUNNING SYCL TEST");
+  return SyclImpl::sycl_render(width, height, objects, camera, num_rays,
+                               num_bounces, contribution, colour_gamma,
+                               rasterised_mode_on);
+#endif
   // Every 4 indexes represets a pixels RGBA channels
   std::vector<std::uint8_t> pixel_buffer(width * height * FOUR);
   // Incase the scene window is tiny
@@ -105,7 +114,9 @@ auto Image::render(const std::size_t &width, const std::size_t &height,
                       pixel_direcs_indexs, pixel_buffer_indexs);
 
   auto camera_origin = camera.get_pinhole_pos();
-  auto shapes = objects.get_shapes();
+  // auto shapes = objects.get_shapes();
+  auto triangles = objects.get_triangles();
+  auto spheres = objects.get_spheres();
 
   // Lambda called by eadh thread
   auto render_call = [&](std::size_t thread_id) {
@@ -153,8 +164,8 @@ auto Image::render(const std::size_t &width, const std::size_t &height,
             // Container for the hit data
             auto closest_object = IntersectionReturnData();
 
-            for (auto &obj : shapes) {
-              auto return_data = obj->check_intersection(ray);
+            for (auto &obj : spheres) {
+              auto return_data = obj.check_intersection(ray);
               // If intersects, make sure it is closer than any stored object
               if (return_data.intersects) {
                 if (return_data.lambda < closest_object.lambda or
@@ -163,6 +174,17 @@ auto Image::render(const std::size_t &width, const std::size_t &height,
                 }
               }
             }
+            for (auto &obj : triangles) {
+              auto return_data = obj.check_intersection(ray);
+              // If intersects, make sure it is closer than any stored object
+              if (return_data.intersects) {
+                if (return_data.lambda < closest_object.lambda or
+                    closest_object.lambda < 0) {
+                  closest_object = return_data;
+                }
+              }
+            }
+
             // If it hit nothing then you can skip this entire pixel
             if (closest_object.intersects) {
               ray = RayLogic::calculate_new_ray_direction(
