@@ -10,7 +10,18 @@ This was done to learn better programming practises in C++, as such I chose to u
 #### *Note: SDL2 is an optional dependency - if you do not have it installed the Previewer will be disabled but nothing else*
 
 ## How To Use 
+
 Clone the Repository
+
+Choose either the Software or Hardware version
+
+Run `compile-scripts/release.sh` in the root of the project directory to compile the program
+
+Modify the Colour, Object and Scene `.ini` and set the configuration you want.
+
+Run ./run.sh 
+
+### Software Version
 
 Run the `get_dependencies.sh` script (for Debian/Ubuntu platforms) to automatically install all needed packages
 
@@ -24,9 +35,18 @@ Alternatively, mandatory requirements are:
 And for the full extent of features available:
 - SDL2
 
-Run `compile-scripts/release.sh` in the root of the project directory to compile the program
+Continue
 
-Modify the Colour, Object and Scene `.ini` and set the configuration you want.
+### Hardware Version
+*(Note: I prefer running commands through apptainer but forming the container from Docker)*
+
+Run `docker build -t better-raytracer .`
+
+Run `apptainer build better_raytracer.sif docker-daemon://better_raytracer:latest`
+
+Run `apptainer shell better_raytracer.sif` to then enter a session
+
+Continue
 
 ### Modifying the input values 
 * [Input Values](./instructions/ini_values.md)
