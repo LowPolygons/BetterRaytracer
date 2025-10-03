@@ -34,6 +34,7 @@ Alternatively, mandatory requirements are:
 
 And for the full extent of features available:
 - SDL2
+- AdaptiveCPP
 
 Continue
 
