@@ -38,11 +38,9 @@ And for the full extent of features available:
 Continue
 
 ### Hardware Version
-*(Note: I prefer running commands through apptainer but forming the container from Docker)*
+*(Note: A dockerfile is present if you prefer docker)*
 
-Run `docker build -t better-raytracer .`
-
-Run `apptainer build better_raytracer.sif docker-daemon://better_raytracer:latest`
+Run `apptainer build better_raytracer.sif better_raytracer.def`
 
 Run `apptainer shell better_raytracer.sif` to then enter a session
 
