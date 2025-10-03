@@ -30,7 +30,6 @@ using Vectors::operator+;
 
 using Vectors::Line;
 
-// LCG RNG
 auto SyclImpl::sycl_render(const std::size_t &width, const std::size_t &height,
                            const SceneObjects &objects, Camera &camera,
                            const std::size_t &num_rays,
@@ -49,6 +48,7 @@ auto SyclImpl::sycl_render(const std::size_t &width, const std::size_t &height,
     const auto COLOUR_BUFFER_SIZE = width * height * num_rays;
     const auto NUM_TRIANGLES = triangles.size();
     const auto NUM_SPHERES = spheres.size();
+
     auto directions_buffer =
         sycl::malloc_shared<Vec<3, double>>(directions.size(), queue);
     auto colours_buffer =
@@ -130,6 +130,7 @@ auto SyclImpl::sycl_render(const std::size_t &width, const std::size_t &height,
       auto colour_vector = std::vector<BasicColour>{};
 
       for (auto i : std::views::iota(std::size_t{0}, num_rays)) {
+        // if (colours_buffer[(num_rays * pixel) + i][7] >= 0.0)
         colour_vector.push_back(colours_buffer[(num_rays * pixel) + i]);
       }
 

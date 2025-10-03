@@ -168,17 +168,17 @@ constexpr auto Triangle::check_intersection(Line<3, double> ray) const
   auto return_containter = IntersectionReturnData();
 
   // Check if the line intersects the plane
-  auto point_of_intersection =
+  auto maybe_point_of_intersection =
       Vectors::line_intersects_plane(ray, triangle_plane);
 
-  if (!point_of_intersection)
+  if (!maybe_point_of_intersection.has_value())
     return return_containter;
 
-  if (point_of_intersection.value().first < 0)
+  auto point_of_intersection = *maybe_point_of_intersection;
+  if (point_of_intersection.first < 0)
     return return_containter;
 
-  auto p_of_i =
-      point_of_intersection.value().second; // .first is the lambda value
+  auto p_of_i = point_of_intersection.second; // .first is the lambda value
 
   // Get the Lambda and Mu vals when converting the POI to barycentrics
   // Shorter alias for indexes
@@ -210,7 +210,7 @@ constexpr auto Triangle::check_intersection(Line<3, double> ray) const
       return_containter.colour = colour_properties;
       return_containter.point_of_intersection = p_of_i;
       return_containter.normal = triangle_plane.first;
-      return_containter.lambda = point_of_intersection.value().first;
+      return_containter.lambda = point_of_intersection.first;
 
       return return_containter;
     }
