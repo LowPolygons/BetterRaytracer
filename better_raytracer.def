@@ -21,12 +21,18 @@ From: ubuntu:noble
     ./llvm.sh 20 all
     rm llvm.sh
 
+wget https://developer.download.nvidia.com/compute/cuda/12.8.0/local_installers/cuda-repo-debian12-12-8-local_12.8.0-570.86.10-1_amd64.deb
+ dpkg -i cuda-repo-debian12-12-8-local_12.8.0-570.86.10-1_amd64.deb
+ cp /var/cuda-repo-debian12-12-8-local/cuda-*-keyring.gpg /usr/share/keyrings/
+ apt-get update
+ apt-get -y install cuda-toolkit-12-8
+
     # AdaptiveCpp dependencies
     apt install -y libboost-all-dev
 
     # Clone and build AdaptiveCpp
     git clone https://github.com/AdaptiveCpp/AdaptiveCpp.git -b v25.02.0
-    CXX=clang++-20 cmake -B AdaptiveCpp/build -S AdaptiveCpp -DCMAKE_INSTALL_PREFIX=/opt/AdaptiveCpp
+    CXX=clang++-20 cmake -B AdaptiveCpp/build -S AdaptiveCpp -DCMAKE_INSTALL_PREFIX=/opt/AdaptiveCpp -DCUDA_TOOLKIT_ROOT_DIR=/usr/local/cuda -DWITH_CUDA_BACKEND=ON
     (cd AdaptiveCpp/build; CXX=clang++-20 make install -j 4)
 
 %environment

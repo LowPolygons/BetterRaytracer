@@ -25,7 +25,8 @@ all_sources = files(
 )
 
 sdl_dependency = dependency('sdl2', required: false)
-sycl_dependency = dependency('hipSYCL', modules: ['hipSYCL::acpp-common'], required: false)
+# sycl_dependency = dependency('hipSYCL', modules: ['AdaptiveCpp::acpp-common'], required: false)
+sycl_dependency = dependency('AdaptiveCpp', modules: ['AdaptiveCpp::acpp-common'], required: false)
 
 if sycl_dependency.found()
   add_project_arguments('-DSYCL_DEPENDENCY_FOUND', language: 'cpp')
@@ -45,7 +46,7 @@ executable('raytracer',
     include_directories('./src/image', './src/vectors', './src/geometry'),
     inc_dirs
   ],
-  dependencies: [sdl_dependency] + [sycl_dependency]
+  dependencies: [sdl_dependency]
 )
 
 subdir('tests')
