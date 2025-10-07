@@ -4,7 +4,6 @@
 #ifdef SYCL_DEPENDENCY_FOUND
 
 #include "camera/camera.hh"
-#include "pod_types/pod_vector.hh"
 #include "scene/scene_objects/scene_objects.hh"
 #include "sycl_impl.hh"
 #include <algorithm>
@@ -17,7 +16,6 @@
 #include <hipSYCL/sycl/exception.hpp>
 #include <hipSYCL/sycl/libkernel/range.hpp>
 #include <hipSYCL/sycl/usm.hpp>
-#include <print>
 #include <ranges>
 #include <string>
 #include <sycl/sycl.hpp>
@@ -45,14 +43,12 @@ auto SyclImpl::sycl_render(const std::size_t &width, const std::size_t &height,
     const auto directions = camera.get_pixel_directions_flattened();
     const auto initial_pos = camera.get_pinhole_pos();
 
-    const auto COLOUR_BUFFER_SIZE = width * height * num_rays;
+    const auto PIXEL_BUFFER_SIZE = directions.size() * 4;
     const auto NUM_TRIANGLES = triangles.size();
     const auto NUM_SPHERES = spheres.size();
 
     auto directions_buffer =
         sycl::malloc_shared<Vec<3, double>>(directions.size(), queue);
-    auto colours_buffer =
-        sycl::malloc_shared<BasicColour>(COLOUR_BUFFER_SIZE, queue);
     auto triangles_buffer =
         sycl::malloc_shared<Triangle>(triangles.size(), queue);
     auto spheres_buffer = sycl::malloc_shared<Sphere>(spheres.size(), queue);
@@ -60,18 +56,20 @@ auto SyclImpl::sycl_render(const std::size_t &width, const std::size_t &height,
     std::copy(directions.begin(), directions.end(), directions_buffer);
     std::copy(triangles.begin(), triangles.end(), triangles_buffer);
     std::copy(spheres.begin(), spheres.end(), spheres_buffer);
+
+    auto pixel_buffer =
+        sycl::malloc_device<std::uint8_t>(PIXEL_BUFFER_SIZE, queue);
     // Initialise to an invalid so the post-sim computation can track
-    queue
-        .fill(colours_buffer,
-              BasicColour{0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, -1.0},
-              COLOUR_BUFFER_SIZE)
-        .wait();
+    queue.fill(pixel_buffer, std::uint8_t{0}, PIXEL_BUFFER_SIZE).wait();
+
     queue
         .parallel_for(
             (width * height),
             [=](sycl::id<1> index) {
               auto inital_direction = directions_buffer[index[0]];
               auto ray = Line<3, double>(initial_pos, inital_direction);
+              auto summed_colour =
+                  BasicColour{0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0};
 
               for (auto ray_count = 0; ray_count < num_rays; ray_count++) {
                 auto per_ray_line = Line<3, double>{ray};
@@ -118,38 +116,36 @@ auto SyclImpl::sycl_render(const std::size_t &width, const std::size_t &height,
                   ray_colour.combine_colour_as_average(
                       closest_object.colour, bounce_count, contribution);
                 }
-                colours_buffer[(index[0] * num_rays) + ray_count] =
-                    ray_colour.get_total_colour();
+                summed_colour = summed_colour + ray_colour.get_total_colour();
               }
+
+              Colours::get_average_of_colours(summed_colour, num_rays,
+                                              colour_gamma);
+
+              auto r_index = rasterised_mode_on ? 0 : 3;
+              auto g_index = rasterised_mode_on ? 1 : 4;
+              auto b_index = rasterised_mode_on ? 2 : 5;
+
+              pixel_buffer[4 * index[0] + 0] =
+                  static_cast<std::uint8_t>(255.0 * summed_colour[r_index]);
+              pixel_buffer[4 * index[0] + 1] =
+                  static_cast<std::uint8_t>(255.0 * summed_colour[g_index]);
+              pixel_buffer[4 * index[0] + 2] =
+                  static_cast<std::uint8_t>(255.0 * summed_colour[b_index]);
+              pixel_buffer[4 * index[0] + 3] = 255;
             })
         .wait();
 
-    std::vector<std::uint8_t> pixel_buffer(width * height * 4, 0);
+    std::vector<std::uint8_t> pixel_vector(width * height * 4, 0);
 
-    for (auto pixel : std::views::iota(std::size_t{0}, width * height)) {
-      auto colour_vector = std::vector<BasicColour>{};
+    queue
+        .memcpy(pixel_vector.data(), pixel_buffer,
+                PIXEL_BUFFER_SIZE * sizeof(std::uint8_t))
+        .wait();
 
-      for (auto i : std::views::iota(std::size_t{0}, num_rays)) {
-        // if (colours_buffer[(num_rays * pixel) + i][7] >= 0.0)
-        colour_vector.push_back(colours_buffer[(num_rays * pixel) + i]);
-      }
+    sycl::free(pixel_buffer, queue);
 
-      auto pixel_colour =
-          Colours::get_average_of_colours(colour_vector, colour_gamma);
-
-      auto r_index = rasterised_mode_on ? 0 : 3;
-      auto g_index = rasterised_mode_on ? 1 : 4;
-      auto b_index = rasterised_mode_on ? 2 : 5;
-      pixel_buffer[4 * pixel + 0] =
-          static_cast<std::uint8_t>(255.0 * pixel_colour[r_index]);
-      pixel_buffer[4 * pixel + 1] =
-          static_cast<std::uint8_t>(255.0 * pixel_colour[g_index]);
-      pixel_buffer[4 * pixel + 2] =
-          static_cast<std::uint8_t>(255.0 * pixel_colour[b_index]);
-      pixel_buffer[4 * pixel + 3] = 255;
-    }
-
-    return pixel_buffer;
+    return pixel_vector;
 
   } catch (const sycl::exception &err) {
     return std::unexpected<std::string>{std::format("{}", err.what())};

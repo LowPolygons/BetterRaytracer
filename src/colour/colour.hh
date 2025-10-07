@@ -19,6 +19,9 @@ using BasicColour = Vec<8, float>;
 // A function used to do the final average of multiple arrays
 constexpr auto get_average_of_colours(const std::vector<BasicColour> &colours,
                                       const float &gamma) -> BasicColour;
+constexpr auto get_average_of_colours(BasicColour &colours,
+                                      const std::size_t &num_aggregated,
+                                      const float &gamma) -> void;
 
 // Each ray will have a ColourData object associated with it
 class ColourData {
@@ -49,6 +52,17 @@ public:
 #include <cmath>
 #include <vector>
 using Colours::BasicColour;
+
+constexpr auto
+Colours::get_average_of_colours(BasicColour &summed,
+                                const std::size_t &num_aggregated,
+                                const float &gamma) -> void {
+  // Average and colour-correct
+  for (std::size_t i = 0; i < summed.size(); i++) {
+    auto avg = summed[i] / num_aggregated;
+    summed[i] = std::pow((avg / (1.0f + avg)), gamma);
+  }
+}
 
 constexpr auto
 Colours::get_average_of_colours(const std::vector<BasicColour> &colours,
