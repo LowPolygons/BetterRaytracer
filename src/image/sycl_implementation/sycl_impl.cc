@@ -75,6 +75,8 @@ auto SyclImpl::sycl_render(const std::size_t &width, const std::size_t &height,
                 auto per_ray_line = Line<3, double>{ray};
                 auto ray_colour = ColourData();
 
+                Vectors::normalise(per_ray_line.second);
+
                 for (auto bounce_count = 0; bounce_count < num_bounces;
                      bounce_count++) {
                   // Acutal logic

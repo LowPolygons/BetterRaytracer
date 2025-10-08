@@ -86,7 +86,6 @@ auto Image::render(const std::size_t &width, const std::size_t &height,
                    const float &colour_gamma, const bool &rasterised_mode_on)
     -> std::expected<std::vector<std::uint8_t>, std::string> {
 #ifdef SYCL_DEPENDENCY_FOUND
-  std::println("RUNNING SYCL TEST");
   return SyclImpl::sycl_render(width, height, objects, camera, num_rays,
                                num_bounces, contribution, colour_gamma,
                                rasterised_mode_on);
