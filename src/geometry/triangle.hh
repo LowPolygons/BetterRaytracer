@@ -70,7 +70,6 @@ private:
 #include "vectors/vector_advanced.hh"
 #include "vectors/vector_definitions.hh"
 #include "vectors/vector_overloads.hh"
-#include <algorithm>
 #include <cstddef>
 #include <numeric>
 

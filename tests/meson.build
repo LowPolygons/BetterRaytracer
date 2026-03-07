@@ -1,7 +1,4 @@
-global_implementations = [
-  '../src/geometry/triangle.cc',
-  '../src/geometry/sphere.cc'
-]
+global_implementations = []
 
 included_directories = [
   '../src',
