@@ -4,10 +4,10 @@
 
 #include "colour/colour.hh"
 #include "shape.hh"
-#include "vector_advanced.hh"
-#include "vector_methods.hh"
-#include "vector_overloads.hh"
+#include "vectors/vector_advanced.hh"
 #include "vectors/vector_definitions.hh"
+#include "vectors/vector_methods.hh"
+#include "vectors/vector_overloads.hh"
 
 using Colours::BasicColour;
 using Vectors::Vec;

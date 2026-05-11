@@ -2,7 +2,6 @@
 #include <cstdint>
 #include <expected>
 #include <iostream>
-#include <print>
 #include <ranges>
 #include <thread>
 
@@ -10,8 +9,8 @@
 
 #include "camera/camera.hh"
 #include "colour/colour.hh"
+#include "image/sycl_implementation/sycl_impl.hh"
 #include "raylogic/raylogic.hh"
-#include "sycl_implementation/sycl_impl.hh"
 #include "vectors/vector_definitions.hh"
 
 #include "image/image.hh"

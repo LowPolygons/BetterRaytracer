@@ -1,6 +1,6 @@
 #include "colour/colour.hh"
+#include "geometry/shape.hh"
 #include "raylogic/raylogic.hh"
-#include "shape.hh"
 #ifdef SYCL_DEPENDENCY_FOUND
 
 #include "camera/camera.hh"

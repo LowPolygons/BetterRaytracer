@@ -66,9 +66,9 @@ private:
 
 #include "shape.hh"
 #include "triangle.hh"
-#include "vector_methods.hh"
 #include "vectors/vector_advanced.hh"
 #include "vectors/vector_definitions.hh"
+#include "vectors/vector_methods.hh"
 #include "vectors/vector_overloads.hh"
 #include <cstddef>
 #include <numeric>

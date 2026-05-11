@@ -43,7 +43,6 @@ endif
 executable('raytracer', 
   sources: ['./src/main.cpp'] + all_sources,
   include_directories: [
-    include_directories('./src/image', './src/vectors', './src/geometry'),
     inc_dirs
   ],
   dependencies: [sdl_dependency]
